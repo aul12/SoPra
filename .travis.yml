@@ -6,9 +6,9 @@ before_install:
 
 script:
     - mkdir output
-    - cd Blatt00
+    - cd Blatt01
     - latexmk -pdf main.tex
-    - mv main.pdf ../output/Blatt00.pdf
+    - mv main.pdf ../output/Blatt01.pdf
     - cd ..
 
 deploy:

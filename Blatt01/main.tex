@@ -23,14 +23,17 @@
 \newcommand{\anforderung}[5] {
     \begin{table}[H]
         \centering
-        \begin{tabular}{p{4cm}|p{10cm}}
+        \begin{tabular}{p{4.5cm}|p{10cm}}
             \toprule \\
-            ID & #1 \\
+            \textbf{ID} & \textbf{#1} \\
             \midrule \\
-            TITEL & #2 \\
-            BESCHREIBUNG & #3 \\
-            BEGRÜNDUNG & #4 \\
-            ABHÄNGIGKEITEN & #5 \\
+            \textbf{TITEL} & #2 \\
+            \midrule
+            \textbf{BESCHREIBUNG} & #3 \\
+            \midrule
+            \textbf{BEGRÜNDUNG} & #4 \\
+            \midrule
+            \textbf{ABHÄNGIGKEITEN} & #5 \\
             \bottomrule
         \end{tabular}
     \end{table}
@@ -74,13 +77,13 @@
                     {Die Highscore zeigt die maximal erreichte Punktezahl zusammen mit den Namen der besten drei Spieler 
                     in absteigender Reihenfolge auf dem Bildschirm an.}
                     {Mithilfe des Highscores können sich die Spieler untereinander vergleichen.}
-                    {QA3}
+                    {FA1, QA3}
     \fanforderung{Game Over Ansicht}
                     {Die Game Over Ansicht wird eingeblendet wenn die Spielfigur mit einem Hindernis kollidiert. 
                     Es wird die erreichte Punktezahl angezeigt und die Möglichkeit gegeben, zum Hauptmenu zurückzukehren oder das Spiel neu zu starten. 
                     Falls die erreichte Punktezahl ausreichend war, um sich in der Highscore zu platzieren, wird der Benutzer aufgefordert seinen Namen einzugeben.}
-                    {}
-                    {FA1}
+                    {Durch die Game Over Ansicht wird dem User signalisiert, dass er verloren hat}
+                    {FA1, FA10}
     \fanforderung{Spielbildschirm}
                     {Auf dieser View wird das eigentliche Spiel gerendert. 
                     Neben der Spielfigur und der Hindernisse wird hier auch die aktuelle Punktezahl und der Geschwindigkeitsmultiplikator angezeigt.}

@@ -75,6 +75,12 @@
                     in absteigender Reihenfolge auf dem Bildschirm an.}
                     {Mithilfe des Highscores können sich die Spieler untereinander vergleichen.}
                     {QA3}
+    \fanforderung{Game Over Ansicht}
+                    {Die Game Over Ansicht wird eingeblendet wenn die Spielfigur mit einem Hindernis kollidiert. 
+                    Es wird die erreichte Punktezahl angezeigt und die Möglichkeit gegeben, zum Hauptmenu zurückzukehren oder das Spiel neu zu starten. 
+                    Falls die erreichte Punktezahl ausreichend war, um sich in der Highscore zu platzieren, wird der Benutzer aufgefordert seinen Namen einzugeben.}
+                    {}
+                    {FA1}
     \fanforderung{Spielbildschirm}
                     {Auf dieser View wird das eigentliche Spiel gerendert. 
                     Neben der Spielfigur und der Hindernisse wird hier auch die aktuelle Punktezahl und der Geschwindigkeitsmultiplikator angezeigt.}
@@ -84,23 +90,23 @@
                     {Bei dieser Art von Spielen ist die Spielfigur mittig auf dem Bildschirm (Position auf der x-Achse) verankert 
                     und das Spielfeld wird kontinuierlich von rechts nach links an der Spielfigur vorbei bewegt.}
                     {Dadurch ist das Spielgeschehen immer übersichtlich}
-                    {FA5}
+                    {FA6}
     \fanforderung{Hindernisse}
                     {Die Hindernisse haben eine rechteckige Form und werden sowohl vom oberen als auch vom unteren Bildschirmrand in die Szene eingesetzt.}
                     {Hindernisse sollten einfach zu erkennnen sein}
-                    {FA5, FA6}
+                    {FA6, FA7}
     \fanforderung{Gravitation}
                     {Auf die Spielfigur wirkt dauerhaft eine nach unten beschleunigende Kraft.}
                     {Die nach unten beschleunigende Kraft ist das Gegenstück zur Beschleunigung der Spielfigur nach oben}
-                    {FA5, FA2}
+                    {FA6, FA2}
     \fanforderung{Kollision}
                     {Falls ein Hindernis berührt wird führt dies in der Regel zum Scheitern.}
                     {Hindernisse sind die primären Schwierigkeiten des Spiels}
-                    {FA7, FA6}
+                    {FA7, FA8}
     \fanforderung{Schwierigkeit erhöhen}
                     {Die Geschwindigkeit, mit welcher die Hindernisse sich auf die Spielfigur zu bewegen, wird kontinuierlich gesteigert}
                     {Dadurch wird verhindert das ein guter Spieler beliebig lange spielen kann und gelangweilt wird}
-                    {FA6}
+                    {FA7}
     \fanforderung{Zufällige Items}
                     {Im Verlauf des Spiels erscheinen unterschiedliche Items zufällig}
                     {Die zufällige Positionierung und Auswahl der Items sorgt für eine Variation des Spielablaufs}
@@ -109,11 +115,11 @@
                     {Im Spiel gibt es verschiedene Items, welche der Benutzer mit der Spielfigur durch hindurchfliegen sammeln kann. Es kann immer nur 
                     ein Item gleichzeitig aktiv sein. Beim einsammeln eines Items werden alle anderen Items ausgeblendet}
                     {Durch Wahl der Items kann der Spieler das Spielgeschehen zusätzlich beeinflussen}
-                    {FA11}
+                    {FA12}
     \fanforderung{Items deaktivieren}
                     {Alle Items haben die gleiche Wirkdauer}
                     {Der durch Items erlangte Vorteil sollte nur kurz helfen}
-                    {FA12}
+                    {FA13}
     \fanforderung{Item: Unverwundbarkeit}
                     {Wenn der Benutzer unter dem Einfluss dieses Items steht, 
                     dann wird seine Spielfigur um den Faktor 1/2 kleiner und überlebt eine Berührung mit einem Hindernis. 
@@ -121,27 +127,36 @@
                     Nach der Berührung mit einem Hindernis ist die Wirkung des Items sofort vorbei 
                     und die Spielfigur wird wieder auf die ursprungliche Größe skaliert.}
                     {Unverwundbarkeit hilft dem Spieler über eine kurze Zeit weiter spielen zu können}
-                    {FA11, FA12, FA13}
+                    {FA12, FA13, FA14}
     \fanforderung{Item: Turbo Mode}
                     {Wenn der Benutzer unter dem Einfluss dieses Items steht, 
                     werden alle Hindernisse so auf dem Bildschirm platziert, dass die Spielfigur in einer geraden Linie durch diese hindurch fliegen kann. 
                     Während dieser Zeit wirkt keine Gravitation auf die Spielfigur und die Geschwindigkeit wird auf die fünffache Momentangeschwindigkeit erhöht 
                     um möglichst viele Punkte zu sammeln.}
                     {Für kurze Zeit kann der Spieler seine Punkte stark erhöhen (abhängig vom Spielfortschritt)}
-                    {FA11, FA12, FA13}
+                    {FA12, FA13, FA14}
     \fanforderung{Item: Doppelte Punkte}
                     {Bei diesem Item bekommt der Benutzer für die Wirkdauer dieses Items doppelte Punkte.}
                     {Ein Item das keine Einfluss auf den direkten Spielablauf hat, dafür aber auch immer gleich lang gültig ist}
-                    {FA11, FA12, FA13}
+                    {FA12, FA13, FA14}
     \fanforderung{Item: Troll}
                     {Wenn dieses Item eingesammelt wird, werden alle Hindernisse um einen gewissen Grad verengt. 
                     Dies kann dazu führen, dass einige Hindernisse nicht mehr passierbar sind und somit ein Spielende herbeigeführt wird.}
                     {Dieses Item soll verhindern das der User \glqq{}blind\grqq{} versucht alle Items aufzusammeln}
-                    {FA11, FA12, FA13}
-
+                    {FA12, FA13, FA14}
     \section{Nichtfunktionale Anforderungen}
-    \nfanforderung{Robustheit}{Die Anwendung darf nicht abstürzen. Bei 100 Spielen darf maximal 1 Spiel aufgrund eines Fehlers abgebrochen werden müssen.}{}{}
-    \nfanforderung{Java}{Beschr}{Begr}{Abh}
-    \nfanforderung{Highscore speichern}{}{}{}
-    \nfanforderung{30 Frames pro Sekunde}{}{}{}
+    \nfanforderung{Robustheit}
+                    {Die Anwendung darf nicht abstürzen. Bei 100 Spielen darf maximal 1 Spiel aufgrund eines Fehlers abgebrochen werden müssen.}
+                    {}{}
+    \nfanforderung{Java}
+                    {Die Anwendung sollte in Java geschrieben sein}
+                    {}{}
+    \nfanforderung{Highscore speichern}
+                    {Die Daten für die Highscore sollen persistent auf der Festplatte gespeichert werden}
+                    {Dadurch können auch bei einem Neustart des Programms die Spielstände vergliechen werden}
+                    {}
+    \nfanforderung{30 Frames pro Sekunde}
+                    {Auf einem modernen Rechner sollte es der Anwendung möglich sein 30 mal pro Sekunde die Grafik neu zu zeichnen}
+                    {Dadurch hat der User den eindruck von Bewegung statt vieler Einzelbilder}
+                    {}
 \end{document}

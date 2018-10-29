@@ -20,28 +20,68 @@
 \title{Softwaregrundprojekt}
 \author{Paul Nykiel}
 
-\newcounter{anforderungCount}
-\newcommand{\anforderung}[4] {
-    \stepcounter{anforderungCount}
+\newcommand{\anforderung}[5] {
     \begin{table}[H]
-        %\centering
-        \begin{tabular}{l|l}
+        \centering
+        \begin{tabular}{p{4cm}|p{10cm}}
             \toprule \\
-            ID & FA\theanforderungCount \\
+            ID & #1 \\
             \midrule \\
-            TITEL & #1 \\
-            BESCHREIBUNG & #2 \\
-            BEGRÜNDUNG & #3 \\
-            ANHÄNGIGKEITEN & #4 \\
+            TITEL & #2 \\
+            BESCHREIBUNG & #3 \\
+            BEGRÜNDUNG & #4 \\
+            ABHÄNGIGKEITEN & #5 \\
             \bottomrule
         \end{tabular}
     \end{table}
 }
 
+\newcounter{fanforderungCount}
+\newcommand{\fanforderung}[4] {
+    \stepcounter{fanforderungCount}
+    \anforderung{FA\thefanforderungCount}{#1}{#2}{#3}{#4}
+}
+\newcounter{nfanforderungCount}
+\newcommand{\nfanforderung}[4] {
+    \stepcounter{nfanforderungCount}
+    \anforderung{QA\thenfanforderungCount}{#1}{#2}{#3}{#4}
+}
+
+
 \begin{document}
     \maketitle
     \section{Funktionale Anforderungen}
-    \anforderung{Titel}{Beschr}{Begr}{Abh}
-    \anforderung{Titel}{Beschr}{Begr}{Abh}
+    \fanforderung{Hauptmenü}
+               {Nach dem Anwendungsstart wird dem Benutzer das Hauptmenu angezeigt. Der Benutzer kann folgende Aktionen im Hauptmenü ausführen:
+               \begin{enumerate} 
+                   \item Spiel starten 
+                   \item Hilfe anzeigen 
+                   \item Highscore anzeigen 
+                   \item Spiel beenden 
+               \end{enumerate}
+               }
+               {Damit der Benutzer alle Bestandteile der Anwendung über einen Dialog erreichen kann}
+               {}
+    \fanforderung{Beschleunigung der Spielfigur nach oben}{Der Benutzer kann durch (mehrfaches) Drücken der Leertaste die Spielfigur nach oben (y-Achse) beschleunigen. Je ein Tastendruck gibt einen beschleunigenden Schub nach oben, durch halten der Leertaste wird maximal ein Schub ausgelöst.}{}{}
+    \fanforderung{Hilfemenü}{Beschr}{Begr}{Abh}
+    \fanforderung{Highscore anzeigen}{Beschr}{Begr}{Abh}
+    \fanforderung{2D}{Beschr}{Begr}{Abh}
+    \fanforderung{Side-Scroller}{}{}{}
+    \fanforderung{Hindernisse }{}{}{}
+    \fanforderung{Auf die Spielfigur wirkt dauerhaft eine nach unten beschleunigende Kraft.}{}{}{}
+    \fanforderung{Falls ein Hindernis berührt wird führt dies in der Regel zum Scheitern.}{}{}{}
+    \fanforderung{Die Geschwindigkeit, mit welcher die Hindernisse sich auf die Spielfigur zu bewegen, wird kontinuierlich gesteigert}{}{}{}
+    \fanforderung{Zufällige Items}{}{}{}
+    \fanforderung{Item einsammeln}{}{}{}
+    \fanforderung{Items deaktivieren}{}{}{}
+    \fanforderung{Item: Unverwundbarkeit}{}{}{}
+    \fanforderung{Item: Turbo Mode}{}{}{}
+    \fanforderung{Item: Doppelte Punkte}{}{}{}
+    \fanforderung{Item: Troll}{}{}{}
+
     \section{Nichtfunktionale Anforderungen}
+    \nfanforderung{Robustheit}{Die Anwendung darf nicht abstürzen. Bei 100 Spielen darf maximal 1 Spiel aufgrund eines Fehlers abgebrochen werden müssen.}{}{}
+    \nfanforderung{Java}{Beschr}{Begr}{Abh}
+    \nfanforderung{Highscore speichern}{}{}{}
+    \nfanforderung{30 Frames pro Sekunde}{}{}{}
 \end{document}

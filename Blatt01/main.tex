@@ -52,32 +52,92 @@
     \maketitle
     \section{Funktionale Anforderungen}
     \fanforderung{Hauptmenü}
-               {Nach dem Anwendungsstart wird dem Benutzer das Hauptmenu angezeigt. Der Benutzer kann folgende Aktionen im Hauptmenü ausführen:
-               \begin{enumerate} 
-                   \item Spiel starten 
-                   \item Hilfe anzeigen 
-                   \item Highscore anzeigen 
-                   \item Spiel beenden 
-               \end{enumerate}
-               }
-               {Damit der Benutzer alle Bestandteile der Anwendung über einen Dialog erreichen kann}
-               {}
-    \fanforderung{Beschleunigung der Spielfigur nach oben}{Der Benutzer kann durch (mehrfaches) Drücken der Leertaste die Spielfigur nach oben (y-Achse) beschleunigen. Je ein Tastendruck gibt einen beschleunigenden Schub nach oben, durch halten der Leertaste wird maximal ein Schub ausgelöst.}{}{}
-    \fanforderung{Hilfemenü}{Beschr}{Begr}{Abh}
-    \fanforderung{Highscore anzeigen}{Beschr}{Begr}{Abh}
-    \fanforderung{2D}{Beschr}{Begr}{Abh}
-    \fanforderung{Side-Scroller}{}{}{}
-    \fanforderung{Hindernisse }{}{}{}
-    \fanforderung{Auf die Spielfigur wirkt dauerhaft eine nach unten beschleunigende Kraft.}{}{}{}
-    \fanforderung{Falls ein Hindernis berührt wird führt dies in der Regel zum Scheitern.}{}{}{}
-    \fanforderung{Die Geschwindigkeit, mit welcher die Hindernisse sich auf die Spielfigur zu bewegen, wird kontinuierlich gesteigert}{}{}{}
-    \fanforderung{Zufällige Items}{}{}{}
-    \fanforderung{Item einsammeln}{}{}{}
-    \fanforderung{Items deaktivieren}{}{}{}
-    \fanforderung{Item: Unverwundbarkeit}{}{}{}
-    \fanforderung{Item: Turbo Mode}{}{}{}
-    \fanforderung{Item: Doppelte Punkte}{}{}{}
-    \fanforderung{Item: Troll}{}{}{}
+                    {Nach dem Anwendungsstart wird dem Benutzer das Hauptmenu angezeigt. Der Benutzer kann folgende Aktionen im Hauptmenü ausführen:
+                    \begin{enumerate} 
+                    \item Spiel starten 
+                    \item Hilfe anzeigen 
+                    \item Highscore anzeigen 
+                    \item Spiel beenden 
+                    \end{enumerate}}
+                    {Damit der Benutzer alle Bestandteile der Anwendung über einen Dialog erreichen kann}
+                    {}
+    \fanforderung{Beschleunigung der Spielfigur nach oben}
+                    {Der Benutzer kann durch (mehrfaches) Drücken der Leertaste die Spielfigur nach oben (y-Achse) beschleunigen. 
+                    Je ein Tastendruck gibt einen beschleunigenden Schub nach oben, durch halten der Leertaste wird maximal ein Schub ausgelöst.}
+                    {Damit die Spielfigur nicht abstürzt, da dauerhaft eine nach unten beschleunigende Kraft auf diese wirkt.}
+                    {}
+    \fanforderung{Hilfemenü}
+                    {Auf dieser Ansicht werden dem Benutzer alle für die Interaktion mit der Anwendung benötigten Tasten(-kombinationen) angezeigt und erklärt.}
+                    {Für neue Benutzer kann die Einstiegshürde sonst zu hoch sein}
+                    {FA1}
+    \fanforderung{Highscore anzeigen}
+                    {Die Highscore zeigt die maximal erreichte Punktezahl zusammen mit den Namen der besten drei Spieler 
+                    in absteigender Reihenfolge auf dem Bildschirm an.}
+                    {Mithilfe des Highscores können sich die Spieler untereinander vergleichen.}
+                    {QA3}
+    \fanforderung{Spielbildschirm}
+                    {Auf dieser View wird das eigentliche Spiel gerendert. 
+                    Neben der Spielfigur und der Hindernisse wird hier auch die aktuelle Punktezahl und der Geschwindigkeitsmultiplikator angezeigt.}
+                    {Der Bildschirm der währrend des eigentlichen Spielens angezeigt wird sollte nur die relevanten Informationen enthalten}
+                    {FA1}
+    \fanforderung{Side-Scroller}
+                    {Bei dieser Art von Spielen ist die Spielfigur mittig auf dem Bildschirm (Position auf der x-Achse) verankert 
+                    und das Spielfeld wird kontinuierlich von rechts nach links an der Spielfigur vorbei bewegt.}
+                    {Dadurch ist das Spielgeschehen immer übersichtlich}
+                    {FA5}
+    \fanforderung{Hindernisse}
+                    {Die Hindernisse haben eine rechteckige Form und werden sowohl vom oberen als auch vom unteren Bildschirmrand in die Szene eingesetzt.}
+                    {Hindernisse sollten einfach zu erkennnen sein}
+                    {FA5, FA6}
+    \fanforderung{Gravitation}
+                    {Auf die Spielfigur wirkt dauerhaft eine nach unten beschleunigende Kraft.}
+                    {Die nach unten beschleunigende Kraft ist das Gegenstück zur Beschleunigung der Spielfigur nach oben}
+                    {FA5, FA2}
+    \fanforderung{Kollision}
+                    {Falls ein Hindernis berührt wird führt dies in der Regel zum Scheitern.}
+                    {Hindernisse sind die primären Schwierigkeiten des Spiels}
+                    {FA7, FA6}
+    \fanforderung{Schwierigkeit erhöhen}
+                    {Die Geschwindigkeit, mit welcher die Hindernisse sich auf die Spielfigur zu bewegen, wird kontinuierlich gesteigert}
+                    {Dadurch wird verhindert das ein guter Spieler beliebig lange spielen kann und gelangweilt wird}
+                    {FA6}
+    \fanforderung{Zufällige Items}
+                    {Im Verlauf des Spiels erscheinen unterschiedliche Items zufällig}
+                    {Die zufällige Positionierung und Auswahl der Items sorgt für eine Variation des Spielablaufs}
+                    {}
+    \fanforderung{Item einsammeln}
+                    {Im Spiel gibt es verschiedene Items, welche der Benutzer mit der Spielfigur durch hindurchfliegen sammeln kann. Es kann immer nur 
+                    ein Item gleichzeitig aktiv sein. Beim einsammeln eines Items werden alle anderen Items ausgeblendet}
+                    {Durch Wahl der Items kann der Spieler das Spielgeschehen zusätzlich beeinflussen}
+                    {FA11}
+    \fanforderung{Items deaktivieren}
+                    {Alle Items haben die gleiche Wirkdauer}
+                    {Der durch Items erlangte Vorteil sollte nur kurz helfen}
+                    {FA12}
+    \fanforderung{Item: Unverwundbarkeit}
+                    {Wenn der Benutzer unter dem Einfluss dieses Items steht, 
+                    dann wird seine Spielfigur um den Faktor 1/2 kleiner und überlebt eine Berührung mit einem Hindernis. 
+                    Wenn die Spielfigur während der Wirkdauer dieses Items ein Hindernis trifft, fliegt die Spielfigur durch das Hindernis hindurch. 
+                    Nach der Berührung mit einem Hindernis ist die Wirkung des Items sofort vorbei 
+                    und die Spielfigur wird wieder auf die ursprungliche Größe skaliert.}
+                    {Unverwundbarkeit hilft dem Spieler über eine kurze Zeit weiter spielen zu können}
+                    {FA11, FA12, FA13}
+    \fanforderung{Item: Turbo Mode}
+                    {Wenn der Benutzer unter dem Einfluss dieses Items steht, 
+                    werden alle Hindernisse so auf dem Bildschirm platziert, dass die Spielfigur in einer geraden Linie durch diese hindurch fliegen kann. 
+                    Während dieser Zeit wirkt keine Gravitation auf die Spielfigur und die Geschwindigkeit wird auf die fünffache Momentangeschwindigkeit erhöht 
+                    um möglichst viele Punkte zu sammeln.}
+                    {Für kurze Zeit kann der Spieler seine Punkte stark erhöhen (abhängig vom Spielfortschritt)}
+                    {FA11, FA12, FA13}
+    \fanforderung{Item: Doppelte Punkte}
+                    {Bei diesem Item bekommt der Benutzer für die Wirkdauer dieses Items doppelte Punkte.}
+                    {Ein Item das keine Einfluss auf den direkten Spielablauf hat, dafür aber auch immer gleich lang gültig ist}
+                    {FA11, FA12, FA13}
+    \fanforderung{Item: Troll}
+                    {Wenn dieses Item eingesammelt wird, werden alle Hindernisse um einen gewissen Grad verengt. 
+                    Dies kann dazu führen, dass einige Hindernisse nicht mehr passierbar sind und somit ein Spielende herbeigeführt wird.}
+                    {Dieses Item soll verhindern das der User \glqq{}blind\grqq{} versucht alle Items aufzusammeln}
+                    {FA11, FA12, FA13}
 
     \section{Nichtfunktionale Anforderungen}
     \nfanforderung{Robustheit}{Die Anwendung darf nicht abstürzen. Bei 100 Spielen darf maximal 1 Spiel aufgrund eines Fehlers abgebrochen werden müssen.}{}{}

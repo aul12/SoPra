@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1080</x>
+      <y>40</y>
+      <w>210</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Stereotype&gt;&gt;
+Package::FatClass
+{Some Properties}
+--
+-id: Long
+_-ClassAttribute: Long_
+--
+#Operation(i: int): int
+/+AbstractOperation()/
+--
+Responsibilities
+-- Resp1
+*-- Resp2*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>370</x>
+      <y>460</y>
+      <w>260</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>Player
+--
++ y: Real
++ speedY: Real
++ speedX: Real
+--
++ accelerateY(power: Real)
++ increaseSpeedX(newSpeed: Real)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>370</x>
+      <y>110</y>
+      <w>260</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>Obstacle
+--
++ tubeSide: TubeSide
++ lengthY: Real
++ widthX: Real
++ positionX: Real
+--
++ getBoundingRect(): Rectangle</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>90</x>
+      <y>110</y>
+      <w>210</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+TubeSide
+--
+Bottom
+Top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>370</x>
+      <y>310</y>
+      <w>260</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>Item
+--
++ positionX: Real
++ positionY: Real
++ usable: boolean
++ time: real
++ type: ItemType
+--
++ getBoundingRect(): Rectangle
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>80</x>
+      <y>310</y>
+      <w>210</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;
+ItemType
+--
+Unverwundbarkeit
+TurboMode
+DoppeltePunkte
+Troll</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>290</x>
+      <y>130</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..n</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>280</x>
+      <y>400</y>
+      <w>110</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..n</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>730</x>
+      <y>160</y>
+      <w>210</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>Rectangle
+--
+- x
+- y
+- w
+- h
+--
++ checkIfInRect(pX,pY)
++ setAnchorX(x: Real)
++ setAnchorY(y: Real)
++ setWidth(w: Real)
++ setHeight(h Real)
++ getAnchorX() : Real
++ getAnchorY() : Real
++ getWidth() : Real
++ getHeight() : Real</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

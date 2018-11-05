@@ -4,3 +4,4 @@ Lösungen zu den Übungsblättern zu dem Modul "Softwaregrundprojekt" an der Uni
 
 # Fertige Dokumente
  * [Blatt01.pdf](https://aul12.github.io/SoPra/Blatt01.pdf)
+ * [Blatt02.pdf](https://aul12.github.io/SoPra/Blatt02.pdf)

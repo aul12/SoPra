@@ -1,0 +1,73 @@
+digraph G {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+
+    node [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 8
+        shape = "record"
+    ]
+
+    edge [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 8
+    ]
+
+    Environment [
+        label = "{Environment|+ obstacles : Obstacle[0..*]\l+ items : Item[0..*]\l+ player : Player\l+ points : Integer\l}"
+    ]
+
+    Obstacle [
+        label = "{Obstacle|+ obstacleSide: ObstacleSide\l+ lengthY : Real\l+ widthY : Real\l+ positionX : Real\l|+ getBoundingRect() : Rectangle\l}"
+    ]       
+
+    Item [
+        label = "{Item|+ positionX : Real\l+ positionY : Real\l+ usable : boolean\l+ time : real\l+ type : ItemType\l}"
+    ]
+
+    Player [
+        label = "{Player|+ y : Real\l+ speedX : Real\l+ speedY : Real\l|+ accelerateY(power: Real)\l+ increaseSpeedX(newSpeed: Real)\l}"
+    ]
+    
+    ObstacleSide [
+        label = "{\<\<enumeration\>\>\nObstacleSide| Bottom\l Top\l}"
+    ]
+
+    ItemType [
+        label = "{\<\<enumeration\>\>\nItemType| Unverwundbarkeit\l Troll\l DoppeltePunkte\l TurboMode\l}"
+    ]
+
+    edge [
+        arrowhead = "diamond"
+
+        headlabel = "0..*"
+        taillabel = "1"
+    ] 
+    ObstacleSide -> Obstacle
+
+
+    edge [
+        arrowhead = "diamond"
+
+        headlabel = "0..*"
+        taillabel = "1"
+    ] 
+    ItemType -> Item
+
+    edge [
+        arrowhead = "odiamond"
+
+        headlabel = "0..*"
+        taillabel = "1"
+    ] 
+    Environment -> Obstacle
+    Environment -> Item 
+
+    edge [
+        arrowhead = "diamond"
+
+        headlabel = "1"
+        taillabel = "1"
+    ] 
+    Environment -> Player
+}    

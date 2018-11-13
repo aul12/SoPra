@@ -13,6 +13,9 @@
 \usepackage{float}
 \usepackage{tikz-timing}
 \usepackage{tikz}
+\usepackage{pgf-umlsd}
+\usepgflibrary{arrows} % for pgf-umlsd
+%\usepackage{verbatim}
 \usepackage{multirow}
 \usepackage[final]{pdfpages}
 
@@ -22,6 +25,15 @@
 \author{Paul Nykiel}
 
 \begin{document}
-    \includepdf[pages=1,pagecommand={\maketitle\section{Anwendungsfalldiagramm}}]{anwendungsfall.pdf}
+    \includepdf[pages=1,scale=0.6,pagecommand={\maketitle\section{Anwendungsfalldiagramm}}]{anwendungsfall.pdf}
     \includepdf{zustandsdiagramm.pdf}
+    \begin{figure}
+      \centering
+
+      \begin{sequencediagram}
+          \newinst{test}{test}
+      \end{sequencediagram}
+
+      \caption{UML sequence diagram demo.}
+    \end{figure}
 \end{document}

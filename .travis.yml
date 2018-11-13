@@ -1,7 +1,7 @@
 sudo: required
 dist: trusty
 before_install:
-    - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended latexmk texlive-lang-german texlive-doc-de pgf texlive-font-utils zip inkscape texlive-math-extra graphviz
+    - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended latexmk texlive-lang-german texlive-doc-de pgf texlive-font-utils zip inkscape texlive-math-extra graphviz make
       
 
 script:
@@ -11,14 +11,11 @@ script:
     - mv main.pdf ../output/Blatt01.pdf
     - cd ..
     - cd Blatt02
-    - dot -Tpdf -o uml.pdf uml.dot
-    - latexmk -pdf main.tex
+    - make all
     - mv main.pdf ../output/Blatt02.pdf
     - cd ..
     - cd Blatt03
-    - dot -Tpdf -o anwendungsfall.pdf anwendungsfall.dot
-    - dot -Tpdf -o zustandsdiagramm.pdf zustandsdiagramm.dot
-    - latexmk -pdf main.tex
+    - make all
     - mv main.pdf ../output/Blatt03.pdf
     - cd ..
 

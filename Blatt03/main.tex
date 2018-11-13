@@ -26,14 +26,28 @@
 
 \begin{document}
     \includepdf[pages=1,scale=0.6,pagecommand={\maketitle\section{Anwendungsfalldiagramm}}]{anwendungsfall.pdf}
-    \includepdf{zustandsdiagramm.pdf}
-    \begin{figure}
-      \centering
+    \includepdf[pages=1,scale=0.8,pagecommand={\section{Zustandsdiagramm}}]{zustandsdiagramm.pdf}
+    \section{Sequenzdiagramm}
+    \begin{figure}[H]
+        \centering
+        \begin{sequencediagram}
+            \newinst{c1}{Spieler 1}
+            \newinst{c2}{Spieler 2}
+            \newinst[2]{s}{Server}
 
-      \begin{sequencediagram}
-          \newinst{test}{test}
-      \end{sequencediagram}
-
-      \caption{UML sequence diagram demo.}
+            \begin{call}
+                {c1}{submitPoints(points, seed, path)}
+                {s}{isNewHighscore}
+            \end{call}
+            \begin{call}
+                {c2}{createGhostGame()}
+                {s}{gameInstance}
+            \end{call}
+            \mess{c2}{startGame}{s}
+            \mess[2]{s}{dataStream}{c2}
+            \begin{messcall}
+                {c2}{gameOver(points)}{s}
+            \end{messcall}
+        \end{sequencediagram}
     \end{figure}
 \end{document}

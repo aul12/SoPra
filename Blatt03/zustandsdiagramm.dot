@@ -32,8 +32,8 @@ digraph G {
         Connected->ConnectRequested[label = "srv.timeout[time <= 30]\n/srv.requestGame"]  
         GameStartClient->FinishRequested [label = "/srv.gameOver(points)"]
         FinishRequested->FinishWait [label = "srv.waitFinished/"]
-        FinishWait->Finished [label = "srv.gameFinished(score)/"]
-        FinishRequested->Finished [label = "srv.gameFinished(score)/"]
+        FinishWait->Finished [label = "srv.gameFinished(highscore)/"]
+        FinishRequested->Finished [label = "srv.gameFinished(highscore)/"]
     }
 
 
@@ -58,6 +58,6 @@ digraph G {
         Client3Connected -> GameRunning [label = "c1.gameStarted && c2.gameStarted && c3.gameStarted\n/"]
         GameRunning -> Client1Finished [label = "cN.gameFinished(points)\n/cN.waitFinished"];
         Client1Finished -> Client2Finished [label = "cM.gameFinished(points)\n/cM.waitFinished"];
-        Client2Finished -> Client3Finished [label = "cO.gameFinished(points)\n/c*.gameFinished(score)"];
+        Client2Finished -> Client3Finished [label = "cO.gameFinished(points)\n/c*.gameFinished(highscore)"];
     }
 }    

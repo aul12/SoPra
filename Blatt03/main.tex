@@ -14,6 +14,7 @@
 \usepackage{tikz-timing}
 \usepackage{tikz}
 \usepackage{multirow}
+\usepackage[final]{pdfpages}
 
 \usetikzlibrary{calc,shapes.multipart,chains,arrows}
 
@@ -21,6 +22,6 @@
 \author{Paul Nykiel}
 
 \begin{document}
-    \maketitle
-
+    \includepdf[pages=1,pagecommand={\maketitle\section{Anwendungsfalldiagramm}}]{anwendungsfall.pdf}
+    \includepdf{zustandsdiagramm.pdf}
 \end{document}

@@ -17,6 +17,7 @@ script:
     - cd ..
     - cd Blatt03
     - dot -Tpdf -o anwendungsfall.pdf anwendungsfall.dot
+    - dot -Tpdf -o zustandsdiagramm.pdf zustandsdiagramm.dot
     - latexmk -pdf main.tex
     - mv main.pdf ../output/Blatt03.pdf
     - cd ..

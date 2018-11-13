@@ -1,0 +1,63 @@
+digraph G {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+
+    node [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 8
+        shape = "Mrecord"
+    ]
+
+    edge [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 8
+    ]
+
+    subgraph cluster_client {
+        label = "Client"
+        color = "black"
+        StartClient [label = "{Start|time=0}"]
+        ConnectRequested
+        Connected
+        GameStartClient
+        FinishRequested
+        FinishWait
+        Finished
+
+        StartClient->ConnectRequested [label = "\n/srv.requestGame"]
+        ConnectRequested->Connected [label = "srv.waitGame/"]
+        ConnectRequested->GameStartClient [label = "srv.startGame\n/srv.gameStarted"]
+        Connected->GameStartClient [label = "srv.startGame\n/srv.gameStarted"]
+        Connected->StartClient [label = "srv.timeout[time > 30]\n/"]  
+        Connected->ConnectRequested[label = "srv.timeout[time <= 30]\n/srv.requestGame"]  
+        GameStartClient->FinishRequested [label = "/srv.gameOver(points)"]
+        FinishRequested->FinishWait [label = "srv.waitFinished/"]
+        FinishWait->Finished [label = "srv.gameFinished(score)/"]
+        FinishRequested->Finished [label = "srv.gameFinished(score)/"]
+    }
+
+
+    subgraph cluster_server {
+        label = "Server"
+        color = "black"
+        Start         
+        Client1Connected [label = "{Start|time = 0}"]
+        Client2Connected
+        Client3Connected
+        GameRunning
+        Client1Finished
+        Client2Finished
+        Client3Finished
+        Finished
+
+        Start -> Client1Connected [label = "c1.requestGame\n/c1.waitGame"]
+        Client1Connected -> Client2Connected [label = "c2.requestGame\n/c2.waitGame"]
+        Client1Connected -> Start [label = "time>30\n/c1.timeout"]
+        Client2Connected -> Client3Connected [label = "c3.requestGame\n/c1.startGame;c2.startGame;c3.startGame"]
+        Client2Connected -> Start [label = "time>30\n/c1.timeout;c2.timeout"]
+        Client3Connected -> GameRunning [label = "c1.gameStarted && c2.gameStarted && c3.gameStarted\n/"]
+        GameRunning -> Client1Finished [label = "cN.gameFinished(points)\n/cN.waitFinished"];
+        Client1Finished -> Client2Finished [label = "cM.gameFinished(points)\n/cM.waitFinished"];
+        Client2Finished -> Client3Finished [label = "cO.gameFinished(points)\n/c*.gameFinished(score)"];
+    }
+}    

@@ -15,6 +15,11 @@ script:
     - latexmk -pdf main.tex
     - mv main.pdf ../output/Blatt02.pdf
     - cd ..
+    - cd Blatt03
+    - dot -Tpdf -o anwendungsfall.pdf anwendungsfall.dot
+    - latexmk -pdf main.tex
+    - mv main.pdf ../output/Blatt03.pdf
+    - cd ..
 
 
 deploy:

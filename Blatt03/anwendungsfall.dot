@@ -1,0 +1,76 @@
+digraph {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    rankdir="LR";
+
+    node [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 8
+    ]
+
+    edge [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 6
+        style = dashed
+        arrowhead = vee
+    ]
+    graph [
+        splines=line, 
+        splines=false, nodesep=1
+    ]
+
+    Nutzer [
+        image = "spieler.png"
+        label = ""
+        shape = none
+    ]
+
+
+    Nutzer -> Hauptmenü [
+        arrowhead = none
+        style = solid
+    ]
+    Nutzer -> Spiel [
+        arrowhead = none
+        style = solid
+    ]
+
+    Nutzer -> Hilfe [
+        arrowhead = none
+        style = solid
+    ]
+
+    Nutzer -> GameOver [
+        arrowhead = none
+        style = solid
+    ]
+
+    subgraph cluster_0 {
+        label="Flappy Wizard";
+        subgraph {
+            rank = same
+            rankdir = LR
+            GameOver
+            Spiel
+            Hilfe
+        }
+
+        Hauptmenü -> Spiel [
+            xlabel = "\<\<extend\>\>"
+        ]
+
+
+        GameOver -> Spiel [
+            xlabel = "\<\<extend\>\>"
+        ]
+        Spiel -> GameOver [
+            xlabel = "\<\<include\>\>"
+        ]
+        GameOver -> Hauptmenü [
+            xlabel ="\<\<extend\>\>"
+        ]
+        Hauptmenü -> Hilfe [
+            xlabel = "\<\<extend\>\>"
+        ]
+    }
+}

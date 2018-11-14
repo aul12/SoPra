@@ -25,8 +25,50 @@
 \author{Paul Nykiel}
 
 \begin{document}
-    \includepdf[pages=1,scale=0.6,pagecommand={\maketitle\section{Anwendungsfalldiagramm}}]{anwendungsfall.pdf}
-    \includepdf[pages=1,scale=0.8,pagecommand={\section{Zustandsdiagramm}}]{zustandsdiagramm.pdf}
+    \maketitle
+    \section{Anwendungsfälle}
+    \subsection{Anwendungsfälle}
+    Die Anforderungen sind der Musterlösung entnommen.
+    \subsubsection{Hauptmenü}
+    Beeinhaltet:
+    \begin{itemize}
+            \item FA1: Hauptmenü
+    \end{itemize}
+    \subsubsection{Hilfe}
+    Beeinhaltet:
+    \begin{itemize}
+            \item FA2: Hilfe
+    \end{itemize}
+    \subsubsection{GameOver}
+    Beeinhaltet:
+    \begin{itemize}
+            \item FA6: GameOver 
+    \end{itemize}
+    \subsubsection{Highscore}
+    \begin{itemize}
+        \item FA3: Highscore (Ansicht)
+        \item FA4: Highscore (Dateiformat)
+        \item FA5: Highscore (lesen \& schreiben)
+    \end{itemize}
+    \subsubsection{Spiel}
+    Beeinhaltet:
+    \begin{itemize}
+        \item FA7: Spielfeld (Canvas)
+        \item FA8: Spielfeld (Metrik)
+        \item FA9: Spielfigur
+        \item FA10: Hindernis (Turm)
+        \item FA11: Hindernis (Dementoren)
+        \item FA12: Beschleunigung der Spielfigure nach oben
+        \item FA13: Laden von Grafiken
+        \item FA14: Hitboxen
+        \item FA15: Generierung von Hindernissen
+        \item FA16: Items (Allgemein)
+        \item FA17: Item (Turbo Mode)
+        \item FA18: Item (Unverwundbarkeit)
+        \item FA19: Spielfigur (Fallbeschleunigung)
+    \end{itemize}
+    \includepdf[pages=-,scale=1,pagecommand={\subsection{Anwendungsfalldiagramm}}]{anwendungsfall.pdf}
+    \includepdf[pages=-,scale=1,pagecommand={\section{Zustandsdiagramm}}]{zustandsdiagramm.pdf}
     \section{Sequenzdiagramm}
     \begin{figure}[H]
         \centering

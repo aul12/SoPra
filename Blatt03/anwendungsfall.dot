@@ -10,13 +10,13 @@ digraph {
 
     edge [
         fontname = "Bitstream Vera Sans"
-        fontsize = 6
+        fontsize = 4
         style = dashed
         arrowhead = vee
     ]
     graph [
-        splines=line, 
-        splines=false, nodesep=1
+        //splines=line, 
+        //splines=false, nodesep=1
     ]
 
     Nutzer [
@@ -45,14 +45,20 @@ digraph {
         style = solid
     ]
 
+    Nutzer -> Highscore [
+        arrowhead = none
+        style = solid
+    ]
+
     subgraph cluster_0 {
         label="Flappy Wizard";
         subgraph {
             rank = same
             rankdir = LR
-            GameOver
-            Spiel
             Hilfe
+            Hauptmenü 
+            Spiel
+            Highscore
         }
 
         Spiel -> Hauptmenü [
@@ -71,6 +77,12 @@ digraph {
         ]
         Hilfe -> Hauptmenü [
             xlabel = "\<\<extend\>\>"
+        ]
+        Highscore -> Hauptmenü [
+            xlabel = "\<\<extend\>\>"
+        ]
+        Highscore -> GameOver [
+            xlabel = "\<\<include\>\>"
         ]
     }
 }

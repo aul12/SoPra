@@ -55,21 +55,21 @@ digraph {
             Hilfe
         }
 
-        Hauptmenü -> Spiel [
+        Spiel -> Hauptmenü [
             xlabel = "\<\<extend\>\>"
         ]
 
 
-        GameOver -> Spiel [
-            xlabel = "\<\<extend\>\>"
-        ]
         Spiel -> GameOver [
+            xlabel = "\<\<extend\>\>"
+        ]
+        GameOver -> Spiel [
             xlabel = "\<\<include\>\>"
         ]
-        GameOver -> Hauptmenü [
+        Hauptmenü -> GameOver [
             xlabel ="\<\<extend\>\>"
         ]
-        Hauptmenü -> Hilfe [
+        Hilfe -> Hauptmenü [
             xlabel = "\<\<extend\>\>"
         ]
     }

@@ -41,14 +41,20 @@ digraph G {
         label = "Server"
         color = "black"
         Start         
-        Client1Connected [label = "{Start|time = 0}"]
+        Client1Connected [label = "{Client1Connected|time = 0}"]
         Client2Connected
         Client3Connected
         GameRunning
         Client1Finished
         Client2Finished
         Client3Finished
-        Finished
+        Client12Finished
+        Client13Finished
+        Client21Finished
+        Client23Finished
+        Client31Finished
+        Client32Finished
+        ServerFinished [label = "Finished"]
 
         Start -> Client1Connected [label = "c1.requestGame\n/c1.waitGame"]
         Client1Connected -> Client2Connected [label = "c2.requestGame\n/c2.waitGame"]
@@ -56,8 +62,24 @@ digraph G {
         Client2Connected -> Client3Connected [label = "c3.requestGame\n/c1.startGame;c2.startGame;c3.startGame"]
         Client2Connected -> Start [label = "time>30\n/c1.timeout;c2.timeout"]
         Client3Connected -> GameRunning [label = "c1.gameStarted && c2.gameStarted && c3.gameStarted\n/"]
-        GameRunning -> Client1Finished [label = "cN.gameFinished(points)\n/cN.waitFinished"];
-        Client1Finished -> Client2Finished [label = "cM.gameFinished(points)\n/cM.waitFinished"];
-        Client2Finished -> Client3Finished [label = "cO.gameFinished(points)\n/c*.gameFinished(highscore)"];
+        GameRunning -> Client1Finished[label = "c1.gameFinished(points)\n/c1.waitFinished"];
+        GameRunning -> Client2Finished[label = "c2.gameFinished(points)\n/c2.waitFinished"];
+        GameRunning -> Client3Finished[label = "c3.gameFinished(points)\n/c3.waitFinished"];
+
+        Client1Finished -> Client12Finished[label ="c2.gameFinished(points)\n/c2.waitFinished"];
+        Client1Finished -> Client13Finished[label ="c3.gameFinished(points)\n/c3.waitFinished"];
+        Client2Finished -> Client21Finished[label ="c1.gameFinished(points)\n/c1.waitFinished"];
+        Client2Finished -> Client23Finished[label ="c3.gameFinished(points)\n/c3.waitFinished"];
+        Client3Finished -> Client31Finished[label ="c1.gameFinished(points)\n/c1.waitFinished"];
+        Client3Finished -> Client32Finished[label ="c2.gameFinished(points)\n/c2.waitFinished"];
+
+        Client12Finished -> ServerFinished[label = "c3.gameFinished(points)\n/c1.gameFinished && c2.gameFinished && c3.gameFinished"];
+        Client13Finished -> ServerFinished[label = "c2.gameFinished(points)\n/c1.gameFinished && c2.gameFinished && c3.gameFinished"];
+        Client21Finished -> ServerFinished[label = "c3.gameFinished(points)\n/c1.gameFinished && c2.gameFinished && c3.gameFinished"];
+        Client23Finished -> ServerFinished[label = "c1.gameFinished(points)\n/c1.gameFinished && c2.gameFinished && c3.gameFinished"];
+        Client31Finished -> ServerFinished[label = "c2.gameFinished(points)\n/c1.gameFinished && c2.gameFinished && c3.gameFinished"];
+        Client32Finished -> ServerFinished[label = "c1.gameFinished(points)\n/c1.gameFinished && c2.gameFinished && c3.gameFinished"];
+
+
     }
 }    

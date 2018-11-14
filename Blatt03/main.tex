@@ -30,27 +30,40 @@
     \subsection{Anwendungsfälle}
     Die Anforderungen sind der Musterlösung entnommen.
     \subsubsection{Hauptmenü}
+    Die Funktion Hauptmenü stellt dem Nutzer eine Auswahl der weitere Funktionen der Anwendung zur Verfügung.
+
     Beeinhaltet:
     \begin{itemize}
             \item FA1: Hauptmenü
     \end{itemize}
     \subsubsection{Hilfe}
+    Die Anwendung Hilfe erweitert die Funktionalität des Hauptmenüs um eine Hilfeseite.
+    
     Beeinhaltet:
     \begin{itemize}
             \item FA2: Hilfe
     \end{itemize}
     \subsubsection{GameOver}
+    Die Anwendung Game Over wird vom Spiel genutzt. Des weiteren kann die Anwendung Game Over die Anwendung Spiel für die Neustart Funktionalität nutzen.
+     
     Beeinhaltet:
     \begin{itemize}
             \item FA6: GameOver 
     \end{itemize}
     \subsubsection{Highscore}
+    Die Anwendung Highscore besteht aus den Funktionen Highscore lesen bzw. Highscore schreiben und dem zugehörigen Dateiformat. Außerdem gehört dazu die Funktion
+    die Highscore anzuzeigen. Die Anwendung Highscore wird von der Anwendung Game Over genutzt und kann zusätzlich die Anwendung Hauptmenü erweitern.
+
+    Beeinhaltet:
     \begin{itemize}
         \item FA3: Highscore (Ansicht)
         \item FA4: Highscore (Dateiformat)
         \item FA5: Highscore (lesen \& schreiben)
     \end{itemize}
     \subsubsection{Spiel}
+    Die größte Anwendung der Applikation ist das Spiel. Die Anforderung kombiniert alle Anforderungen die direkt das Spielgeschehen beeinflussen, also
+    das Spielfeld, die Spielfigur, Hindernisse und Items.
+
     Beeinhaltet:
     \begin{itemize}
         \item FA7: Spielfeld (Canvas)

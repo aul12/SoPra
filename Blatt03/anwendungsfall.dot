@@ -10,7 +10,7 @@ digraph {
 
     edge [
         fontname = "Bitstream Vera Sans"
-        fontsize = 4
+        fontsize = 6
         style = dashed
         arrowhead = vee
     ]
@@ -20,11 +20,18 @@ digraph {
     ]
 
     Nutzer [
+        width = 0.48
+        height = 0.8
+        fixedsize = true
         image = "spieler.png"
         label = ""
         shape = none
     ]
 
+    Nutzer -> Hilfe [
+        arrowhead = none
+        style = solid
+    ]
 
     Nutzer -> Hauptmenü [
         arrowhead = none
@@ -34,18 +41,12 @@ digraph {
         arrowhead = none
         style = solid
     ]
-
-    Nutzer -> Hilfe [
+    Nutzer -> Highscore [
         arrowhead = none
         style = solid
     ]
 
     Nutzer -> GameOver [
-        arrowhead = none
-        style = solid
-    ]
-
-    Nutzer -> Highscore [
         arrowhead = none
         style = solid
     ]
@@ -62,27 +63,25 @@ digraph {
         }
 
         Spiel -> Hauptmenü [
-            xlabel = "\<\<extend\>\>"
+            label = "\<\<extend\>\>"
         ]
-
-
         Spiel -> GameOver [
-            xlabel = "\<\<extend\>\>"
+            label = "\<\<extend\>\>"
         ]
         GameOver -> Spiel [
-            xlabel = "\<\<include\>\>"
+            label = "\<\<include\>\>"
         ]
         Hauptmenü -> GameOver [
-            xlabel ="\<\<extend\>\>"
+            label ="\<\<extend\>\>"
         ]
         Hilfe -> Hauptmenü [
-            xlabel = "\<\<extend\>\>"
+            label = "\<\<extend\>\>"
         ]
         Highscore -> Hauptmenü [
-            xlabel = "\<\<extend\>\>"
+            label = "\<\<extend\>\>"
         ]
         Highscore -> GameOver [
-            xlabel = "\<\<include\>\>"
+            label = "\<\<include\>\>"
         ]
     }
 }

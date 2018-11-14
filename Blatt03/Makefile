@@ -12,7 +12,7 @@ zustandsdiagramm.pdf: zustandsdiagramm.dot
 	$(DOT) -Tpdf -o zustandsdiagramm.pdf zustandsdiagramm.dot
 
 spieler.png: spieler.svg
-	$(INKSCAPE) -w 45 -h 75 -e spieler.png spieler.svg
+	$(INKSCAPE) -w 450 -h 750 -e spieler.png spieler.svg
 
 clean:
 	$(LATEXMK) -c

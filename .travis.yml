@@ -18,6 +18,10 @@ script:
     - make all
     - mv main.pdf ../output/Blatt03.pdf
     - cd ..
+    - cd Blatt04
+    - make all
+    - mv main.pdf ../output/Blatt04.pdf
+    - cd ..
 
 
 deploy:

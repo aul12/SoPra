@@ -6,6 +6,4 @@ Lösungen zu den Übungsblättern zu dem Modul "Softwaregrundprojekt" an der Uni
  * [Blatt01.pdf](https://aul12.github.io/SoPra/Blatt01.pdf)
  * [Blatt02.pdf](https://aul12.github.io/SoPra/Blatt02.pdf)
  * [Blatt03.pdf](https://aul12.github.io/SoPra/Blatt03.pdf)
-
-Dinge die hier nur stehen für so eine Aufgabe:
-"Dieses Repository wird genutzt um die Implementierung des Spiels „Flappy Wizard“ zu versionieren."
+ * [Blatt04.pdf](https://aul12.github.io/SoPra/Blatt04.pdf)

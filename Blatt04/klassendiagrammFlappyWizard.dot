@@ -1,4 +1,5 @@
 digraph G {
+    // General Layout
     fontname = "Bitstream Vera Sans"
     fontsize = 8
 
@@ -11,70 +12,136 @@ digraph G {
     edge [
         fontname = "Bitstream Vera Sans"
         fontsize = 8
+        arrowhead = "onormal"
+    ]
+
+    // Classes
+    MainWindow [
+        label = "{MainWindow|- painter : QPainter\ltimer : QTimer\l|+ buttonPressed(event: QEvent*)\l+ timerTick()\l+ paintEvent()}" 
     ]
 
     Environment [
-        label = "{Environment|+ obstacles : Obstacle[0..*]\l+ items : Item[0..*]\l+ player : Player\l+ points : Integer\l+ activeItem : Item[0..1]\l+ score : Integer\l+ scrollSpeed : Real\l+ scrollSpeedMultiplexer : Real\l|+ update()\l}"
+        label = "{Environment|+ obstacles : Obstacle[0..*]\l+ items : Item[0..*]\l+ player : Player\l+ points : Integer\l+ activeItem : Item[0..1]\l+ score : Integer\l+ scrollSpeed : double\l+ scrollSpeedMultiplexer : double\l|+ update()\l}"
     ]
 
+    GameItem [
+        label = "{GameItem|- boundingRect : Rectangle<double>\l- speed : Vector\<2, double\>\l|+ getPosition() : Vector\<2, double\>\l+ getDimensions() : Vector\<2, double\>\l+ getBoundingRect() : Rectangle\<double\>\l+ draw()\l+ move(deltaT: double)\l}"
+    ]
     Obstacle [
-        label = "{Obstacle|+ obstacleSide: ObstacleSide\l+ lengthY : Real\l+ widthY : Real\l+ positionX : Real\l|+ getBoundingRect() : Rectangle\l}"
+        label = "{Obstacle|- heightScale : double\l|+ setHeightScale(s: double)\l+ getHeightScale(s: double)\l+ resetScale()\l}"
     ]       
 
     Item [
-        label = "{Item|+ positionX : Real\l+ positionY : Real\l+ time : real\l+ type : ItemType\l|+ getBoundingRect() : Rectangle}"
+        label = "{Item|+ time : double\l| + apply(player : Player)\l}"
+    ]
+
+    ItemTypeUnverwundbar [
+        label = "{Unverwundbar||+ apply(player : Player)\l+ draw()\l}"
+    ]
+    ItemTypeTroll [
+        label = "{Troll||+ apply(player : Player)\l+ draw()\l}"
+    ]
+    ItemTypeDoppeltePunkte [
+        label = "{DoppeltePunkte||+ apply(player : Player)\l+ draw()\l}"
+    ]
+    ItemTypeTurboMode [
+        label = "{TurboMode||+ apply(player : Player)\l+ draw()\l}"
     ]
 
     Player [
-        label = "{Player|+ y : Real\l+ speedY : Real\l+ Weight : Real\l|+ accelerateY(power: Real)\l}"
+        label = "{Player|+ acceleration : double\l|+ addAcceleration(acc: double)\l+ updateSpeed(deltaT : double)\l+ draw()\l}"
     ]
     
-    ObstacleSide [
-        label = "{\<\<enumeration\>\>\nObstacleSide| Bottom\l Top\l}"
+    ObstacleTop [
+        label = "{ObstacleBottom|| + draw()\l}"
+    ]
+    ObstacleBottom [
+        label = "{ObstacleTop|| + draw()\l}"
     ]
 
     Rectangle [
-        label = "{Rectangle|+ anchorX : Real\l+ anchorY : Real\l+ width : Real\l+ height : Real\l|+ contains(x : Real, y : Real)\l}"
+        label = "{template\<typename T\>\nRectangle|+ anchor : Vector\<2, T\>\l+ size: Vector\<2, T\>\l|+ contains(Vector\<2,T\> point) : boolean\l+ intersects(Rectangle\<T\> rect2) : boolean\l}"
     ]
 
-    ItemType [
-        label = "{\<\<enumeration\>\>\nItemType| Unverwundbarkeit\l Troll\l DoppeltePunkte\l TurboMode\l}"
+    Vector [
+        label = "{template\<int D, typename T\>\nVector|- c : std::array\<T,D\>\l|+ operator[](int d) : T\l+ operator+(Vector\<D,T\> v2)\l+ operator-(Vector\<D,T\> v2)\l+ operator*(T s)\l+ area() : T\l}"
     ]
 
+    // Connections
+    GameItem -> Player
+    GameItem -> Obstacle
+    GameItem -> Item
+    Item -> ItemTypeUnverwundbar
+    Item -> ItemTypeTurboMode
+    Item -> ItemTypeTroll
+    Item -> ItemTypeDoppeltePunkte
+    Obstacle -> ObstacleBottom
+    Obstacle -> ObstacleTop
 
-    edge [
+    Vector -> Rectangle [
+        arrowhead = "diamond"
+
+        headlabel = "0..*"
+        taillabel = "1"
+    ]
+
+    Rectangle -> GameItem[
         arrowhead = "diamond"
 
         headlabel = "0..*"
         taillabel = "1"
     ] 
-    ObstacleSide -> Obstacle
 
-
-    edge [
+    Obstacle -> Environment[
         arrowhead = "diamond"
 
         headlabel = "0..*"
         taillabel = "1"
     ] 
-    ItemType -> Item
-    Rectangle -> Item
-    Rectangle -> Obstacle
-
-    edge [
+    Item -> Environment[
         arrowhead = "diamond"
 
         headlabel = "0..*"
         taillabel = "1"
     ] 
-    Obstacle -> Environment
-    Item -> Environment
 
-    edge [
+    Player -> Environment[
         arrowhead = "diamond"
 
         headlabel = "1"
         taillabel = "1"
     ] 
-    Player -> Environment
+
+    Environment -> MainWindow[
+        arrowhead = "diamond"
+
+        headlabel = "1"
+        taillabel = "1"
+    ] 
+
+    // Notes
+    Modell [
+        shape = "note"
+        label = "Modell"
+    ]
+    View [
+        shape = "note"
+        label = "View"
+    ]
+    Controller [
+        shape = "note"
+        label = "Controller"
+    ]
+
+    View -> MainWindow [
+        arrowhead = "vee"
+    ]
+
+    Controller -> Environment [
+        arrowhead = "vee"
+    ]
+
+    Modell -> GameItem [
+        arrowhead = "vee"
+    ]
 }    

@@ -13,4 +13,68 @@ digraph G {
         fontsize = 8
     ]
 
+    MainThread [
+        label = "{MainThread|- server : WebSocketServer\l|}"
+    ]
+
+    WorkerThread [
+        label = "{WorkerThread|- connection: Serialization\l|}"
+    ]
+
+    WebSocketServer [
+        label = "{WebSocketServer||}"
+    ]
+
+    WebSocket [
+        label = "{WebSocket||}"
+    ]
+
+    Serialization [
+       label = "{Serialization|- socket : WebSocket\l|}" 
+    ]
+
+    LibWebSockets [
+        label = "{\<\<external\>\>\nlibwebsockets}"
+    ]
+
+    json [
+        label = "{\<\<external\>\>\nnlohmann::json}"
+    ]
+    
+    WorkerThread -> MainThread [
+        arrowhead = "diamond"
+
+        taillabel = "0..*"
+        headlabel = "1"
+    ]
+    WebSocketServer -> MainThread [
+        arrowhead = "diamond"
+
+        taillabel = "0..*"
+        headlabel = "1"
+    ]
+    WebSocket -> Serialization [
+        arrowhead = "diamond"
+
+        taillabel = "0..*"
+        headlabel = "1"
+    ]
+    Serialization -> WorkerThread [
+        arrowhead = "diamond"
+
+        taillabel = "0..*"
+        headlabel = "1"
+    ]
+    WebSocket -> LibWebSockets [
+        arrowhead = "onormal"
+        style = "dashed"
+    ]
+    WebSocketServer -> LibWebSockets [
+        arrowhead = "onormal"
+        style = "dashed"
+    ]
+    Serialization -> json [
+        arrowhead = "onormal"
+        style = "dashed"
+    ]
 }    

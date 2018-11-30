@@ -16,49 +16,50 @@ digraph G {
     ]
 
     // Classes
-    MainWindow [
-        label = "{MainWindow|- painter : QPainter\ltimer : QTimer\l|+ buttonPressed(event: QEvent*)\l+ timerTick()\l+ paintEvent()}" 
+    RenderThread [
+        label = "{RenderThread|- window : sf::Window\l- clock : sf::Clock\l|+ start(env : Environment&)\l}"
+    ]
+
+    Main [
+        label = "{Main|- event : sf::Event\l- env : Environment\l- renderThread : RenderThread\l|}"
     ]
 
     Environment [
-        label = "{Environment|+ obstacles : Obstacle[0..*]\l+ items : Item[0..*]\l+ player : Player\l+ points : Integer\l+ activeItem : Item[0..1]\l+ score : Integer\l+ scrollSpeed : double\l+ scrollSpeedMultiplexer : double\l|+ update()\l}"
+        label = "{Environment|+ obstacles : std::deque\<Obstacle\>\l+ items : std::deque\<Item\>\l+ player : Player\l+ points : Integer\l+ activeItem : std::optional\<Item\>\l+ score : Integer\l+ scrollSpeed : double\l+ scrollSpeedMultiplexer : double\l|+ update()\l}"
     ]
 
     GameItem [
         label = "{GameItem|- boundingRect : Rectangle<double>\l- speed : Vector\<2, double\>\l|+ getPosition() : Vector\<2, double\>\l+ getDimensions() : Vector\<2, double\>\l+ getBoundingRect() : Rectangle\<double\>\l+ draw()\l+ move(deltaT: double)\l}"
     ]
     Obstacle [
-        label = "{Obstacle|- heightScale : double\l|+ setHeightScale(s: double)\l+ getHeightScale(s: double)\l+ resetScale()\l}"
+        label = "{Obstacle|- heightScale : double\l- side : ObstacleSide\l|+ setHeightScale(s: double)\l+ getHeightScale(s: double)\l+ resetScale()\l+ getSide(): ObstacleSide\l}"
     ]       
+
+    ObstacleSide [
+        label = "{\<\<enumeration\>\>\n ObstacleSide|+ TOP\l+ BOTTOM\l}"
+    ]
 
     Item [
         label = "{Item|+ time : double\l| + apply(player : Player)\l}"
     ]
 
     ItemTypeUnverwundbar [
-        label = "{Unverwundbar||+ apply(player : Player)\l+ draw()\l}"
+        label = "{Unverwundbar||+ apply(player : Player)\l}"
     ]
     ItemTypeTroll [
-        label = "{Troll||+ apply(player : Player)\l+ draw()\l}"
+        label = "{Troll||+ apply(player : Player)\l}"
     ]
     ItemTypeDoppeltePunkte [
-        label = "{DoppeltePunkte||+ apply(player : Player)\l+ draw()\l}"
+        label = "{DoppeltePunkte||+ apply(player : Player)\l}"
     ]
     ItemTypeTurboMode [
-        label = "{TurboMode||+ apply(player : Player)\l+ draw()\l}"
+        label = "{TurboMode||+ apply(player : Player)\l}"
     ]
 
     Player [
-        label = "{Player|+ acceleration : double\l|+ addAcceleration(acc: double)\l+ updateSpeed(deltaT : double)\l+ draw()\l}"
+        label = "{Player|+ acceleration : double\l|+ addAcceleration(acc: double)\l+ updateSpeed(deltaT : double)\l}"
     ]
     
-    ObstacleTop [
-        label = "{ObstacleBottom|| + draw()\l}"
-    ]
-    ObstacleBottom [
-        label = "{ObstacleTop|| + draw()\l}"
-    ]
-
     Rectangle [
         label = "{template\<typename T\>\nRectangle|+ anchor : Vector\<2, T\>\l+ size: Vector\<2, T\>\l|+ contains(Vector\<2,T\> point) : boolean\l+ intersects(Rectangle\<T\> rect2) : boolean\l}"
     ]
@@ -75,14 +76,12 @@ digraph G {
     Item -> ItemTypeTurboMode
     Item -> ItemTypeTroll
     Item -> ItemTypeDoppeltePunkte
-    Obstacle -> ObstacleBottom
-    Obstacle -> ObstacleTop
 
     Vector -> Rectangle [
         arrowhead = "diamond"
 
         headlabel = "0..*"
-        taillabel = "1"
+        taillabel = "2"
     ]
 
     Rectangle -> GameItem[
@@ -112,12 +111,27 @@ digraph G {
         taillabel = "1"
     ] 
 
-    Environment -> MainWindow[
+    RenderThread -> Environment [
         arrowhead = "diamond"
 
         headlabel = "1"
         taillabel = "1"
     ] 
+
+    ObstacleSide -> Obstacle[
+        arrowhead = "diamond"
+
+        headlabel = "0..*"
+        taillabel = "1"
+    ] 
+
+    Environment -> Main [
+        arrowhead = "diamond"
+
+        headlabel = "1"
+        taillabel = "1"
+    ] 
+
 
     // Notes
     Modell [
@@ -133,15 +147,25 @@ digraph G {
         label = "Controller"
     ]
 
-    View -> MainWindow [
+    View -> RenderThread [
         arrowhead = "vee"
     ]
-
     Controller -> Environment [
         arrowhead = "vee"
     ]
-
+    Controller -> Main [
+        arrowhead = "vee"
+    ]
     Modell -> GameItem [
+        arrowhead = "vee"
+    ]
+    Modell -> Obstacle [
+        arrowhead = "vee"
+    ]
+    Modell -> Item [
+        arrowhead = "vee"
+    ]
+    Modell -> Player [
         arrowhead = "vee"
     ]
 }    

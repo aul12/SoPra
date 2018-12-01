@@ -18,19 +18,27 @@ digraph G {
     ]
 
     WorkerThread [
-        label = "{WorkerThread|- connection: Serialization\l|}"
+        label = "{WorkerThread|- connection: Serialization\l- state : ClientState\l|}"
+    ]
+
+    ClientState [
+        label = "{\<\<enumeration\>\>\nClientState|+ CONNECTED\l+ SCORE_RECEIVED\l+ HIGHSCORE_SENT\l}"
     ]
 
     WebSocketServer [
-        label = "{WebSocketServer||}"
+        label = "{WebSocketServer||+ getConnection(): WebSocket\l}"
     ]
 
     WebSocket [
-        label = "{WebSocket||}"
+        label = "{WebSocket|- eventHandler : std::optional\<std::function\<void(EventType, std::optional\<std::string\> msg)\>\>|+ connect(uint16_t port)\l+ registerHandler(handler: std::function\<void(EventType, std::optional\<std::string\> msg)\>)\l}"
+    ]
+
+    EventType [
+        label = "{\<\<enumeration\>\> EventType|+ CONNECTED\l+ RECEIVED\l+ DISCONNECTED\l}"
     ]
 
     Serialization [
-       label = "{Serialization|- socket : WebSocket\l|}" 
+        label = "{Serialization|- socket : WebSocket\l|}" 
     ]
 
     LibWebSockets [
@@ -50,19 +58,31 @@ digraph G {
     WebSocketServer -> MainThread [
         arrowhead = "diamond"
 
-        taillabel = "0..*"
+        taillabel = "1"
+        headlabel = "1"
+    ]
+    ClientState -> WorkerThread [
+        arrowhead = "diamond"
+
+        taillabel = "1"
         headlabel = "1"
     ]
     WebSocket -> Serialization [
         arrowhead = "diamond"
 
-        taillabel = "0..*"
+        taillabel = "1"
+        headlabel = "1"
+    ]
+    EventType -> WebSocket[
+        arrowhead = "diamond"
+
+        taillabel = "1"
         headlabel = "1"
     ]
     Serialization -> WorkerThread [
         arrowhead = "diamond"
 
-        taillabel = "0..*"
+        taillabel = "1"
         headlabel = "1"
     ]
     WebSocket -> LibWebSockets [

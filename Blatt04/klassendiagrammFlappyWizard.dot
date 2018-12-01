@@ -16,16 +16,44 @@ digraph G {
     ]
 
     // Classes
-    RenderThread [
-        label = "{RenderThread|- window : sf::Window\l- clock : sf::Clock\l|+ start(env : Environment&)\l}"
+    Main [
+        label = "{Main|screens : std::map\<ScreenType, Screen\>|}"
     ]
 
-    Main [
-        label = "{Main|- event : sf::Event\l- env : Environment\l- renderThread : RenderThread\l|}"
+    ScreenType [
+        label = "{\<\<enumeration\>\>\nScreenType|+ START\l+ HELP\l+ GAME_OVER\l+ GAME\l+ HIGHSCORE\l}"
+    ]
+
+    Screen [
+        label = "{Screen||+ run(sf::RenderWindow window) : ScreenType\l}"
+    ]
+
+    StartScreen [
+        label = "{StartScreen|- event : sf::Event\l|}"
+    ]
+
+    HelpScreen [
+        label = "{HelpScreen|- event : sf::Event\l|}"
+    ]
+
+    GameOverScreen [
+        label = "{GameOverScreen|- event : sf::Event\l|- update(score : int)\l}"
+    ]
+
+    HighscoreScreen [
+        label = "{HighscoreScreen|- event : sf::Event\l- saver : HighscoreSaver|- update(score : int)\l}"
+    ]
+
+    GameScreen [
+        label = "{GameScreen|- event : sf::Event\l- env : Environment\l- window : sf::Window\l- clock : sf::Clock\l|+ start(env : Environment&)\l}"
+    ]
+
+    HighscoreSaver [
+        label = "{HighscoreSaver|- file : std::fstream\l|+ HighscoreSaver(fname : std::string)\l+ insert(score : int, name : std::string)\l+ retrieveHighscore(numberOfEntries : int)\l}"
     ]
 
     Environment [
-        label = "{Environment|+ obstacles : std::deque\<Obstacle\>\l+ items : std::deque\<Item\>\l+ player : Player\l+ points : Integer\l+ activeItem : std::optional\<Item\>\l+ score : Integer\l+ scrollSpeed : double\l+ scrollSpeedMultiplexer : double\l|+ update()\l}"
+        label = "{Environment|+ obstacles : std::deque\<Obstacle\>\l+ items : std::deque\<Item\>\l+ player : Player\l+ points : int\l+ activeItem : std::optional\<Item\>\l+ score : int\l+ scrollSpeed : double\l+ scrollSpeedMultiplexer : double\l|+ update()\l}"
     ]
 
     GameItem [
@@ -76,32 +104,83 @@ digraph G {
     Item -> ItemTypeTurboMode
     Item -> ItemTypeTroll
     Item -> ItemTypeDoppeltePunkte
+    Screen -> StartScreen
+    Screen -> HighscoreScreen
+    Screen -> GameOverScreen
+    Screen -> GameScreen
+    Screen -> HelpScreen
 
     Vector -> Rectangle [
         arrowhead = "diamond"
 
-        headlabel = "0..*"
+        headlabel = "1"
         taillabel = "2"
     ]
 
     Rectangle -> GameItem[
         arrowhead = "diamond"
 
-        headlabel = "0..*"
+        headlabel = "1"
+        taillabel = "1"
+    ] 
+
+    HighscoreSaver -> HighscoreScreen[
+        arrowhead = "diamond"
+
+        headlabel = "1"
+        taillabel = "1"
+    ] 
+
+    HighscoreScreen -> Main[
+        arrowhead = "diamond"
+
+        headlabel = "1"
+        taillabel = "1"
+    ] 
+
+    GameScreen-> Main[
+        arrowhead = "diamond"
+
+        headlabel = "1"
+        taillabel = "1"
+    ] 
+    GameOverScreen-> Main[
+        arrowhead = "diamond"
+
+        headlabel = "1"
+        taillabel = "1"
+    ] 
+    HelpScreen-> Main[
+        arrowhead = "diamond"
+
+        headlabel = "1"
+        taillabel = "1"
+    ] 
+    StartScreen-> Main[
+        arrowhead = "diamond"
+
+        headlabel = "1"
+        taillabel = "1"
+    ] 
+
+    ScreenType -> Main[
+        arrowhead = "diamond"
+
+        headlabel = "1"
         taillabel = "1"
     ] 
 
     Obstacle -> Environment[
         arrowhead = "diamond"
 
-        headlabel = "0..*"
-        taillabel = "1"
+        headlabel = "1"
+        taillabel = "0..*"
     ] 
     Item -> Environment[
         arrowhead = "diamond"
 
-        headlabel = "0..*"
-        taillabel = "1"
+        headlabel = "1"
+        taillabel = "0..*"
     ] 
 
     Player -> Environment[
@@ -111,7 +190,7 @@ digraph G {
         taillabel = "1"
     ] 
 
-    RenderThread -> Environment [
+    GameScreen -> Environment [
         arrowhead = "diamond"
 
         headlabel = "1"
@@ -124,14 +203,6 @@ digraph G {
         headlabel = "0..*"
         taillabel = "1"
     ] 
-
-    Environment -> Main [
-        arrowhead = "diamond"
-
-        headlabel = "1"
-        taillabel = "1"
-    ] 
-
 
     // Notes
     Modell [
@@ -147,13 +218,25 @@ digraph G {
         label = "Controller"
     ]
 
-    View -> RenderThread [
+    View -> GameScreen [
+        arrowhead = "vee"
+    ]
+    View -> HelpScreen [
+        arrowhead = "vee"
+    ]
+    View -> GameOverScreen [
+        arrowhead = "vee"
+    ]
+    View -> StartScreen [
+        arrowhead = "vee"
+    ]
+    View -> HighscoreScreen[
         arrowhead = "vee"
     ]
     Controller -> Environment [
         arrowhead = "vee"
     ]
-    Controller -> Main [
+    Controller -> Main[
         arrowhead = "vee"
     ]
     Modell -> GameItem [
@@ -166,6 +249,9 @@ digraph G {
         arrowhead = "vee"
     ]
     Modell -> Player [
+        arrowhead = "vee"
+    ]
+    Modell -> HighscoreSaver [
         arrowhead = "vee"
     ]
 }    

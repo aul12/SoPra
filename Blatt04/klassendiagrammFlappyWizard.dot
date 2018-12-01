@@ -57,7 +57,7 @@ digraph G {
     ]
 
     GameItem [
-        label = "{GameItem|- boundingRect : Rectangle<double>\l- speed : Vector\<2, double\>\l|+ getPosition() : Vector\<2, double\>\l+ getDimensions() : Vector\<2, double\>\l+ getBoundingRect() : Rectangle\<double\>\l+ draw()\l+ move(deltaT: double)\l}"
+        label = "{GameItem|- boundingRect : Rectangle<double>\l- speed : Vector\<2, double\>\l|+ getPosition() : Vector\<2, double\>\l+ getDimensions() : Vector\<2, double\>\l+ getBoundingRect() : Rectangle\<double\>\l+ move(deltaT: double)\l}"
     ]
     Obstacle [
         label = "{Obstacle|- heightScale : double\l- side : ObstacleSide\l|+ setHeightScale(s: double)\l+ getHeightScale(s: double)\l+ resetScale()\l+ getSide(): ObstacleSide\l}"
@@ -68,7 +68,7 @@ digraph G {
     ]
 
     Item [
-        label = "{Item|+ time : double\l| + apply(player : Player)\l}"
+        label = "{Item|+ time : double\l| + apply(player : Player) virtual\l}"
     ]
 
     ItemTypeUnverwundbar [

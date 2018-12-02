@@ -14,11 +14,11 @@ digraph G {
     ]
 
     MainThread [
-        label = "{MainThread|- server : WebSocketServer\l|}"
+        label = "{MainThread|- server : WebSocketServer\l- highscoreManagerThread : HighscoreManagerThread\l}"
     ]
 
     WorkerThread [
-        label = "{WorkerThread|- connection: Serialization\l- state : ClientState\l|}"
+        label = "{WorkerThread|- connection: Serialization\l- state : ClientState\l- highscore : Highscore\l|+ WorkerThread(highscore : Highscore, socket : WebSocket)\l run() : std::future\<Highscore\>\l}"
     ]
 
     ClientState [
@@ -30,7 +30,7 @@ digraph G {
     ]
 
     WebSocket [
-        label = "{WebSocket|- eventHandler : std::optional\<std::function\<void(EventType, std::optional\<std::string\>)\>\>|+ connect(uint16_t port)\l+ registerHandler(handler: std::function\<void(EventType, std::optional\<std::string\>)\>)\l}"
+        label = "{WebSocket|- eventHandler : std::optional\<std::function\<void(EventType, std::optional\<std::string\>)\>\>|+ connect(uint16_t port)\l+ registerHandler(handler: std::function\<void(EventType, std::optional\<std::string\>)\>)\l+ send(std::string msg)\l}"
     ]
 
     EventType [
@@ -38,7 +38,7 @@ digraph G {
     ]
 
     Serialization [
-        label = "{Serialization|- socket : WebSocket\l|}" 
+        label = "{Serialization|- socket : WebSocket\l- lock: std::mutex\l|- eventHandler(type : EventType, std::optional\<std::string\> msg)\l+ receiveHighscore() : int\l+ isConnected() : bool\l+ sendHighscore(highscore : Highscore)\l}" 
     ]
 
     LibWebSockets [
@@ -47,6 +47,14 @@ digraph G {
 
     json [
         label = "{\<\<external\>\>\nnlohmann::json}"
+    ]
+
+    Highscore [
+        label = "{Highscore|- scoreList : std::deque\<std::tuple\<std::string, int\>\>|+ toJson : nlohmann::json\l+ insert(std::string name, int score) : int\l}"
+    ]
+
+    HighscoreManagerThread [
+        label = "{HighscoreManagerThread|- file : std::fstream\l- highscore : currentHighscore\l- lock : std::mutex\l|+ mergeAndSaveUpdatedHighscore(newHighscore : Highscore)\l+ getCurrentHighscore() : Highscore\l}"
     ]
     
     WorkerThread -> MainThread [
@@ -80,6 +88,24 @@ digraph G {
         headlabel = "1"
     ]
     Serialization -> WorkerThread [
+        arrowhead = "diamond"
+
+        taillabel = "1"
+        headlabel = "1"
+    ]
+    Highscore -> WorkerThread [
+        arrowhead = "diamond"
+
+        taillabel = "1"
+        headlabel = "1"
+    ]
+    Highscore -> HighscoreManagerThread [
+        arrowhead = "diamond"
+
+        taillabel = "1"
+        headlabel = "1"
+    ]
+    MainThread -> HighscoreManagerThread[
         arrowhead = "diamond"
 
         taillabel = "1"

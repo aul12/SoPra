@@ -34,7 +34,7 @@ digraph G {
     ]
 
     EventType [
-        label = "{\<\<enumeration\>\> EventType|+ CONNECTED\l+ RECEIVED\l+ DISCONNECTED\l}"
+        label = "{\<\<enumeration\>\>\nEventType|+ CONNECTED\l+ RECEIVED\l+ DISCONNECTED\l}"
     ]
 
     Serialization [

@@ -18,7 +18,7 @@ digraph G {
     ]
 
     WorkerThread [
-        label = "{WorkerThread|- connection: Serialization\l- state : ClientState\l- highscore : Highscore\l|+ WorkerThread(highscore : Highscore, socket : WebSocket)\l run() : std::future\<Highscore\>\l}"
+        label = "{WorkerThread|- connection: Serialization\l- state : ClientState\l- highscore : Highscore\l|+ WorkerThread(highscore : Highscore, socket : WebSocket)\l+ run() : Highscore\l}"
     ]
 
     ClientState [
@@ -120,6 +120,10 @@ digraph G {
         style = "dashed"
     ]
     Serialization -> json [
+        arrowhead = "onormal"
+        style = "dashed"
+    ]
+    Highscore -> json [
         arrowhead = "onormal"
         style = "dashed"
     ]

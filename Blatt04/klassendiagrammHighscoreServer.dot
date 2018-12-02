@@ -30,7 +30,7 @@ digraph G {
     ]
 
     WebSocket [
-        label = "{WebSocket|- eventHandler : std::optional\<std::function\<void(EventType, std::optional\<std::string\> msg)\>\>|+ connect(uint16_t port)\l+ registerHandler(handler: std::function\<void(EventType, std::optional\<std::string\> msg)\>)\l}"
+        label = "{WebSocket|- eventHandler : std::optional\<std::function\<void(EventType, std::optional\<std::string\>)\>\>|+ connect(uint16_t port)\l+ registerHandler(handler: std::function\<void(EventType, std::optional\<std::string\>)\>)\l}"
     ]
 
     EventType [

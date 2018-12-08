@@ -13,6 +13,7 @@ digraph G {
         fontname = "Bitstream Vera Sans"
         fontsize = 8
         arrowhead = "onormal"
+        labeldistance = 1.5
     ]
 
     // Classes

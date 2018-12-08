@@ -11,6 +11,7 @@ digraph G {
     edge [
         fontname = "Bitstream Vera Sans"
         fontsize = 8
+        labeldistance = 1.5
     ]
 
     MainThread [

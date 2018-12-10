@@ -7,6 +7,7 @@ before_install:
     - sudo make
     - sudo cp *.a /usr/lib
     - sudo ldconfig 
+    - cd $TRAVIS_BUILD_DIR
 
 script:
     - mkdir output

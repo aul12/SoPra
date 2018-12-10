@@ -4,52 +4,79 @@
 #include <array>
 #include <cassert>
 
-template<std::size_t D, typename T>
+template<int D, typename T>
 class Vector {
     public:
+        Vector() = default;
+
         Vector(Vector &v) {
             for (auto c = 0; c < D; c++) {
                 this->data[c] = v[c];
             }
         }
 
-        Vector(std::initializer_list<T> l) : data(l) {};
+        Vector(std::initializer_list<T> l) {
+            assert(l.size() == D);
+            int i = 0;
+            for (const auto & it : l) {
+                this->data[i++] = it;
+            }
+        };
 
-        auto operator[](std::size_t s) -> T {
-            assert(s < D);
+        auto get(int s) const -> T {
+            assert(s >= 0 && s < D);
             return this->data[s];
         }
 
-        auto operator+(Vector<D,T> lhs, Vector<D,T> rhs) -> Vector<D,T> {
+        void set(int s, T v) {
+            assert(s >= 0 && s < D);
+            this->data[s] = v;
+        }
+
+        auto operator[](int s) -> T& {
+            assert(s >= 0 && s < D);
+            return this->data[s];
+        }
+
+        auto operator+(Vector<D,T> rhs) const -> Vector<D,T> {
             Vector<D,T> result;
             for (auto c = 0; c < D; c++) {
-                result[c] = lhs[c] + rhs[c];
+                result.set(c, this->data[c] + rhs.get(c));
             }
             return result;
         }
 
-        auto operator-(Vector<D,T> lhs, Vector<D,T> rhs) -> Vector<D,T> {
-            return lhs + (-1 * rhs);
+        auto operator-(Vector<D,T> rhs) -> Vector<D,T> {
+            return *this + (-1 * rhs);
         }
 
-        auto operator*(Vector<D,T> lhs, T rhs) -> Vector<D,T> {
+        auto operator*(T rhs) -> Vector<D,T> {
             Vector<D,T> result;
             for (auto c = 0; c < D; c++) {
-                result[c] = lhs[c] * rhs;
+                result.set(c, this->data[c] * rhs);
             }
             return result;
         }
 
-        auto operator*(Vector<D,T> lhs, Vector<D,T> rhs) -> T {
+        auto operator*(Vector<D,T> rhs) const -> T {
             T result{0};
             for (auto c = 0; c < D; c++) {
-                result += rhs[c] * lhs[c];
+                result += rhs.get(c) * this->data[c];
             }
             return result;
+        }
+
+        auto operator==(const Vector<D,T> &lhs) const -> bool {
+            for(auto c = 0; c < D; c++) {
+                if(lhs.get(c) != this->data[c]) {
+                    return false;
+                }
+            }
+            return true;
         }
 
     private:
-        std::array<T, D> data
-}
+        std::array<T, D> data;
+};
 
 #endif  

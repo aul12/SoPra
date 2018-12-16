@@ -1,7 +1,21 @@
 sudo: required
 dist: trusty
+matrix:
+  include:
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+
+before_install:
 before_install:
     - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended latexmk texlive-lang-german texlive-doc-de pgf texlive-font-utils zip inkscape texlive-math-extra graphviz make build-essential libsfml-dev libgtest-dev cmake
+    - eval "${MATRIX_EVAL}"
     - cd /usr/src/gtest
     - sudo cmake CMakeLists.txt
     - sudo make

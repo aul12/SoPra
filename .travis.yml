@@ -1,19 +1,9 @@
 sudo: required
 dist: trusty
-matrix:
-  include:
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-7
-      env:
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+language: cpp
+compiler: gcc
 
 before_install:
-    - eval "${MATRIX_EVAL}"
     - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended latexmk texlive-lang-german texlive-doc-de pgf texlive-font-utils zip inkscape texlive-math-extra graphviz make libsfml-dev libgtest-dev cmake
     - cd /usr/src/gtest
     - sudo cmake CMakeLists.txt
@@ -21,6 +11,15 @@ before_install:
     - sudo cp *.a /usr/lib
     - sudo ldconfig 
     - cd $TRAVIS_BUILD_DIR
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-7
+      - g++-7
+      - cmake
 
 script:
     - mkdir output
@@ -40,6 +39,8 @@ script:
     - make all
     - mv main.pdf ../output/Blatt04.pdf
     - cd ..
+    - sudo ln -s /usr/bin/gcc-7 /usr/local/bin/gcc
+    - sudo ln -s /usr/bin/g++-7 /usr/local/bin/g++
     - cd Blatt05
     - mkdir -p build
     - cd build

@@ -47,7 +47,7 @@ class Vector {
         }
 
         auto operator-(Vector<D,T> rhs) -> Vector<D,T> {
-            return *this + (-1 * rhs);
+            return *this + (rhs * (-1));
         }
 
         auto operator*(T rhs) -> Vector<D,T> {

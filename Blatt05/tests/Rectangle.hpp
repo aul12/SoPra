@@ -61,4 +61,16 @@ TEST(Rectangle, equal) {
     EXPECT_FALSE(r3 == r2);
 }
 
+TEST(Rectangle, getSize) {
+    Vector<2,int> s1{{10,10}};
+    Vector<2,int> s2{{1,10}};
+    Vector<2,int> s3{{10,100}};
+    Vector<2,int> s4{{19,17}};
+
+    EXPECT_EQ((Rectangle<int>{{0,0}, s1}.getSize()), s1);
+    EXPECT_EQ((Rectangle<int>{{0,0}, s2}.getSize()), s2);
+    EXPECT_EQ((Rectangle<int>{{0,0}, s3}.getSize()), s3);
+    EXPECT_EQ((Rectangle<int>{{0,0}, s4}.getSize()), s4);
+}
+
 #endif //TEST_RECTANGLE_HPP

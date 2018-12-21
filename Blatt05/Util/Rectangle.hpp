@@ -84,6 +84,14 @@ public:
     }
 
     /**
+     * Get the size of the rect
+     * @return a 2 dimensional vector containing the size for each dimension.
+     */
+    auto getSize() const -> Vector<2,T> {
+        return size;
+    }
+
+    /**
      * Shift the rectangle by a given offset
      * @param v the offset
      * @return the shifted rectangle

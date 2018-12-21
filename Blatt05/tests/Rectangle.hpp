@@ -25,4 +25,40 @@ TEST(Rectangle, constructor) {
     EXPECT_NO_FATAL_FAILURE((Rectangle<int>{{0,0},{0,100}}));
 }
 
+TEST(Rectangle, intersects) {
+    Rectangle<int> r1{{0,0}, {3,3}};
+    Rectangle<int> r2{{1,1}, {1,1}};
+    Rectangle<int> r3{{-1,1}, {5,4}};
+    Rectangle<int> r4{{-10,-10,},{1,1}};
+    EXPECT_TRUE(r1.intersects(r2));
+    EXPECT_TRUE(r2.intersects(r1));
+    EXPECT_TRUE(r3.intersects(r1));
+    EXPECT_TRUE(r1.intersects(r3));
+    EXPECT_TRUE(r2.intersects(r3));
+    EXPECT_TRUE(r3.intersects(r2));
+    EXPECT_FALSE(r1.intersects(r4));
+    EXPECT_FALSE(r4.intersects(r1));
+    EXPECT_FALSE(r2.intersects(r4));
+    EXPECT_FALSE(r4.intersects(r2));
+    EXPECT_FALSE(r3.intersects(r4));
+    EXPECT_FALSE(r4.intersects(r3));
+}
+
+TEST(Rectangle, shift) {
+    EXPECT_EQ((Rectangle<int>{{0,0},{1,1}} + Vector<2,int>{{2,3}}), (Rectangle<int>{{2,3},{1,1}}));
+    EXPECT_EQ((Rectangle<int>{{4,17},{1,4}} + Vector<2,int>{{-4,-34}}), (Rectangle<int>{{0,-17},{1,4}}));
+}
+
+TEST(Rectangle, equal) {
+    Rectangle<int> r1{{0,0},{1,1}};
+    Rectangle<int> r2{{0,0},{1,1}};
+    Rectangle<int> r3{{0,0},{1,2}};
+    EXPECT_TRUE(r1 == r2);
+    EXPECT_TRUE(r2 == r1);
+    EXPECT_FALSE(r1 == r3);
+    EXPECT_FALSE(r3 == r1);
+    EXPECT_FALSE(r2 == r3);
+    EXPECT_FALSE(r3 == r2);
+}
+
 #endif //TEST_RECTANGLE_HPP

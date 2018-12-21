@@ -102,7 +102,7 @@ class Vector {
          * @param rhs the vector which should get substracted
          * @return the difference of both vectors.
          */
-        auto operator-(Vector<D,T> rhs) -> Vector<D,T> {
+        auto operator-(Vector<D,T> rhs) const -> Vector<D,T> {
             return *this + (rhs * (-1));
         }
 
@@ -111,7 +111,7 @@ class Vector {
          * @param rhs the value with which to scale the vector
          * @return the scaled vector
          */
-        auto operator*(T rhs) -> Vector<D,T> {
+        auto operator*(T rhs) const -> Vector<D,T> {
             Vector<D,T> result;
             for (auto c = 0; c < D; c++) {
                 result.set(c, this->data[c] * rhs);
@@ -133,7 +133,8 @@ class Vector {
         }
 
         /**
-         * Compare two vectors element-wise
+         * Compare two vectors element-wise. The comparison is done on basis of a strict equal of each element,
+         * be careful regarding floating point numbers.
          * @param lhs the second vector
          * @return true if all elements are equal, else false
          */

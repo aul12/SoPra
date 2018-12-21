@@ -66,7 +66,7 @@ public:
      * @return a vector of type T with dimension 2 pointing to the bottom left corner
      */
     auto bottomLeft() const -> Vector<2,T> {
-        return {anchor.get(0), anchor.get(1), size.get(1)};
+        return {anchor.get(0), anchor.get(1) + size.get(1)};
     }
 
     /**
@@ -84,6 +84,15 @@ public:
      */
     auto operator+(Vector<2,T> v) -> Rectangle<T> {
         return Rectangle<T>{anchor+v, size};
+    }
+
+    /**
+     * Compare two rectangles, they are equal if both size and anchor are equal
+     * @param rectangle the second rectangle
+     * @return true if both rectangles are equal
+     */
+    auto operator==(Rectangle<T> rectangle) const -> bool {
+        return this->anchor == rectangle.anchor && this->size == rectangle.size;
     }
 private:
     Vector<2,T> anchor, size;

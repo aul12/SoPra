@@ -3,6 +3,8 @@
 
 #include "../Util/Rectangle.hpp"
 
+using namespace util;
+
 TEST(Rectangle, contains) {
     EXPECT_TRUE((Rectangle<int>{{0,0},{1,1}}.contains(Vector<2,int>{0,0})));
     EXPECT_TRUE((Rectangle<int>{{1,1},{2,2}}.contains(Vector<2,int>{1,2})));

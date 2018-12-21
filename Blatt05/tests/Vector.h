@@ -3,6 +3,8 @@
 
 #include "../Util/Vector.hpp"
 
+using namespace util;
+
 TEST(Vector, AddVector) {
     EXPECT_EQ((Vector<1,int>{1} + Vector<1,int>{2}), (Vector<1,int>{3}));
     EXPECT_EQ((Vector<1,int>{-1} + Vector<1,int>{2}), (Vector<1,int>{1}));

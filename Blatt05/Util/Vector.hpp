@@ -4,13 +4,14 @@
 #include <array>
 #include <cassert>
 
-/**
- * Implementation of a generic vector.
- * @tparam D Dimension (Elements) of the vector
- * @tparam T Type of the Vector, for this type addition and multiplication should be defined.
- */
-template<int D, typename T>
-class Vector {
+namespace util {
+    /**
+     * Implementation of a generic vector.
+     * @tparam D Dimension (Elements) of the vector
+     * @tparam T Type of the Vector, for this type addition and multiplication should be defined.
+     */
+    template<int D, typename T>
+    class Vector {
     public:
 
         /**
@@ -22,7 +23,7 @@ class Vector {
          * Copy constructor, creates a deep copy
          * @param v the vector which should be copied
          */
-        Vector(const Vector<D,T> &v) {
+        Vector(const Vector<D, T> &v) {
             for (auto c = 0; c < D; c++) {
                 this->data[c] = v.get(c);
             }
@@ -33,8 +34,8 @@ class Vector {
          * @tparam T2 type of the argument vector
          * @param vector the vector of type T2 which should get converted
          */
-        template <typename T2>
-        explicit Vector(const Vector<D,T2> v) {
+        template<typename T2>
+        explicit Vector(const Vector<D, T2> v) {
             static_assert(std::is_convertible<T2, T>::value);
             for (auto c = 0; c < D; c++) {
                 this->data[c] = static_cast<T>(v.get(c));
@@ -48,7 +49,7 @@ class Vector {
         Vector(std::initializer_list<T> l) {
             assert(l.size() == D);
             int i = 0;
-            for (const auto & it : l) {
+            for (const auto &it : l) {
                 this->data[i++] = it;
             }
         };
@@ -79,7 +80,7 @@ class Vector {
          * @param s the index of the element, this value needs to be larger or equal to 0 but smaller than D
          * @return a reference to the s-th element
          */
-        auto operator[](int s) -> T& {
+        auto operator[](int s) -> T & {
             assert(s >= 0 && s < D);
             return this->data[s];
         }
@@ -89,8 +90,8 @@ class Vector {
          * @param rhs the vector which should get added
          * @return the sum of both vectors.
          */
-        auto operator+(Vector<D,T> rhs) const -> Vector<D,T> {
-            Vector<D,T> result;
+        auto operator+(Vector<D, T> rhs) const -> Vector<D, T> {
+            Vector<D, T> result;
             for (auto c = 0; c < D; c++) {
                 result.set(c, this->data[c] + rhs.get(c));
             }
@@ -102,7 +103,7 @@ class Vector {
          * @param rhs the vector which should get substracted
          * @return the difference of both vectors.
          */
-        auto operator-(Vector<D,T> rhs) const -> Vector<D,T> {
+        auto operator-(Vector<D, T> rhs) const -> Vector<D, T> {
             return *this + (rhs * (-1));
         }
 
@@ -111,8 +112,8 @@ class Vector {
          * @param rhs the value with which to scale the vector
          * @return the scaled vector
          */
-        auto operator*(T rhs) const -> Vector<D,T> {
-            Vector<D,T> result;
+        auto operator*(T rhs) const -> Vector<D, T> {
+            Vector<D, T> result;
             for (auto c = 0; c < D; c++) {
                 result.set(c, this->data[c] * rhs);
             }
@@ -124,7 +125,7 @@ class Vector {
          * @param rhs the second vector
          * @return a scalar value T
          */
-        auto operator*(Vector<D,T> rhs) const -> T {
+        auto operator*(Vector<D, T> rhs) const -> T {
             T result{0};
             for (auto c = 0; c < D; c++) {
                 result += rhs.get(c) * this->data[c];
@@ -138,9 +139,9 @@ class Vector {
          * @param lhs the second vector
          * @return true if all elements are equal, else false
          */
-        auto operator==(const Vector<D,T> &lhs) const -> bool {
-            for(auto c = 0; c < D; c++) {
-                if(lhs.get(c) != this->data[c]) {
+        auto operator==(const Vector<D, T> &lhs) const -> bool {
+            for (auto c = 0; c < D; c++) {
+                if (lhs.get(c) != this->data[c]) {
                     return false;
                 }
             }
@@ -149,6 +150,7 @@ class Vector {
 
     private:
         std::array<T, D> data;
-};
+    };
+}
 
 #endif  

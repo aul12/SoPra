@@ -8,13 +8,19 @@
 #include "Vector.hpp"
 
 /**
- * Implementation of a generic non rotated rectangle in 2d-Space.
+ * Implementation of a generic non rotated rectangle in 2d cartesian coordinates with y pointing downwards.
  * @tparam T type of each dimension of the supporting vector, this type needs to support addition, multiplication and needs to be orderable
  */
 template <typename T>
 class Rectangle {
 public:
     Rectangle() : anchor(0,0), size(0,0){};
+
+    /**
+     * Create an vector with a given anchor and size.
+     * @param anchor the position of the top left corner of the rectangle
+     * @param size the size of the rectangle, both values need to be non-negative
+     */
     Rectangle(Vector<2,T> anchor, Vector<2,T> size) : anchor(anchor), size(size) {
         assert(size[0] >= 0 && size[1] >= 0);
     };

@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 
-#include "Util/Vector.h"
+#include "Util/Vector.hpp"
 #include "Util/Rectangle.hpp"
 
 int main() {

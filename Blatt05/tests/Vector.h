@@ -1,6 +1,9 @@
-#include "../Util/Vector.h"
+#ifndef TEST_VECTOR_HPP
+#define TEST_VECTOR_HPP
 
-TEST(VectorTest, AddVector) {
+#include "../Util/Vector.hpp"
+
+TEST(Vector, AddVector) {
     EXPECT_EQ((Vector<1,int>{1} + Vector<1,int>{2}), (Vector<1,int>{3}));
     EXPECT_EQ((Vector<1,int>{-1} + Vector<1,int>{2}), (Vector<1,int>{1}));
     EXPECT_EQ((Vector<1,int>{17} + Vector<1,int>{38}), (Vector<1,int>{55}));
@@ -11,7 +14,7 @@ TEST(VectorTest, AddVector) {
     EXPECT_EQ((Vector<2,int>{30, -17} + Vector<2,int>{-18, 34}), (Vector<2,int>{12,17}));
 }
 
-TEST(VectorTest, SubVector) {
+TEST(Vector, SubVector) {
     EXPECT_EQ((Vector<1,int>{1} - Vector<1,int>{2}), (Vector<1,int>{-1}));
     EXPECT_EQ((Vector<1,int>{-1} - Vector<1,int>{2}), (Vector<1,int>{-3}));
     EXPECT_EQ((Vector<1,int>{17} - Vector<1,int>{38}), (Vector<1,int>{-21}));
@@ -22,7 +25,7 @@ TEST(VectorTest, SubVector) {
     EXPECT_EQ((Vector<2,int>{30, -17} - Vector<2,int>{-18, 34}), (Vector<2,int>{48,-17-34}));
 }
 
-TEST(VectorTest, DotProduct) {
+TEST(Vector, DotProduct) {
     EXPECT_EQ((Vector<1,int>{1} * Vector<1,int>{2}), 2);
     EXPECT_EQ((Vector<1,int>{-1} * Vector<1,int>{2}), -2);
     EXPECT_EQ((Vector<1,int>{17} * Vector<1,int>{38}), 17*38);
@@ -33,7 +36,7 @@ TEST(VectorTest, DotProduct) {
     EXPECT_EQ((Vector<2,int>{30, -17} * Vector<2,int>{-18, 34}), -30*18-17*34);
 }
 
-TEST(VectorTest, Scale) {
+TEST(Vector, Scale) {
     EXPECT_EQ((Vector<1,int>{1} * 1), (Vector<1,int>{1}));
     EXPECT_EQ((Vector<1,int>{-1} * 2), (Vector<1,int>{-2}));
     EXPECT_EQ((Vector<1,int>{17} * 3), (Vector<1,int>{3*17}));
@@ -44,7 +47,7 @@ TEST(VectorTest, Scale) {
     EXPECT_EQ((Vector<2,int>{30, -17} * -1), (Vector<2,int>{-30, 17}));
 }
 
-TEST(VectorTest, EqVector) {
+TEST(Vector, EqVector) {
     EXPECT_EQ((Vector<1,int>{1} == Vector<1,int>{2}), false);
     EXPECT_EQ((Vector<1,int>{1} == Vector<1,int>{1}), true);
     EXPECT_EQ((Vector<1,int>{-1} == Vector<1,int>{2}), false);
@@ -57,13 +60,13 @@ TEST(VectorTest, EqVector) {
     EXPECT_EQ((Vector<2,int>{30, -17} == Vector<2,int>{-18, 34}), false);
 }
 
-TEST(VectorTest, ConvertConstructor) {
+TEST(Vector, ConvertConstructor) {
     Vector<2, int> testi{1,2};
     Vector<2, double> testd{1,2};
     EXPECT_EQ((Vector<2, double>{testi}), testd);
 }
 
-TEST(VectorTest, GetSetBracketOp) {
+TEST(Vector, GetSetBracketOp) {
     Vector<10, int> test{};
     for(int c=0; c<10; c++) {
         test.set(c, c*c);
@@ -72,3 +75,4 @@ TEST(VectorTest, GetSetBracketOp) {
         EXPECT_EQ(test[c], c*c*c*17);
     }
 }
+#endif

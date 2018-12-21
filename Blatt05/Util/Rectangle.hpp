@@ -2,19 +2,25 @@
 // Created by paul on 19.12.18.
 //
 
-#ifndef TEST_RECTANGLE_HPP
-#define TEST_RECTANGLE_HPP
+#ifndef RECTANGLE_HPP
+#define RECTANGLE_HPP
 
-#include "Vector.h"
+#include "Vector.hpp"
 
+/**
+ * Implementation of a generic non rotated rectangle in 2d-Space.
+ * @tparam T type of each dimension of the supporting vector, this type needs to support addition, multiplication and needs to be orderable
+ */
 template <typename T>
 class Rectangle {
 public:
     Rectangle() : anchor(0,0), size(0,0){};
-    Rectangle(Vector<2,T> anchor, Vector<2,T> size) : anchor(anchor), size(size){};
+    Rectangle(Vector<2,T> anchor, Vector<2,T> size) : anchor(anchor), size(size) {
+        assert(size[0] >= 0 && size[1] >= 0);
+    };
 
     /**
-     * Returns wheter a given point is in the rectangle (including the edges)
+     * Returns if a given point is in the rectangle (including the edges)
      * @param pt the point to check
      * @return true if the point is in the rectangle
      */
@@ -23,6 +29,11 @@ public:
                pt.get(1) >= anchor.get(1) && pt.get(1) <= anchor.get(1) + size.get(1);
     }
 
+    /**
+     * Checks if two rectangles have a at least one point in common
+     * @param rectangle the second rectangle
+     * @return true if they share a point
+     */
     auto intersects(Rectangle<T> rectangle) const -> bool {
         return this->contains(rectangle.topLeft()) ||
                this->contains(rectangle.topRight()) ||
@@ -34,22 +45,43 @@ public:
                rectangle.contains(this->bottomRight());
     }
 
+    /**
+     * Get the top left corner of the rect
+     * @return a vector of type T with dimension 2 pointing to the top left corner
+     */
     auto topLeft() const -> Vector<2,T> {
         return anchor;
     }
 
+    /**
+     * Get the top right corner of the rect
+     * @return a vector of type T with dimension 2 pointing to the top right corner
+     */
     auto topRight() const -> Vector<2,T> {
         return {anchor.get(0) + size.get(0), anchor.get(1)};
     }
 
+    /**
+     * Get the bottom left corner of the rect
+     * @return a vector of type T with dimension 2 pointing to the bottom left corner
+     */
     auto bottomLeft() const -> Vector<2,T> {
         return {anchor.get(0), anchor.get(1), size.get(1)};
     }
 
+    /**
+     * Get the bottom right corner of the rect
+     * @return a vector of type T with dimension 2 pointing to the bottom right corner
+     */
     auto bottomRight() const -> Vector<2,T> {
         return anchor + size;
     }
 
+    /**
+     * Shift the rectangle by a given offset
+     * @param v the offset
+     * @return the shifted rectangle
+     */
     auto operator+(Vector<2,T> v) -> Rectangle<T> {
         return Rectangle<T>{anchor+v, size};
     }

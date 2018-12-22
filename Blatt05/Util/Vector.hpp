@@ -3,6 +3,7 @@
 
 #include <array>
 #include <cassert>
+#include <valarray>
 
 namespace util {
     /**
@@ -146,6 +147,14 @@ namespace util {
                 }
             }
             return true;
+        }
+
+        /**
+         * Calculate the L2 (length) of the vector
+         * @return the length of the vector, the type is deduced by the compiler depending on T
+         */
+        auto norm() const {
+            return std::sqrt(this->operator*(*this));
         }
 
     private:

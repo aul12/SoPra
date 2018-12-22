@@ -41,22 +41,8 @@ namespace model {
          */
         auto getBoundingRect() const -> Rect;
 
-        /**
-         * Move the item by using the internal speed
-         * @param deltaT the difference between now and the last call to move (in seconds)
-         */
-        void move(double deltaT = 1.0);
-
-        /**
-         * Accelerate the item with a given acceleration
-         * @param a the acceleration
-         * @param deltaT length of the application of the acceleration
-         */
-        void accelerate(Vec a, double deltaT = 1.0);
-
-    private:
+    protected:
         Rect rect;
-        Vec speed;
     };
 }
 

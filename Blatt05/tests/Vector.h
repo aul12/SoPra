@@ -77,4 +77,13 @@ TEST(Vector, GetSetBracketOp) {
         EXPECT_EQ(test[c], c*c*c*17);
     }
 }
+
+TEST(Vector, Norm) {
+    EXPECT_DOUBLE_EQ((Vector<1, int>{1}.norm()), (1));
+    EXPECT_DOUBLE_EQ((Vector<1, int>{17}.norm()), (17));
+    EXPECT_DOUBLE_EQ((Vector<2, int>{3,4}.norm()), (5));
+    EXPECT_DOUBLE_EQ((Vector<2, int>{6,8}.norm()), (10));
+    EXPECT_DOUBLE_EQ((Vector<3, int>{1,2,3}.norm()), (std::sqrt(14)));
+}
+
 #endif

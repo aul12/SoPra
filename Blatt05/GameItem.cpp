@@ -18,12 +18,4 @@ namespace model {
     auto GameItem::getBoundingRect() const -> Rect {
         return rect;
     }
-
-    void GameItem::move(double deltaT) {
-        this->rect = this->rect + this->speed * deltaT;
-    }
-
-    void GameItem::accelerate(Vec a, double deltaT) {
-        this->speed = this->speed + a * deltaT;
-    }
 }

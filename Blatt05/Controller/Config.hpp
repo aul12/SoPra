@@ -2,8 +2,7 @@
  * @file Config.hpp
  * @author paul
  * @date 22.12.18
- * @brief Config @TODO
- *
+ * @brief Declaration of Config class
  * @TODO
  */
 
@@ -13,8 +12,15 @@
 #include <fstream>
 
 namespace controller {
+    /**
+     * Implements an interface for deserialization of the config.json file
+     */
     class Config {
     public:
+        /**
+         * Read the config from a json file
+         * @param fname the path to the json file
+         */
         explicit Config(std::string fname);
 
         struct {
@@ -28,9 +34,9 @@ namespace controller {
         } player;
         struct {
             double width, height;
-        };
+        } environment;
         double gravity;
     };
 }
 
-#endif //TEST_CONFIG_HPP
+#endif

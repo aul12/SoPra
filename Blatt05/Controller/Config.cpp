@@ -23,6 +23,22 @@ namespace controller {
         try {
             json json;
             ifstream >> json;
+
+            this->gravity = json[gravity];
+            this->environment = {
+                .height = json["environment"]["height"],
+                .width = json["environment"]["width"]
+            };
+            this->player = {
+                .width = json["player"]["width"],
+                .height = json["player"]["height"],
+                .mass = json["player"]["mass"],
+                .accelerationUp = json["player"]["accelerationUp"],
+                .initial = {
+                    .x = json["player"]["initial"]["x"],
+                    .y = json["player"]["initial"]["y"],
+                }
+            };
         } catch (json::exception e) {
             throw std::runtime_error(e.what());
         }

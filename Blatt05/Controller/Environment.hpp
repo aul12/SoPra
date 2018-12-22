@@ -16,16 +16,23 @@
 #include "Config.hpp"
 
 namespace controller {
+    enum class UpdateResult {
+        UPDATED, GAME_OVER
+    };
+
+    /**
+     * The environment class implements an container for all model items and is responsible for the physics
+     */
     class Environment {
     friend class model::Item;
     public:
         Environment(std::string configFile);
-        void update(double deltaT);
+        auto update(double deltaT) -> UpdateResult;
         void playerUp(double t);
     private:
         std::deque<model::Obstacle> obstacles;
         std::deque<model::Item> items;
-        std::optional<model::Item> activeItem;
+        //std::optional<model::Item> activeItem;
         model::Player player;
         int points;
         double timeMultiplexer;

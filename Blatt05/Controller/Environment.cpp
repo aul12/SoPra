@@ -2,9 +2,7 @@
  * @file Environment.cpp
  * @author paul
  * @date 22.12.18
- * @brief Environment @TODO
- *
- * @TODO
+ * @brief Implementation of the Environment
  */
 
 #include "Environment.hpp"
@@ -16,8 +14,16 @@ namespace controller {
     Environment::Environment(std::string fname) : config{fname} {
     }
 
-    void Environment::update(double deltaT) {
+    auto Environment::update(double deltaT) -> UpdateResult {
         player.accelerate({0,config.gravity/config.player.mass}, deltaT);
+
+        for (const auto &obstacle : obstacles) {
+            if(player.getBoundingRect().intersects(obstacle.getBoundingRect())) {
+                return UpdateResult::GAME_OVER;
+            }
+        }
+
+        return UpdateResult::UPDATED;
     }
 
     void Environment::playerUp(double t) {

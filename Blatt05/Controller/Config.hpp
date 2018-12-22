@@ -28,13 +28,21 @@ namespace controller {
             double mass;
             double width;
             double height;
-            struct {
-                double x, y;
-            } initial;
+            double xPosInFrame;
+            double accelerationSide;
         } player;
         struct {
             double width, height;
         } environment;
+        struct {
+            double deltaX;
+            double minHeight, maxHeight;
+            double width;
+        } obstacles;
+        struct {
+            double width, height;
+            double minDist;
+        } items;
         double gravity;
     };
 }

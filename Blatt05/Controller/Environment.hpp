@@ -10,6 +10,8 @@
 
 #include <deque>
 #include <optional>
+#include <random>
+#include <memory>
 #include "../Model/Obstacle.hpp"
 #include "../Model/Item.hpp"
 #include "../Model/Player.hpp"
@@ -30,13 +32,19 @@ namespace controller {
         auto update(double deltaT) -> UpdateResult;
         void playerUp(double t);
     private:
-        std::deque<model::Obstacle> obstacles;
-        std::deque<model::Item> items;
-        //std::optional<model::Item> activeItem;
+        template <typename T>
+        auto removeOutOfScopeAndGetLastX(std::deque<std::shared_ptr<T>> &gameItems) -> double;
+        void addObstacles();
+        void addItems();
+
+        std::deque<std::shared_ptr<model::Obstacle>> obstacles;
+        std::deque<std::shared_ptr<model::Item>> items;
+        std::optional<std::shared_ptr<model::Item>> activeItem;
         model::Player player;
         int points;
         double timeMultiplexer;
         const Config config;
+        std::mt19937 randomNumberGenerator;
     };
 }
 

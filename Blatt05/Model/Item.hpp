@@ -8,8 +8,10 @@
 #ifndef ITEM_HPP
 #define ITEM_HPP
 
-namespace model {
+#include "GameItem.hpp"
+#include "../Controller/Environment.hpp"
 
+namespace model {
     /**
      * Implements an generic item
      */
@@ -19,13 +21,13 @@ namespace model {
          * Virtual function to apply the modification to the environment
          * @param environment the environment to modify
          */
-        virtual void apply() const = 0; //@TODO needs the Environment as an argument (&), not yet implemented
+        virtual void apply(controller::Environment &environment) const = 0;
 
         /**
          * Virtual function to remove all modifications from the environment
          * @param environment, the environment to demodify
          */
-         virtual void remove() const = 0; //@TODO needs the Environment as an argument (&), not yet implemented
+         virtual void remove(controller::Environment &environment) const = 0;
     protected:
         const double time = 0;
     };

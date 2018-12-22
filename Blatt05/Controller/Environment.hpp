@@ -13,13 +13,20 @@
 #include <random>
 #include <memory>
 #include "../Model/Obstacle.hpp"
-#include "../Model/Item.hpp"
 #include "../Model/Player.hpp"
-#include "../Model/DoublePoints.hpp"
-#include "../Model/Invulnerable.hpp"
-#include "../Model/Troll.hpp"
-#include "../Model/TurboMode.hpp"
 #include "Config.hpp"
+
+/*
+ * At this point a forward declaration is necessary, else we get issues because we have a cyclic dependency
+ * graph (Environment, Item, DoublePoints).
+ */
+namespace model {
+    class DoublePoints;
+    class Invulnerable;
+    class Troll;
+    class TurboMode;
+    class Item;
+}
 
 namespace controller {
     enum class UpdateResult {
@@ -30,7 +37,10 @@ namespace controller {
      * The environment class implements an container for all model items and is responsible for the physics
      */
     class Environment {
-    friend class model::DoublePoints, model::Invulnerable, model::Troll, model::TurboMode;
+    friend class model::DoublePoints;
+    friend class model::Invulnerable;
+    friend class model::Troll;
+    friend class model::TurboMode;
     public:
         Environment(std::string configFile);
         auto update(double deltaT) -> UpdateResult;

@@ -12,7 +12,9 @@
 
 namespace model {
     class DoublePoints : public Item {
-
+    public:
+        void apply(controller::Environment &environment) const;
+        void remove(controller::Environment &environment) const;
     };
 }
 

@@ -7,6 +7,11 @@
 
 #include "Environment.hpp"
 #include "Config.hpp"
+#include "../Model/Item.hpp"
+#include "../Model/DoublePoints.hpp"
+#include "../Model/Invulnerable.hpp"
+#include "../Model/Troll.hpp"
+#include "../Model/TurboMode.hpp"
 
 #include <fstream>
 namespace controller {
@@ -31,7 +36,7 @@ namespace controller {
         for (const auto &item : items) {
             if(player.getBoundingRect().intersects(item->getBoundingRect())) {
                 this->activeItem = item;
-                this->activeItem.value().get()->apply();
+                this->activeItem.value().get()->apply(*this);
                 items.clear();
             }
         }

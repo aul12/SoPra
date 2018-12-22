@@ -3,7 +3,8 @@ project(FlappyWizard)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(SOURCE_FILES Model/GameItem.cpp Model/Player.cpp Model/Obstacle.cpp)
+set(SOURCE_FILES Model/GameItem.cpp Model/Player.cpp Model/Obstacle.cpp
+        Controller/Environment.cpp Controller/Config.cpp)
 add_executable(${PROJECT_NAME} main.cpp ${SOURCE_FILES})
 
 target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)

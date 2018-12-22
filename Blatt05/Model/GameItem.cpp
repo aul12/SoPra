@@ -11,6 +11,10 @@ namespace model {
         return (rect.topLeft() + rect.bottomRight()) * 0.5;
     }
 
+    void GameItem::setPosition(Vec pos) {
+        rect.setAnchor(pos-this->getSize()*0.5);
+    }
+
     auto GameItem::getSize() const -> Vec {
         return rect.getSize();
     }

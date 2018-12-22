@@ -99,6 +99,14 @@ namespace util {
              this->size = newSize;
          }
 
+         /**
+          * Set the anchor of the rectangle to a different position
+          * @param newAnchor the new position
+          */
+         void setAnchor(Vector<2,T> newAnchor) {
+             this->anchor = newAnchor;
+         }
+
         /**
          * Shift the rectangle by a given offset
          * @param v the offset

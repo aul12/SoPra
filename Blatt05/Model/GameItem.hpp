@@ -28,6 +28,12 @@ namespace model {
          * @return the center of the game item
          */
         auto getPosition() const -> Vec;
+        
+        /**
+         * Set the position of the game item
+         * @param pos the new position
+         */
+        void setPosition(Vec pos);
 
         /**
          * Get the dimensions of the game item

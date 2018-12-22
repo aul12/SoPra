@@ -16,7 +16,7 @@ namespace model {
      */
     class Player : public GameItem {
     public:
-        Player(Vec pos, Vec size, Vec speed = Vec{0,0});
+        Player(Vec pos = Vec{0,0}, Vec size = Vec{0,0}, Vec speed = Vec{0,0});
         /**
          * Move the item by using the internal speed
          * @param deltaT the difference between now and the last call to move (in seconds)

@@ -4,6 +4,7 @@
 #include "Rectangle.hpp"
 #include "GameItem.hpp"
 #include "Player.hpp"
+#include "Obstacle.hpp"
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

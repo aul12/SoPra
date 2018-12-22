@@ -68,6 +68,12 @@ TEST(Vector, ConvertConstructor) {
     EXPECT_EQ((Vector<2, double>{testi}), testd);
 }
 
+TEST(Vector, InitializerListFail) {
+    EXPECT_DEATH((Vector<1,int>{{1,2}}), "");
+    EXPECT_DEATH((Vector<2,int>{1}), "");
+    EXPECT_NO_FATAL_FAILURE((Vector<2,int>{{1,2}}));
+}
+
 TEST(Vector, GetSetBracketOp) {
     Vector<10, int> test{};
     for(int c=0; c<10; c++) {

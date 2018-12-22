@@ -33,7 +33,7 @@ namespace model {
          * Get the dimensions of the game item
          * @return the size of the game item in each dimension
          */
-        auto getDimension() const -> Vec;
+        auto getSize() const -> Vec;
 
         /**
          * Return the bounding rect of the game item

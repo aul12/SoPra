@@ -11,7 +11,7 @@ namespace model {
         return (rect.topLeft() + rect.bottomRight()) * 0.5;
     }
 
-    auto GameItem::getDimension() const -> Vec {
+    auto GameItem::getSize() const -> Vec {
         return rect.getSize();
     }
 

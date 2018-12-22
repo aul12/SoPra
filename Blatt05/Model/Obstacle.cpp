@@ -2,13 +2,13 @@
  * @file Obstacle.cpp
  * @author paul
  * @date 22.12.18
- * @brief Implementation Obstacle class
+ * @brief Implementation of Obstacle class
  */
 
 #include "Obstacle.hpp"
 
 model::Obstacle::Obstacle(model::Vec pos, model::Vec size, model::ObstacleSide obstacleSide) :
- GameItem(pos, size), obstacleSide(obstacleSide) {
+ GameItem(pos, size), obstacleSide(obstacleSide), heightScale(1) {
 
 }
 
@@ -20,7 +20,9 @@ void model::Obstacle::setHeightScale(double scale) {
     double deltaY = newHeight-currentHeight;
 
     this->rect.setSize(Vec{this->rect.getSize()[0], newHeight});
-    this->rect = this->rect + Vec{0, deltaY/2};
+    if(obstacleSide == ObstacleSide::BOTTOM) {
+        this->rect = this->rect + Vec{0, - deltaY};
+    }
 
     this->heightScale = scale;
 }

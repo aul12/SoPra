@@ -5,7 +5,7 @@
 #ifndef GAMEITEM_HPP
 #define GAMEITEM_HPP
 
-#include "Util/Rectangle.hpp"
+#include "../Util/Rectangle.hpp"
 
 namespace model {
     typedef util::Vector<2, double> Vec; ///< Vector as used in the model

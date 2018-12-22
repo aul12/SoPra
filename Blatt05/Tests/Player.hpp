@@ -1,7 +1,7 @@
 #ifndef TEST_PLAYER_HPP
 #define TEST_PLAYER_HPP
 
-#include "../Player.hpp"
+#include "../Model/Player.hpp"
 
 TEST(Player, Accelerate) {
     model::Player player{{0,0},{0,0}};

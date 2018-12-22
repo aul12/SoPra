@@ -42,6 +42,8 @@ namespace controller {
         struct {
             double width, height;
             double minDist;
+            double spawnProb;
+            double heightStandardDeviationScale;
         } items;
         double gravity;
     };

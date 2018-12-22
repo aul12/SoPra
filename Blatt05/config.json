@@ -20,7 +20,9 @@
   "items": {
     "width": 1,
     "height": 1,
-    "minDist": 10
+    "minDist": 10,
+    "spawnProb": 0.4,
+    "heightStandardDeviationScale": 0.25
   },
   "gravity": 9.81
 }

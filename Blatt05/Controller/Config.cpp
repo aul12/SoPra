@@ -40,6 +40,8 @@ namespace controller {
             this->items.height = json["items"]["height"];
             this->items.width = json["items"]["width"];
             this->items.minDist = json["items"]["minDist"];
+            this->items.spawnProb = json["items"]["spawnProb"];
+            this->items.heightStandardDeviationScale = json["items"]["heightStandardDeviationScale"];
         } catch (json::exception e) {
             throw std::runtime_error(e.what());
         }

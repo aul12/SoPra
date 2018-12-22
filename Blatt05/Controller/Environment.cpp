@@ -31,10 +31,13 @@ namespace controller {
         for (const auto &item : items) {
             if(player.getBoundingRect().intersects(item->getBoundingRect())) {
                 this->activeItem = item;
-                item->apply();
+                this->activeItem.value().get()->apply();
+                items.clear();
             }
         }
 
+        this->updateItems();
+        this->updateObstacles();
 
         return UpdateResult::UPDATED;
     }
@@ -43,7 +46,7 @@ namespace controller {
         player.accelerate({0,config.player.accelerationUp}, t);
     }
 
-    void Environment::addObstacles() {
+    void Environment::updateObstacles() {
         double lastObstaclePosX = removeOutOfScopeAndGetLastX(obstacles);
 
         double distFromRightEdge =
@@ -62,19 +65,32 @@ namespace controller {
         }
     }
 
-    void Environment::addItems() {
+    void Environment::updateItems() {
         double lastItemPositionX = removeOutOfScopeAndGetLastX(items);
 
         double distFromRightEdge =
                 config.environment.width - (lastItemPositionX - player.getPosition().get(0) + config.player.xPosInFrame);
-        // New obstacle required
-        if(distFromRightEdge > config.obstacles.deltaX) {
+        // New item possible
+        if(distFromRightEdge > config.items.minDist && !activeItem.has_value()) {
+            std::uniform_real_distribution<double> newRequiredGen(0,1);
+
+            // New item required
+            if(newRequiredGen(randomNumberGenerator) < config.items.spawnProb) {
+                double xPos = player.getPosition().get(0) - config.player.xPosInFrame +
+                              config.environment.width + config.obstacles.width;
+                std::normal_distribution heightDistribution(config.environment.height/2,
+                        config.environment.height * config.items.heightStandardDeviationScale);
+                double yPos = heightDistribution(randomNumberGenerator);
+
+                //@TODO implement me when all items exist
+                //this->items.push_back(std::make_shared<model::Item>())
+            }
         }
     }
 
     template <typename T>
     auto Environment::removeOutOfScopeAndGetLastX(std::deque<std::shared_ptr<T>> &gameItems) -> double{
-        // Remove old items and check if new obstacles are required
+        // Remove old items and check if new items are required
         double lastItemPositionX = 0;
         for (auto iter = gameItems.begin(); iter != gameItems.end(); iter++) {
             // Item is completely out of frame at the left side

@@ -34,8 +34,8 @@ namespace controller {
     private:
         template <typename T>
         auto removeOutOfScopeAndGetLastX(std::deque<std::shared_ptr<T>> &gameItems) -> double;
-        void addObstacles();
-        void addItems();
+        void updateObstacles();
+        void updateItems();
 
         std::deque<std::shared_ptr<model::Obstacle>> obstacles;
         std::deque<std::shared_ptr<model::Item>> items;

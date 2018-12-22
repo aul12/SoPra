@@ -7,6 +7,8 @@
 #include "Player.hpp"
 
 namespace model {
+    Player::Player(Vec pos, Vec size, Vec speed) : GameItem(pos, size), speed(speed) {}
+
     void Player::move(double deltaT) {
         this->rect = this->rect + this->speed * deltaT;
     }

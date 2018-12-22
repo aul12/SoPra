@@ -4,6 +4,7 @@ project(FlappyWizard)
 set(CMAKE_CXX_STANDARD 17)
 
 set(SOURCE_FILES Model/GameItem.cpp Model/Player.cpp Model/Obstacle.cpp
+        Model/DoublePoints.cpp Model/Invulnerable.cpp Model/Troll.cpp Model/TurboMode.cpp
         Controller/Environment.cpp Controller/Config.cpp)
 add_executable(${PROJECT_NAME} main.cpp ${SOURCE_FILES})
 

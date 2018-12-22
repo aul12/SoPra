@@ -15,6 +15,10 @@
 #include "../Model/Obstacle.hpp"
 #include "../Model/Item.hpp"
 #include "../Model/Player.hpp"
+#include "../Model/DoublePoints.hpp"
+#include "../Model/Invulnerable.hpp"
+#include "../Model/Troll.hpp"
+#include "../Model/TurboMode.hpp"
 #include "Config.hpp"
 
 namespace controller {
@@ -26,7 +30,7 @@ namespace controller {
      * The environment class implements an container for all model items and is responsible for the physics
      */
     class Environment {
-    friend class model::Item;
+    friend class model::DoublePoints, model::Invulnerable, model::Troll, model::TurboMode;
     public:
         Environment(std::string configFile);
         auto update(double deltaT) -> UpdateResult;

@@ -18,7 +18,7 @@ namespace model {
     public:
         /**
          * Create an game item with a given position and size
-         * @param pos the position of the item
+         * @param pos the center position of the item
          * @param size the size of the item
          */
         GameItem(Vec pos, Vec size);

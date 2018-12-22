@@ -5,7 +5,7 @@
 #include "GameItem.hpp"
 
 namespace model {
-    GameItem::GameItem(Vec pos, Vec size) : rect(pos, size) {}
+    GameItem::GameItem(Vec pos, Vec size) : rect(pos-size*0.5, size) {}
 
     auto GameItem::getPosition() const -> Vec {
         return (rect.topLeft() + rect.bottomRight()) * 0.5;

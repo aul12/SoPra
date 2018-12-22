@@ -93,6 +93,13 @@ namespace util {
         }
 
         /**
+         * Set the size of the rect
+         */
+         void setSize(Vector<2,T> newSize) {
+             this->size = newSize;
+         }
+
+        /**
          * Shift the rectangle by a given offset
          * @param v the offset
          * @return the shifted rectangle

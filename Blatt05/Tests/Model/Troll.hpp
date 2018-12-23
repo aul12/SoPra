@@ -1,4 +1,0 @@
-#ifndef TEST_TROLL_HPP
-#define TEST_TROLL_HPP
-
-#endif //TEST_TROLL_HPP

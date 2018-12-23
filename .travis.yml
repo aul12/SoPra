@@ -46,8 +46,8 @@ script:
     - cd build
     - cmake ..
     - make all
-    - ./Test
-    - valgrind -q ./Test
+    - ./Test --gtest_death_test_style=threadsafe
+    - valgrind -q ./Test --gtest_death_test_style=threadsafe
 
 deploy:
     provider: pages

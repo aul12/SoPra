@@ -59,6 +59,28 @@ namespace controller {
          * @param t the time the player should get accelerated upwards (must be positive)
          */
         void playerUp(double t);
+
+        /**
+         * Returns the list of currently visible obstacles
+         */
+        auto getObstacles() const -> std::deque<std::shared_ptr<model::Obstacle>>;
+
+        /**
+         * Returns the list of currently visible items
+         */
+        auto getItems() const -> std::deque<std::shared_ptr<model::Item>>;
+
+        /**
+         * Return the player
+         * @return the player in this env
+         */
+        auto getPlayer() const -> model::Player;
+
+        /**
+         * Returns the used config
+         * @return the currently used config
+         */
+        auto getConfig() const -> controller::Config;
     private:
         /**
          * Removes all items which left the environment on the left side
@@ -91,7 +113,6 @@ namespace controller {
         std::optional<std::shared_ptr<model::Item>> activeItem;
         model::Player player;
         int points;
-        double timeMultiplexer;
         double pointMultiplexer;
         bool invulnerable;
         Config config;

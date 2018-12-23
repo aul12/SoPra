@@ -18,7 +18,7 @@
 namespace controller {
 
     Environment::Environment(std::string fname) : points{0},
-                                                  timeMultiplexer{1}, pointMultiplexer{1}, invulnerable{false},
+                                                  pointMultiplexer{1}, invulnerable{false},
                                                   config{fname},
                                                   randomNumberGenerator{std::random_device{}()} {
         player = model::Player{{config.player.xPosInFrame, config.environment.height/2},
@@ -29,7 +29,7 @@ namespace controller {
         assert(deltaT > 0);
 
         // Move the player
-        player.accelerate({config.player.accelerationSide,config.gravity/config.player.mass}, deltaT);
+        player.accelerate({config.player.accelerationSide,config.gravity}, deltaT);
         player.move(deltaT);
 
         // Check if in bounds
@@ -39,9 +39,11 @@ namespace controller {
         }
 
         // Check for collision with obstacles
-        for (const auto obstacle : obstacles) {
-            if(player.getBoundingRect().intersects(obstacle->getBoundingRect())) {
-                return UpdateResult::GAME_OVER;
+        if(!invulnerable) {
+            for (const auto obstacle : obstacles) {
+                if (player.getBoundingRect().intersects(obstacle->getBoundingRect())) {
+                    return UpdateResult::GAME_OVER;
+                }
             }
         }
 
@@ -161,6 +163,22 @@ namespace controller {
         }
 
         return lastItemPositionX;
+    }
+
+    auto Environment::getObstacles() const -> std::deque<std::shared_ptr<model::Obstacle>> {
+        return obstacles;
+    }
+
+    auto Environment::getItems() const -> std::deque<std::shared_ptr<model::Item>> {
+        return items;
+    }
+
+    auto Environment::getPlayer() const -> model::Player {
+        return player;
+    }
+
+    auto Environment::getConfig() const -> controller::Config {
+        return config;
     }
 
 }

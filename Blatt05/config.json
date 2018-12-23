@@ -1,6 +1,6 @@
 {
   "player": {
-      "accelerationUp": -20,
+      "accelerationUp": -40,
       "mass": 92,
       "width": 2,
       "height": 1.42,

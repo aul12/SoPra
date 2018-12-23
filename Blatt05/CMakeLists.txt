@@ -8,7 +8,7 @@ set(SOURCE_FILES Model/GameItem.cpp Model/Player.cpp Model/Obstacle.cpp
         Model/DoublePoints.cpp Model/Invulnerable.cpp Model/Troll.cpp Model/TurboMode.cpp
         Model/HighscoreSaver.cpp
         Controller/Environment.cpp Controller/Config.cpp
-        View/Screen.cpp View/StartScreen.cpp View/HelpScreen.cpp
+        View/Screen.cpp View/StartScreen.cpp View/HelpScreen.cpp View/GameScreen.cpp
         View/Button.cpp)
 add_executable(${PROJECT_NAME} main.cpp ${SOURCE_FILES})
 
@@ -22,7 +22,7 @@ include_directories(${GTEST_INCLUDE_DIR})
 
 add_executable(${PROJECT_NAME} Tests/main.cpp ${SOURCE_FILES})
 
-target_link_libraries(${PROJECT_NAME} ${GTEST_LIBS} -lgtest -lpthread)
+target_link_libraries(${PROJECT_NAME} ${GTEST_LIBS} -lgtest -lpthread sfml-graphics sfml-window sfml-system)
 
 add_test(
     NAME ${PROJECT_NAME}

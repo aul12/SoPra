@@ -3,6 +3,7 @@
 
 #include "View/StartScreen.hpp"
 #include "View/HelpScreen.hpp"
+#include "View/GameScreen.hpp"
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1920,1080), "Flappy Wizard"/*, sf::Style::Fullscreen*/);
@@ -13,6 +14,8 @@ int main() {
             view::ScreenResult::START, std::make_shared<view::StartScreen>(window)));
     screenStateMachine.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
             view::ScreenResult::HELP, std::make_shared<view::HelpScreen>(window)));
+    screenStateMachine.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
+            view::ScreenResult::GAME, std::make_shared<view::GameScreen>(window)));
 
     std::shared_ptr<view::Screen> activeScreen = screenStateMachine.at(view::ScreenResult::START);
 

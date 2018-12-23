@@ -15,7 +15,7 @@ TEST(Environment, SingleUpdate) {
 TEST(Environment, ContinousUpdate) {
     controller::Environment environment{"../config.json"};
     for (int c=0; c<1000; c++) {
-        EXPECT_NO_THROW(environment.update(1));
+        EXPECT_NO_FATAL_FAILURE(environment.update(1));
     }
 }
 

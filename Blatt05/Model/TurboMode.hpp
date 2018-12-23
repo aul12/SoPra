@@ -11,6 +11,10 @@
 #include "Item.hpp"
 
 namespace model {
+    /**
+     * This class implements the TurboMode Item
+     *  @see Item
+     */
     class TurboMode : public Item {
     public:
         TurboMode(Vec pos, Vec size, double lifeTime) : Item(pos, size, lifeTime){}
@@ -19,7 +23,7 @@ namespace model {
 
     private:
         double oldGravity;
-        
+
     };
 }
 

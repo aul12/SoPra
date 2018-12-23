@@ -2,9 +2,7 @@
  * @file Config.cpp
  * @author paul
  * @date 22.12.18
- * @brief Config @TODO
- *
- * @TODO
+ * @brief Declaration of the Config class
  */
 
 #include "Config.hpp"

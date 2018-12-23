@@ -11,6 +11,10 @@
 #include "Item.hpp"
 
 namespace model {
+    /**
+     * This class implements the Troll Item
+     *  @see Item
+     */
     class Troll : public Item {
     public:
         Troll(Vec pos, Vec size, double lifeTime) : Item(pos, size, lifeTime){}

@@ -11,6 +11,10 @@
 #include "Item.hpp"
 
 namespace model {
+    /**
+     * This class implements the DoublePoints Item
+     *  @see Item
+     */
     class DoublePoints : public Item {
     public:
         DoublePoints(Vec pos, Vec size, double lifeTime) : Item(pos, size, lifeTime){}

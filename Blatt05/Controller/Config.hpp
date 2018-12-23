@@ -3,7 +3,6 @@
  * @author paul
  * @date 22.12.18
  * @brief Declaration of Config class
- * @TODO
  */
 
 #ifndef CONFIG_HPP

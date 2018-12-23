@@ -24,7 +24,7 @@ addons:
 script:
     - mkdir output
     - cd Blatt01
-    - latexmk -pdf main.tex
+    - latexmk -silent -pdf main.tex
     - mv main.pdf ../output/Blatt01.pdf
     - cd ..
     - cd Blatt02

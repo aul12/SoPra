@@ -3,7 +3,7 @@ LATEXMK=latexmk
 INKSCAPE=inkscape
 
 all: anwendungsfall.pdf zustandsdiagramm.pdf main.tex
-	$(LATEXMK) -pdf main.tex
+	$(LATEXMK) -silent -pdf main.tex
 
 anwendungsfall.pdf: anwendungsfall.dot spieler.png
 	$(DOT) -Tpdf -o anwendungsfall.pdf anwendungsfall.dot

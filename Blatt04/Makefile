@@ -2,7 +2,7 @@ DOT=dot
 LATEXMK=latexmk
 
 all: klassendiagrammFlappyWizard.pdf klassendiagrammHighscoreServer.pdf
-	$(LATEXMK) -pdf main.tex
+	$(LATEXMK) -silent -pdf main.tex
 
 klassendiagrammHighscoreServer.pdf: klassendiagrammHighscoreServer.dot
 	$(DOT) -Tpdf -o klassendiagrammHighscoreServer.pdf klassendiagrammHighscoreServer.dot

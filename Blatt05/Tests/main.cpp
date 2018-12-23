@@ -6,6 +6,7 @@
 #include "Model/Player.hpp"
 #include "Model/Obstacle.hpp"
 #include "Model/Item.hpp"
+#include "Controller/Config.hpp"
 #include "Model/DoublePoints.hpp"
 #include "Model/Invulnerable.hpp"
 #include "Model/Troll.hpp"

@@ -14,7 +14,7 @@
   "obstacles": {
       "deltaX": 10,
       "minHeight": 4,
-      "maxHeight": 16,
+      "maxHeight": 10,
       "width": 5
   },
   "items": {

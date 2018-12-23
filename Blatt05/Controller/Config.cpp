@@ -16,7 +16,7 @@ namespace controller {
 
     Config::Config(std::string fname) {
         std::ifstream ifstream(fname);
-        if(!ifstream.is_open()) {
+        if(!ifstream.is_open() || !ifstream.good()) {
             throw std::runtime_error("Could not open config.json");
         }
 
@@ -24,7 +24,7 @@ namespace controller {
             json json;
             ifstream >> json;
 
-            this->gravity = json[gravity];
+            this->gravity = json["gravity"];
             this->environment.height = json["environment"]["height"];
             this->environment.width = json["environment"]["width"];
             this->player.width = json["player"]["width"];
@@ -42,9 +42,9 @@ namespace controller {
             this->items.minDist = json["items"]["minDist"];
             this->items.spawnProb = json["items"]["spawnProb"];
             this->items.heightStandardDeviationScale = json["items"]["heightStandardDeviationScale"];
-            this->items.trollMinScale = json["item"]["trollMinScale"];
-            this->items.trollMaxScale = json["item"]["trollMaxScale"];
-            this->items.lifetime = json["item"]["lifetime"];
+            this->items.trollMinScale = json["items"]["trollMinScale"];
+            this->items.trollMaxScale = json["items"]["trollMaxScale"];
+            this->items.lifetime = json["items"]["lifetime"];
         } catch (json::exception e) {
             throw std::runtime_error(e.what());
         }

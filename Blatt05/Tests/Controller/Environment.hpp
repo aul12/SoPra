@@ -19,6 +19,13 @@ TEST(Environment, ContinousUpdate) {
     }
 }
 
+TEST(Environment, PlayerUp) {
+    controller::Environment environment{"../config.json"};
+    EXPECT_NO_FATAL_FAILURE(environment.playerUp(1));
+    EXPECT_DEATH(environment.playerUp(0), "");
+    EXPECT_DEATH(environment.playerUp(-1), "");
+}
+
 TEST(Environment, UpdateFail) {
     controller::Environment environment{"../config.json"};
     EXPECT_DEATH(environment.update(-1), "");

@@ -69,6 +69,7 @@ namespace controller {
     }
 
     void Environment::playerUp(double t) {
+        assert(t > 0);
         player.accelerate({0,config.player.accelerationUp}, t);
     }
 

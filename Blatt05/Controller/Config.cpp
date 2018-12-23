@@ -7,6 +7,8 @@
 
 #include "Config.hpp"
 
+#include <fstream>
+
 #include "../Lib/json.hpp"
 
 namespace controller {

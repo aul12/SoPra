@@ -56,7 +56,7 @@ namespace controller {
 
         /**
          * Accelerate the player upwards
-         * @param t the time the player should get accelerated upwards
+         * @param t the time the player should get accelerated upwards (must be positive)
          */
         void playerUp(double t);
     private:

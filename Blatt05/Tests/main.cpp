@@ -8,6 +8,7 @@
 #include "Model/Item.hpp"
 #include "Controller/Config.hpp"
 #include "Controller/Environment.hpp"
+#include "Model/HighscoreSaver.hpp"
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

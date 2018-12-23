@@ -73,7 +73,8 @@ namespace controller {
     }
 
     void Environment::updateObstacles() {
-        double lastObstaclePosX = removeOutOfScopeAndGetLastX(obstacles);
+        removeOutOfScope(obstacles);
+        double lastObstaclePosX = findLastItem(obstacles);
 
         double distFromRightEdge =
                 config.environment.width - (lastObstaclePosX - player.getPosition().get(0) + config.player.xPosInFrame);
@@ -92,7 +93,8 @@ namespace controller {
     }
 
     void Environment::updateItems() {
-        double lastItemPositionX = removeOutOfScopeAndGetLastX(items);
+        removeOutOfScope(items);
+        double lastItemPositionX =  findLastItem(items);
 
         double distFromRightEdge =
                 config.environment.width - (lastItemPositionX - player.getPosition().get(0) + config.player.xPosInFrame);
@@ -137,8 +139,7 @@ namespace controller {
     }
 
     template <typename T>
-    auto Environment::removeOutOfScopeAndGetLastX(std::deque<std::shared_ptr<T>> &gameItems) -> double{
-        // Remove old items
+    void Environment::removeOutOfScope(std::deque<std::shared_ptr<T>> &gameItems) {
         if(gameItems.size() > 0) {
             gameItems.erase(std::remove_if(gameItems.begin(), gameItems.end(),
                                            [this](const std::shared_ptr<T> &item) {
@@ -146,7 +147,10 @@ namespace controller {
                                                       player.getPosition().get(0) - config.player.xPosInFrame;
                                            }));
         }
+    }
 
+    template<typename T>
+    auto Environment::findLastItem(std::deque<std::shared_ptr<T>> &gameItems) -> double {
         // Find the last item
         double lastItemPositionX = 0;
         for (auto iter = gameItems.begin(); iter != gameItems.end(); iter++) {

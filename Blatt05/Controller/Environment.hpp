@@ -61,13 +61,20 @@ namespace controller {
         void playerUp(double t);
     private:
         /**
-         * Removes all items which left the environment on the left side and finds the rightmost item.
+         * Removes all items which left the environment on the left side
          * @tparam T the type of item, needs to be a child of GameItem
          * @param gameItems the list of items which should be modified
+         */
+        template <typename T>
+        void removeOutOfScope(std::deque<std::shared_ptr<T>> &gameItems);
+
+        /**
+         * Find the rightmost item
+         * @tparam T the type of item, needs to be a child of GameItem
          * @return the x position of the rightmost item
          */
         template <typename T>
-        auto removeOutOfScopeAndGetLastX(std::deque<std::shared_ptr<T>> &gameItems) -> double;
+        auto findLastItem(std::deque<std::shared_ptr<T>> &gameItems) -> double;
 
         /**
          * Removes all old obstacles and creates new ones if necessary

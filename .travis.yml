@@ -4,20 +4,13 @@ language: cpp
 compiler: gcc
 
 before_install:
-    - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended latexmk texlive-lang-german texlive-doc-de pgf texlive-font-utils zip inkscape texlive-math-extra graphviz make libsfml-dev libgtest-dev cmake libgmp3-dev libboost-all-dev python3 sqlite3 
+    - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended latexmk texlive-lang-german texlive-doc-de pgf texlive-font-utils zip inkscape texlive-math-extra graphviz make libsfml-dev libgtest-dev cmake valgrind
     - cd /usr/src/gtest
     - sudo cmake CMakeLists.txt
     - sudo make
     - sudo cp *.a /usr/lib
     - sudo ldconfig 
     - cd $TRAVIS_BUILD_DIR
-    - git clone https://github.com/NASA-SW-VnV/ikos.git
-    - cd ikos
-    - mkdir build
-    - cd build
-    - cmake ..
-    - make -j8
-    - make install
 
 addons:
     apt:
@@ -26,7 +19,6 @@ addons:
         packages:
         - gcc-7
         - g++-7
-        - clang-7.0
         - cmake
 
 script:
@@ -55,8 +47,7 @@ script:
     - cmake ..
     - make all
     - ./Test
-    - cd ..
-    - ./../ikos main.cpp
+    - valgrind -q ./Test
 
 deploy:
     provider: pages

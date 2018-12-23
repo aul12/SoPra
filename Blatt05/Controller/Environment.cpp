@@ -24,14 +24,6 @@ namespace controller {
                                {config.player.width, config.player.height}};
     }
 
-    Environment::Environment(Config config) : config(config),
-                                              randomNumberGenerator{std::random_device{}()},
-                                              points(0), timeMultiplexer(1), pointMultiplexer(1), invulnerable(false) {
-        player = model::Player{{config.player.xPosInFrame, config.environment.height/2},
-                               {config.player.width, config.player.height}};
-
-    }
-
     auto Environment::update(double deltaT) -> UpdateResult {
         // Move the player
         player.accelerate({config.player.accelerationSide,config.gravity/config.player.mass}, deltaT);

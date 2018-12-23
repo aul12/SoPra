@@ -17,10 +17,10 @@
 
 namespace controller {
 
-    Environment::Environment(std::string fname) : config{fname},
-                                                  randomNumberGenerator{std::random_device{}()},
-                                                  points{0}, timeMultiplexer{1}, pointMultiplexer{1}, invulnerable{false},
-                                                  items{}, obstacles{}, activeItem{} {
+    Environment::Environment(std::string fname) : points{0},
+                                                  timeMultiplexer{1}, pointMultiplexer{1}, invulnerable{false},
+                                                  config{fname},
+                                                  randomNumberGenerator{std::random_device{}()} {
         player = model::Player{{config.player.xPosInFrame, config.environment.height/2},
                                {config.player.width, config.player.height}};
     }

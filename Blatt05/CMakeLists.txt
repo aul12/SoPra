@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 project(FlappyWizard)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wpedantic")
 
 set(SOURCE_FILES Model/GameItem.cpp Model/Player.cpp Model/Obstacle.cpp
         Model/DoublePoints.cpp Model/Invulnerable.cpp Model/Troll.cpp Model/TurboMode.cpp

@@ -8,11 +8,11 @@
 #include "DoublePoints.hpp"
 
 namespace model {
-    void DoublePoints::apply(controller::Environment &environment) const {
+    void DoublePoints::apply(controller::Environment &environment) {
         environment.pointMultiplexer = 2;
     }
 
-    void DoublePoints::remove(controller::Environment &environment) const {
+    void DoublePoints::remove(controller::Environment &environment) {
         environment.pointMultiplexer = 1;
     }
 }

@@ -26,10 +26,16 @@ namespace controller {
 
     auto Environment::update(double deltaT) -> UpdateResult {
         assert(deltaT > 0);
-        
+
         // Move the player
         player.accelerate({config.player.accelerationSide,config.gravity/config.player.mass}, deltaT);
         player.move(deltaT);
+
+        // Check if in bounds
+        if(player.getBoundingRect().bottomLeft().get(1) < 0
+                || player.getBoundingRect().topLeft().get(1) > config.environment.height) {
+            return UpdateResult::GAME_OVER;
+        }
 
         // Check for collision with obstacles
         for (const auto obstacle : obstacles) {

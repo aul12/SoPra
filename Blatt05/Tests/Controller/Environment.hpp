@@ -7,9 +7,16 @@ TEST(Environment, Constructor) {
     EXPECT_NO_THROW(controller::Environment{"../config.json"});
 }
 
-TEST(Environment, Update) {
+TEST(Environment, SingleUpdate) {
     controller::Environment environment{"../config.json"};
     EXPECT_EQ(environment.update(1), controller::UpdateResult::UPDATED);
+}
+
+TEST(Environment, ContinousUpdate) {
+    controller::Environment environment{"../config.json"};
+    for (int c=0; c<1000; c++) {
+        EXPECT_NO_THROW(environment.update(1));
+    }
 }
 
 TEST(Environment, UpdateFail) {

@@ -10,9 +10,9 @@
 
 namespace model {
 
-    void Troll::apply(controller::Environment &environment) const {
-        std::uniform_real_distribution<double> scaleDist(environment.config.items.trollMinScale,
-                environment.config.items.trollMaxScale);
+    void Troll::apply(controller::Environment &environment) {
+        std::uniform_real_distribution<double> scaleDist(environment.config.items.troll.minScale,
+                environment.config.items.troll.maxScale);
         double scale = scaleDist(environment.randomNumberGenerator);
 
         for (auto &obstacle : environment.obstacles) {
@@ -20,7 +20,7 @@ namespace model {
         }
     }
 
-    void Troll::remove(controller::Environment &environment) const {
+    void Troll::remove(controller::Environment &environment) {
         for (auto &obstacle : environment.obstacles) {
             obstacle.get()->resetScale();
         }

@@ -44,9 +44,14 @@ namespace controller {
             double minDist;
             double spawnProb;
             double heightStandardDeviationScale;
-            double trollMinScale;
-            double trollMaxScale;
             double lifetime;
+            struct {
+                double minScale;
+                double maxScale;
+            } troll;
+            struct {
+                double deltaY;
+            } turbo;
         } items;
         double gravity;
     };

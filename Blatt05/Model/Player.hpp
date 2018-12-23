@@ -37,6 +37,12 @@ namespace model {
         auto getSpeed() const -> Vec;
 
         /**
+         * Set the speed of the player, should only be used when physics get ignored (eg. when using certain items)
+         * @param speed the new speed
+         */
+        void setSpeed(Vec speed);
+
+        /**
          * Set the scale of the player
          * @param scale a positive number representing the scale
          */

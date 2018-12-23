@@ -29,13 +29,13 @@ namespace model {
          * Virtual function to apply the modification to the environment
          * @param environment the environment to modify
          */
-        virtual void apply(controller::Environment &environment) const = 0;
+        virtual void apply(controller::Environment &environment) = 0;
 
         /**
          * Virtual function to remove all modifications from the environment
          * @param environment, the environment to demodify
          */
-        virtual void remove(controller::Environment &environment) const = 0;
+        virtual void remove(controller::Environment &environment) = 0;
 
         /**
          * Returns the time the item is active, this value is constant if the item is not active

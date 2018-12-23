@@ -37,4 +37,8 @@ namespace model {
     void Player::resetScale() {
         this->scaleSize(1);
     }
+
+    void Player::setSpeed(Vec speed) {
+        this->speed = speed;
+    }
 }

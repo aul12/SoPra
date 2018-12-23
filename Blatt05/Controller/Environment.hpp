@@ -59,7 +59,7 @@ namespace controller {
         double timeMultiplexer;
         double pointMultiplexer;
         bool invulnerable;
-        const Config config;
+        Config config;
         std::mt19937 randomNumberGenerator;
     };
 }

@@ -23,9 +23,14 @@
     "minDist": 10,
     "spawnProb": 0.4,
     "heightStandardDeviationScale": 0.25,
-    "trollMinScale": 1.2,
-    "trollMaxScale": 1.5,
-    "lifetime": 5
+    "lifetime": 5,
+    "troll": {
+      "minScale": 1.2,
+      "maxScale": 1.5
+    },
+    "turbo": {
+        "deltaY": 1
+    }
   },
   "gravity": 9.81
 }

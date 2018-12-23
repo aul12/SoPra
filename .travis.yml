@@ -13,13 +13,17 @@ before_install:
     - cd $TRAVIS_BUILD_DIR
 
 addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - gcc-7
-      - g++-7
-      - cmake
+    apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - gcc-7
+        - g++-7
+        - cmake
+    sonarcloud:
+        organization: "aul12-github" # the key of the org you chose at step #3
+        token:
+            secure: $SONAR_TOKEN # encrypted value of your token
 
 script:
     - mkdir output
@@ -47,6 +51,8 @@ script:
     - cmake ..
     - make all
     - ./Test
+    - cd ..
+    - sonar-scanner
 
 deploy:
     provider: pages

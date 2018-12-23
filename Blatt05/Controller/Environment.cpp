@@ -14,10 +14,14 @@
 #include "../Model/TurboMode.hpp"
 
 #include <fstream>
+
 namespace controller {
 
     Environment::Environment(std::string fname) : config{fname},
-        randomNumberGenerator(std::random_device{}()){
+        randomNumberGenerator{std::random_device{}()},
+        points(0), timeMultiplexer(1), pointMultiplexer(1), invulnerable(false) {
+        player = model::Player{{config.player.xPosInFrame, config.environment.height/2},
+                    {config.player.width, config.player.height}};
     }
 
     auto Environment::update(double deltaT) -> UpdateResult {
@@ -99,6 +103,8 @@ namespace controller {
                 double lifetime = config.items.lifetime;
 
                 std::uniform_int_distribution<int> itemTypeDist(0,3);
+
+                // Decide which item to use. @TODO this is ugly
                 int itemType = itemTypeDist(randomNumberGenerator);
                 switch (itemType) {
                     case 0: // Double Points
@@ -117,8 +123,6 @@ namespace controller {
                         // We really shouldn't be here
                         throw std::runtime_error("It seems like uniform_int_distribution is broken");
                 }
-                //@TODO implement me when all items exist
-                //this->items.push_back(std::make_shared<model::Item>())
             }
         }
     }

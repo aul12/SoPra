@@ -27,7 +27,6 @@ addons:
         - gcc-7
         - g++-7
         - clang-7.0
-        - llvm-7.0
         - cmake
 
 script:

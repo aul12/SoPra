@@ -43,6 +43,7 @@ namespace controller {
     friend class model::TurboMode;
     public:
         Environment(std::string configFile);
+        Environment(Config config);
         auto update(double deltaT) -> UpdateResult;
         void playerUp(double t);
     private:

@@ -18,10 +18,18 @@
 namespace controller {
 
     Environment::Environment(std::string fname) : config{fname},
-        randomNumberGenerator{std::random_device{}()},
-        points(0), timeMultiplexer(1), pointMultiplexer(1), invulnerable(false) {
+                                                  randomNumberGenerator{std::random_device{}()},
+                                                  points(0), timeMultiplexer(1), pointMultiplexer(1), invulnerable(false) {
         player = model::Player{{config.player.xPosInFrame, config.environment.height/2},
-                    {config.player.width, config.player.height}};
+                               {config.player.width, config.player.height}};
+    }
+
+    Environment::Environment(Config config) : config(config),
+                                              randomNumberGenerator{std::random_device{}()},
+                                              points(0), timeMultiplexer(1), pointMultiplexer(1), invulnerable(false) {
+        player = model::Player{{config.player.xPosInFrame, config.environment.height/2},
+                               {config.player.width, config.player.height}};
+
     }
 
     auto Environment::update(double deltaT) -> UpdateResult {
@@ -76,9 +84,9 @@ namespace controller {
             double xPos = player.getPosition().get(0) - config.player.xPosInFrame +
                           config.environment.width + config.obstacles.width;
             obstacles.push_back(std::make_shared<model::Obstacle>(model::Vec{xPos, topHeight/2},
-                                   model::Vec{config.obstacles.width, topHeight}, model::ObstacleSide::TOP));
+                                                                  model::Vec{config.obstacles.width, topHeight}, model::ObstacleSide::TOP));
             obstacles.push_back(std::make_shared<model::Obstacle>(model::Vec{xPos, config.environment.height - bottomHeight/2},
-                                   model::Vec{config.obstacles.width, bottomHeight}, model::ObstacleSide::BOTTOM));
+                                                                  model::Vec{config.obstacles.width, bottomHeight}, model::ObstacleSide::BOTTOM));
         }
     }
 
@@ -96,7 +104,7 @@ namespace controller {
                 double xPos = player.getPosition().get(0) - config.player.xPosInFrame +
                               config.environment.width + config.obstacles.width;
                 std::normal_distribution heightDistribution(config.environment.height/2,
-                        config.environment.height * config.items.heightStandardDeviationScale);
+                                                            config.environment.height * config.items.heightStandardDeviationScale);
                 double yPos = heightDistribution(randomNumberGenerator);
                 model::Vec pos{xPos, yPos};
                 model::Vec size{config.items.width, config.items.height};
@@ -141,4 +149,5 @@ namespace controller {
         }
         return lastItemPositionX;
     }
+
 }

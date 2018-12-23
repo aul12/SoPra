@@ -148,7 +148,7 @@ namespace controller {
                                            [this](const std::shared_ptr<T> &item) {
                                                return item.get()->getBoundingRect().topRight().get(0) <
                                                       player.getPosition().get(0) - config.player.xPosInFrame;
-                                           }));
+                                           }), gameItems.end());
         }
     }
 

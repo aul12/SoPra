@@ -5,6 +5,7 @@
  * @brief GameScreen @TODO
  */
 
+#include <iostream>
 #include "GameScreen.hpp"
 #include "../Controller/Config.hpp"
 
@@ -49,7 +50,7 @@ namespace view {
 
             frameClock.restart();
 
-            renderWindow.clear(sf::Color{0,255,255,255});
+            renderWindow.clear(sf::Color{255,255,255,255});
 
             float pixelPerMeter = static_cast<float>(
                     renderWindow.getSize().y / environment.getConfig().environment.height);
@@ -58,6 +59,9 @@ namespace view {
                 model::Vec relObstaclePos{obstacle.get()->getBoundingRect().topLeft().get(0) -
                     environment.getPlayer().getPosition().get(0) + environment.getConfig().player.xPosInFrame,
                 obstacle.get()->getBoundingRect().topLeft().get(1)};
+
+                std::cout << relObstaclePos.get(0) << "," << relObstaclePos.get(1) << std::endl;
+
                 obstacleDraw.setPosition(
                         static_cast<float>(relObstaclePos.get(0) * pixelPerMeter),
                         static_cast<float>(relObstaclePos.get(1) * pixelPerMeter));

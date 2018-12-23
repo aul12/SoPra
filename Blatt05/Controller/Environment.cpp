@@ -25,6 +25,8 @@ namespace controller {
     }
 
     auto Environment::update(double deltaT) -> UpdateResult {
+        assert(deltaT > 0);
+        
         // Move the player
         player.accelerate({config.player.accelerationSide,config.gravity/config.player.mass}, deltaT);
         player.move(deltaT);

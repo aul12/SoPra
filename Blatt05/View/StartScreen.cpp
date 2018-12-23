@@ -11,8 +11,7 @@
 
 namespace view {
     StartScreen::StartScreen(sf::RenderWindow &renderWindow) : Screen(renderWindow) {
-        //@TODO how about not hardcoding the font?
-        if(!font.loadFromFile("/usr/share/fonts/truetype/roboto/hinted/Roboto-Regular.ttf")) {
+        if(!font.loadFromFile("../Res/Roboto-Regular.ttf")) {
             throw std::runtime_error("Could not load font!");
         }
 

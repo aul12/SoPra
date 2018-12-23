@@ -26,3 +26,7 @@ void Button::render(sf::RenderWindow &window) {
     window.draw(this->rectangleShape);
     window.draw(this->text);
 }
+
+auto Button::contains(float x, float y) -> bool {
+    return this->rectangleShape.getGlobalBounds().contains(x,y);
+}

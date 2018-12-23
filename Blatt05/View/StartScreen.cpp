@@ -15,24 +15,45 @@ namespace view {
         if(!font.loadFromFile("/usr/share/fonts/truetype/roboto/hinted/Roboto-Regular.ttf")) {
             throw std::runtime_error("Could not load font!");
         }
+
+        auto size = renderWindow.getSize();
+        game = Button{"Start game", font, size.x*0.1f, 20, size.x*0.8f, 50};
+        highscore = Button{"Highscore", font, size.x*0.1f, 90, size.x*0.8f, 50};
+        help = Button{"Help", font, size.x*0.1f, 160, size.x*0.8f, 50};
+        exit = Button{"Exit", font, size.x*0.1f, 230, size.x*0.8f, 50};
     }
 
     auto StartScreen::run() -> ScreenResult {
         while (this->renderWindow.isOpen()) {
             sf::Event event{};
             while (renderWindow.pollEvent(event)) {
-                if (event.type == sf::Event::Closed) {
-                    return ScreenResult::EXIT;
+                switch (event.type) {
+                    case sf::Event::Closed:
+                        return ScreenResult::EXIT;
+                    case sf::Event::MouseButtonPressed:
+                        if (event.mouseButton.button == sf::Mouse::Left) {
+                            if(game.contains(event.mouseButton.x, event.mouseButton.y)) {
+                                return ScreenResult::GAME;
+                            } else if (highscore.contains(event.mouseButton.x, event.mouseButton.y)) {
+                                return ScreenResult::HIGHSCORE;
+                            } else if (help.contains(event.mouseButton.x, event.mouseButton.y)) {
+                                return ScreenResult::HELP;
+                            } else if (exit.contains(event.mouseButton.x, event.mouseButton.y)) {
+                                return ScreenResult::EXIT;
+                            }
+                        }
+                        break;
+                    default:
+                        break;
                 }
             }
 
             renderWindow.clear(sf::Color{255,255,255,255});
-            auto size = renderWindow.getSize();
 
-            Button button{"Test", font, size.x*0.1f, 20, size.x*0.8f, 50};
-            button.render(renderWindow);
-            Button button2{"Test2", font, size.x*0.1f, 90, size.x*0.8f, 50};
-            button2.render(renderWindow);
+            game.render(renderWindow);
+            help.render(renderWindow);
+            highscore.render(renderWindow);
+            exit.render(renderWindow);
 
             renderWindow.display();
         }

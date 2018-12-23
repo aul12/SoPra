@@ -9,6 +9,7 @@
 #define STARTSCREEN_HPP
 
 #include "Screen.hpp"
+#include "Button.hpp"
 
 namespace view {
     class StartScreen : public Screen {
@@ -18,6 +19,7 @@ namespace view {
 
     private:
         sf::Font font;
+        Button game, help, highscore, exit;
     };
 }
 

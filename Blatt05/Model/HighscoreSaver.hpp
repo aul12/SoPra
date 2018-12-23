@@ -36,7 +36,7 @@ namespace model {
         /**
          * Retrieve the numberOfEntries best players, if there are less than numberOfEntries players only these are
          * returned.
-         * @param numberOfEntries the maximum number of entries to return
+         * @param numberOfEntries the maximum number of entries to return, needs to be non negative
          * @return a vector with each element containing an tuple of the name and the score, the vector is sorted by the score
          */
         auto retrieveHighscore(int numberOfEntries = 3) const -> std::vector<std::tuple<std::string, int>>;

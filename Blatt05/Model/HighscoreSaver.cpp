@@ -47,6 +47,7 @@ namespace model {
     }
 
     auto HighscoreSaver::retrieveHighscore(int numberOfEntries) const -> std::vector<std::tuple<std::string, int>> {
+        assert(numberOfEntries >= 0);
         std::vector<std::tuple<std::string, int>> entries;
         entries.reserve(jsonRoot.size());
 

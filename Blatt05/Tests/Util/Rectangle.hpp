@@ -1,7 +1,7 @@
 #ifndef TEST_RECTANGLE_HPP
 #define TEST_RECTANGLE_HPP
 
-#include "../Util/Rectangle.hpp"
+#include "../../Util/Rectangle.hpp"
 
 using namespace util;
 

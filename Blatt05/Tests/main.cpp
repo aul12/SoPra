@@ -1,10 +1,10 @@
 #include "gtest/gtest.h"
 
-#include "Vector.h"
-#include "Rectangle.hpp"
-#include "GameItem.hpp"
-#include "Player.hpp"
-#include "Obstacle.hpp"
+#include "Util/Vector.h"
+#include "Util/Rectangle.hpp"
+#include "Model/GameItem.hpp"
+#include "Model/Player.hpp"
+#include "Model/Obstacle.hpp"
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

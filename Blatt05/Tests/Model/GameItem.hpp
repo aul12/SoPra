@@ -1,7 +1,7 @@
 #ifndef TEST_GAMEITEM_HPP
 #define TEST_GAMEITEM_HPP
 
-#include "../Model/GameItem.hpp"
+#include "../../Model/GameItem.hpp"
 
 TEST(GameItem, Position) {
     model::GameItem gameItem1{{0,0},{1,1}};

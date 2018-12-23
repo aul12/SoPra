@@ -1,7 +1,7 @@
 #ifndef TEST_OBSTACLE_HPP
 #define TEST_OBSTACLE_HPP
 
-#include "../Model/Obstacle.hpp"
+#include "../../Model/Obstacle.hpp"
 
 TEST(Obstacle, HeightScale) {
     model::Obstacle obstacleTop{{0,0.5},{1,1}, model::ObstacleSide::TOP};

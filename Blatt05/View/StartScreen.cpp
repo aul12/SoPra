@@ -2,7 +2,7 @@
  * @file StartScreen.cpp
  * @author paul
  * @date 23.12.18
- * @brief StartScreen @TODO
+ * @brief Implementation of the StartScreen class
  */
 
 #include <iostream>
@@ -42,6 +42,10 @@ namespace view {
                             }
                         }
                         break;
+                    case sf::Event::KeyPressed:
+                        if(event.key.code == sf::Keyboard::Escape) {
+                            return ScreenResult::EXIT;
+                        }
                     default:
                         break;
                 }

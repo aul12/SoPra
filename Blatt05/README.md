@@ -2,11 +2,12 @@
 
 ## Librarys:
  * SFML
-  * nlohmann::json
+ * nlohmann::json
 ## Code quality checks:
  * GTest
  * clang-tidy
- * ASan
+ * Valgrind
+ * Sonar-cloud
  
 ## Documentation
  * Doxygen

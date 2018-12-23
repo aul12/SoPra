@@ -52,8 +52,8 @@ script:
     - make all
     - ./Test
     - cd ..
-    - build-wrapper-linux-x86-64 --out-dir bw-output make -C build all
-    - sonar-scanner
+      #- build-wrapper-linux-x86-64 --out-dir bw-output make -C build all
+      #- sonar-scanner
 
 deploy:
     provider: pages

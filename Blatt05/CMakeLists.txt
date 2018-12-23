@@ -7,7 +7,8 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wpedantic")
 set(SOURCE_FILES Model/GameItem.cpp Model/Player.cpp Model/Obstacle.cpp
         Model/DoublePoints.cpp Model/Invulnerable.cpp Model/Troll.cpp Model/TurboMode.cpp
         Model/HighscoreSaver.cpp
-        Controller/Environment.cpp Controller/Config.cpp)
+        Controller/Environment.cpp Controller/Config.cpp
+        View/Screen.cpp View/StartScreen.cpp View/Button.cpp)
 add_executable(${PROJECT_NAME} main.cpp ${SOURCE_FILES})
 
 target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)

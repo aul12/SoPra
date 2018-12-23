@@ -1,23 +1,12 @@
 #include <SFML/Graphics.hpp>
 
-#include "Util/Vector.hpp"
-#include "Util/Rectangle.hpp"
-#include "Controller/Environment.hpp"
+#include "View/StartScreen.hpp"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(1920,1080), "Flappy Wizard"/*, sf::Style::Fullscreen*/);
+    view::StartScreen startScreen{window};
+    while(startScreen.run() != view::ScreenResult::EXIT);
 
-    while (window.isOpen()) {
-        sf::Event event{};
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            }
-        }
-
-        window.clear();
-        window.display();
-    }
-
+    window.close();
     return 0;
 }

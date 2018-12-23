@@ -44,6 +44,9 @@ namespace controller {
             double minDist;
             double spawnProb;
             double heightStandardDeviationScale;
+            double trollMinScale;
+            double trollMaxScale;
+            double lifetime;
         } items;
         double gravity;
     };

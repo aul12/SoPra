@@ -6,3 +6,23 @@
  */
 
 #include "Troll.hpp"
+#include "../Controller/Config.hpp"
+
+namespace model {
+
+    void Troll::apply(controller::Environment &environment) const {
+        std::uniform_real_distribution<double> scaleDist(environment.config.items.trollMinScale,
+                environment.config.items.trollMaxScale);
+        double scale = scaleDist(environment.randomNumberGenerator);
+
+        for (auto &obstacle : environment.obstacles) {
+            obstacle.get()->setHeightScale(scale);
+        }
+    }
+
+    void Troll::remove(controller::Environment &environment) const {
+        for (auto &obstacle : environment.obstacles) {
+            obstacle.get()->resetScale();
+        }
+    }
+}

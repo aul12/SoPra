@@ -34,11 +34,21 @@ namespace model {
          * Get the speed of the player
          * @return a Vec containing the speed in each dimension
          */
-        auto getSpeed() const -> Vec {
-            return speed;
-        }
+        auto getSpeed() const -> Vec;
+
+        /**
+         * Set the scale of the player
+         * @param scale a positive number representing the scale
+         */
+        void scaleSize(double scale);
+
+        /**
+         * Set the player back to it's original size
+         */
+        void resetScale();
     private:
         Vec speed;
+        double scale;
     };
 }
 

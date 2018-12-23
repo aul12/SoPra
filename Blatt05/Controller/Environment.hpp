@@ -57,6 +57,8 @@ namespace controller {
         model::Player player;
         int points;
         double timeMultiplexer;
+        double pointMultiplexer;
+        bool invulnerable;
         const Config config;
         std::mt19937 randomNumberGenerator;
     };

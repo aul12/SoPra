@@ -42,6 +42,9 @@ namespace controller {
             this->items.minDist = json["items"]["minDist"];
             this->items.spawnProb = json["items"]["spawnProb"];
             this->items.heightStandardDeviationScale = json["items"]["heightStandardDeviationScale"];
+            this->items.trollMinScale = json["item"]["trollMinScale"];
+            this->items.trollMaxScale = json["item"]["trollMaxScale"];
+            this->items.lifetime = json["item"]["lifetime"];
         } catch (json::exception e) {
             throw std::runtime_error(e.what());
         }

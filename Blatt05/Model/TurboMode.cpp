@@ -6,3 +6,13 @@
  */
 
 #include "TurboMode.hpp"
+
+namespace model {
+    void TurboMode::apply(controller::Environment &environment) const {
+        //@TODO
+    }
+
+    void TurboMode::remove(controller::Environment &environment) const {
+
+    }
+}

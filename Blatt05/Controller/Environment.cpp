@@ -32,15 +32,23 @@ namespace controller {
             }
         }
 
-        // Check if item is collected
-        for (const auto &item : items) {
-            if(player.getBoundingRect().intersects(item->getBoundingRect())) {
-                this->activeItem = item;
-                this->activeItem.value().get()->apply(*this);
-                items.clear();
+        // Handle active items
+        if(this->activeItem.has_value()) {
+            this->activeItem.value().get()->decreaseRemainingTimeBy(deltaT);
+            if(this->activeItem.value().get()->getRemainingTime() <= 0) {
+                this->activeItem.reset();
+            }
+        } else {
+            for (const auto &item : items) {
+                if (player.getBoundingRect().intersects(item->getBoundingRect())) {
+                    this->activeItem = item;
+                    this->activeItem.value().get()->apply(*this);
+                    items.clear();
+                }
             }
         }
 
+        // Create new items/obstacles and delete old ones
         this->updateItems();
         this->updateObstacles();
 
@@ -86,7 +94,29 @@ namespace controller {
                 std::normal_distribution heightDistribution(config.environment.height/2,
                         config.environment.height * config.items.heightStandardDeviationScale);
                 double yPos = heightDistribution(randomNumberGenerator);
+                model::Vec pos{xPos, yPos};
+                model::Vec size{config.items.width, config.items.height};
+                double lifetime = config.items.lifetime;
 
+                std::uniform_int_distribution<int> itemTypeDist(0,3);
+                int itemType = itemTypeDist(randomNumberGenerator);
+                switch (itemType) {
+                    case 0: // Double Points
+                        this->items.push_back(std::make_shared<model::DoublePoints>(pos, size, lifetime));
+                        break;
+                    case 1: // Invulnerable
+                        this->items.push_back(std::make_shared<model::Invulnerable>(pos, size, lifetime));
+                        break;
+                    case 2: // Troll
+                        this->items.push_back(std::make_shared<model::Troll>(pos, size, lifetime));
+                        break;
+                    case 3: // TurboMode
+                        this->items.push_back(std::make_shared<model::TurboMode>(pos, size, lifetime));
+                        break;
+                    default:
+                        // We really shouldn't be here
+                        throw std::runtime_error("It seems like uniform_int_distribution is broken");
+                }
                 //@TODO implement me when all items exist
                 //this->items.push_back(std::make_shared<model::Item>())
             }

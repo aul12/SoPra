@@ -19,7 +19,8 @@ namespace controller {
 
     Environment::Environment(std::string fname) : config{fname},
                                                   randomNumberGenerator{std::random_device{}()},
-                                                  points(0), timeMultiplexer(1), pointMultiplexer(1), invulnerable(false) {
+                                                  points{0}, timeMultiplexer{1}, pointMultiplexer{1}, invulnerable{false},
+                                                  items{}, obstacles{}, activeItem{} {
         player = model::Player{{config.player.xPosInFrame, config.environment.height/2},
                                {config.player.width, config.player.height}};
     }
@@ -33,7 +34,7 @@ namespace controller {
 
         // Check if in bounds
         if(player.getBoundingRect().bottomLeft().get(1) < 0
-                || player.getBoundingRect().topLeft().get(1) > config.environment.height) {
+           || player.getBoundingRect().topLeft().get(1) > config.environment.height) {
             return UpdateResult::GAME_OVER;
         }
 
@@ -137,16 +138,23 @@ namespace controller {
 
     template <typename T>
     auto Environment::removeOutOfScopeAndGetLastX(std::deque<std::shared_ptr<T>> &gameItems) -> double{
-        // Remove old items and check if new items are required
+        // Remove old items
+        if(gameItems.size() > 0) {
+            gameItems.erase(std::remove_if(gameItems.begin(), gameItems.end(),
+                                           [this](const std::shared_ptr<T> &item) {
+                                               return item.get()->getBoundingRect().topRight().get(0) <
+                                                      player.getPosition().get(0) - config.player.xPosInFrame;
+                                           }));
+        }
+
+        // Find the last item
         double lastItemPositionX = 0;
         for (auto iter = gameItems.begin(); iter != gameItems.end(); iter++) {
-            // Item is completely out of frame at the left side
-            if((*iter).get()->getBoundingRect().topRight().get(0) < player.getPosition().get(0) - config.player.xPosInFrame) {
-                gameItems.erase(iter);
-            } else if ((*iter).get()->getPosition().get(0) > lastItemPositionX) {
+            if ((*iter).get()->getPosition().get(0) > lastItemPositionX) {
                 lastItemPositionX = (*iter).get()->getPosition().get(0);
             }
         }
+
         return lastItemPositionX;
     }
 

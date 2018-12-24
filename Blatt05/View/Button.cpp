@@ -7,12 +7,18 @@
 
 #include "Button.hpp"
 
+#include <SFML/Config.hpp>
+
 Button::Button(std::string text, sf::Font &font, float posX, float posY, float sizeX, float sizeY, int fontSize,
                sf::Color background, sf::Color textColor) {
     this->rectangleShape.setPosition(posX, posY);
     this->rectangleShape.setSize(sf::Vector2f{sizeX, sizeY});
     this->rectangleShape.setFillColor(background);
+#if SFML_VERSION_MAJOR >= 2 && SFML_VERSION_MINOR >= 4
     this->text.setFillColor(textColor);
+#else
+    this->text.setColor(textColor);
+#endif
     this->text.setString(text);
     this->text.setFont(font);
     this->text.setCharacterSize(static_cast<unsigned int>(fontSize));

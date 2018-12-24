@@ -14,7 +14,7 @@ namespace view {
         }
 
         auto size = renderWindow.getSize();
-        exit = Button{"Exit", font, size.x*0.1f, 20, size.x*0.8f, 50};
+        backButton = Button{"Back", font, size.x*0.1f, size.y - 70.0f, size.x*0.8f, 50};
     }
 
     auto HelpScreen::run() -> ScreenResult {
@@ -26,7 +26,7 @@ namespace view {
                         return ScreenResult::EXIT;
                     case sf::Event::MouseButtonPressed:
                         if (event.mouseButton.button == sf::Mouse::Left) {
-                            if (exit.contains(event.mouseButton.x, event.mouseButton.y)) {
+                            if (backButton.contains(event.mouseButton.x, event.mouseButton.y)) {
                                 return ScreenResult::START;
                             }
                         }
@@ -37,7 +37,7 @@ namespace view {
             }
 
             renderWindow.clear(sf::Color::White);
-            exit.render(renderWindow);
+            backButton.render(renderWindow);
 
             renderWindow.display();
         }

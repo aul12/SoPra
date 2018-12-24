@@ -5,13 +5,23 @@
  * @brief HighscoreScreen @TODO
  */
 
-#ifndef TEST_HIGHSCORESCREEN_HPP
-#define TEST_HIGHSCORESCREEN_HPP
+#ifndef HIGHSCORESCREEN_HPP
+#define HIGHSCORESCREEN_HPP
 
+#include "Screen.hpp"
+#include "Button.hpp"
 
-class HighscoreScreen {
+namespace view {
+    class HighscoreScreen : public Screen {
+    public:
+        HighscoreScreen(sf::RenderWindow &renderWindow);
 
-};
+        auto run() -> ScreenResult;
 
+    private:
+        sf::Font font;
+        Button backButton;
+    };
+}
 
-#endif //TEST_HIGHSCORESCREEN_HPP
+#endif

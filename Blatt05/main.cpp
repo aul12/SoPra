@@ -7,20 +7,22 @@
 #include "View/GameOverScreen.hpp"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(1920,1080), "Flappy Wizard"/*, sf::Style::Fullscreen*/);
+    sf::RenderWindow window(sf::VideoMode(1920,1080), "Flappy Wizard", sf::Style::Fullscreen);
 
-    std::map<view::ScreenResult, std::shared_ptr<view::Screen>> screenStateMachine;
+    std::map<view::ScreenResult, std::shared_ptr<view::Screen>> screens;
 
-    screenStateMachine.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
+    screens.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
             view::ScreenResult::START, std::make_shared<view::StartScreen>(window)));
-    screenStateMachine.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
+    screens.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
             view::ScreenResult::HELP, std::make_shared<view::HelpScreen>(window)));
-    screenStateMachine.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
+    screens.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
             view::ScreenResult::GAME, std::make_shared<view::GameScreen>(window)));
-    screenStateMachine.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
+    screens.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
             view::ScreenResult::GAME_OVER, std::make_shared<view::GameOverScreen>(window)));
+    screens.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
+            view::ScreenResult::HIGHSCORE, std::make_shared<view::HelpScreen>(window)));
 
-    std::shared_ptr<view::Screen> activeScreen = screenStateMachine.at(view::ScreenResult::START);
+    std::shared_ptr<view::Screen> activeScreen = screens.at(view::ScreenResult::START);
 
     while (true) {
         auto nextScreen = activeScreen.get()->run();
@@ -29,7 +31,7 @@ int main() {
             break;
         }
 
-        activeScreen = screenStateMachine.at(nextScreen);
+        activeScreen = screens.at(nextScreen);
     }
 
 

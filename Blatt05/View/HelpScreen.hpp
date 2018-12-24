@@ -14,9 +14,8 @@
 namespace view {
     class HelpScreen : public Screen {
     public:
-        ScreenResult run();
         HelpScreen(sf::RenderWindow &renderWindow);
-
+        auto run() -> ScreenResult ;
     private:
         Button exit;
         sf::Font font;

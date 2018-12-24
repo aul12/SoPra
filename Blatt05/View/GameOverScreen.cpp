@@ -1,23 +1,23 @@
 /**
- * @file HelpScreen.cpp
+ * @file GameOverScreen.cpp
  * @author paul
- * @date 23.12.18
- * @brief HelpScreen implementation
+ * @date 24.12.18
+ * @brief GameOverScreen @TODO
  */
 
-#include "HelpScreen.hpp"
+#include "GameOverScreen.hpp"
 
 namespace view {
-    HelpScreen::HelpScreen(sf::RenderWindow &renderWindow) : Screen(renderWindow) {
+    GameOverScreen::GameOverScreen(sf::RenderWindow &renderWindow) : Screen(renderWindow) {
         if(!font.loadFromFile("../Res/Roboto-Regular.ttf")) {
             throw std::runtime_error("Could not load font");
         }
-
         auto size = renderWindow.getSize();
-        exit = Button{"Exit", font, size.x*0.1f, 20, size.x*0.8f, 50};
+        playAgainButton = Button{"Play again", font, size.x*0.1f, 20, size.x*0.8f, 50};
+        homeButton = Button{"Back to the start page", font, size.x*0.1f, 90, size.x*0.8f, 50};
     }
 
-    auto HelpScreen::run() -> ScreenResult {
+    auto view::GameOverScreen::run() -> ScreenResult{
         while (this->renderWindow.isOpen()) {
             sf::Event event{};
             while (renderWindow.pollEvent(event)) {
@@ -26,8 +26,10 @@ namespace view {
                         return ScreenResult::EXIT;
                     case sf::Event::MouseButtonPressed:
                         if (event.mouseButton.button == sf::Mouse::Left) {
-                            if (exit.contains(event.mouseButton.x, event.mouseButton.y)) {
+                            if (homeButton.contains(event.mouseButton.x, event.mouseButton.y)) {
                                 return ScreenResult::START;
+                            } else if (playAgainButton.contains(event.mouseButton.x, event.mouseButton.y)) {
+                                return ScreenResult::GAME;
                             }
                         }
                         break;
@@ -37,11 +39,12 @@ namespace view {
             }
 
             renderWindow.clear(sf::Color::White);
-            exit.render(renderWindow);
+
+            homeButton.render(renderWindow);
+            playAgainButton.render(renderWindow);
 
             renderWindow.display();
         }
         return ScreenResult::EXIT;
     }
-
 }

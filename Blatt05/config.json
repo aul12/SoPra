@@ -29,7 +29,8 @@
       "maxScale": 1.5
     },
     "turbo": {
-        "deltaY": 1
+        "deltaY": 1,
+        "speedMultiplier": 5
     }
   },
   "gravity": 9.81

@@ -14,7 +14,7 @@ Button::Button(std::string text, sf::Font &font, float posX, float posY, float s
     this->rectangleShape.setPosition(posX, posY);
     this->rectangleShape.setSize(sf::Vector2f{sizeX, sizeY});
     this->rectangleShape.setFillColor(background);
-#if SFML_VERSION_MAJOR >= 2 && SFML_VERSION_MINOR >= 4
+#if SFML_VERSION_MAJOR >= 2 && SFML_VERSION_MINOR >= 4 // Travis uses some ancient version of sfml
     this->text.setFillColor(textColor);
 #else
     this->text.setColor(textColor);

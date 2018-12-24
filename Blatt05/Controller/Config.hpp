@@ -50,6 +50,7 @@ namespace controller {
             } troll;
             struct {
                 double deltaY;
+                double speedMultiplier;
             } turbo;
         } items;
         double gravity;

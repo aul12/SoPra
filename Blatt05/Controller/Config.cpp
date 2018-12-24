@@ -45,6 +45,7 @@ namespace controller {
             this->items.troll.minScale = json["items"]["troll"]["minScale"];
             this->items.troll.maxScale = json["items"]["troll"]["maxScale"];
             this->items.turbo.deltaY = json["items"]["turbo"]["deltaY"];
+            this->items.turbo.speedMultiplier = json["items"]["turbo"]["speedMultiplier"];
             this->items.lifetime = json["items"]["lifetime"];
         } catch (json::exception &e) {
             throw std::runtime_error(e.what());

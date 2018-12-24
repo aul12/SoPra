@@ -15,7 +15,7 @@
 #include "../Model/Troll.hpp"
 
 namespace view {
-    GameScreen::GameScreen(sf::RenderWindow &renderWindow) : Screen{renderWindow}, environment{"../config.json"}{
+    GameScreen::GameScreen(sf::RenderWindow &renderWindow) : Screen{renderWindow} {
         if (!obstacleBottomTexture.loadFromFile("../Res/turm_ravenclaw.png") ||
             !obstacleTopTexture.loadFromFile("../Res/dementor.png") ||
             !playerTexture.loadFromFile("../Res/harry.png") ||
@@ -27,9 +27,10 @@ namespace view {
         }
     }
 
-    ScreenResult GameScreen::run() {
+    auto GameScreen::run() -> ScreenResult {
         sf::Clock pressClock, frameClock;
         bool isPressed = false;
+        controller::Environment environment{"../config.json"};
         while (this->renderWindow.isOpen()) {
             sf::Event event{};
             while (renderWindow.pollEvent(event)) {
@@ -52,11 +53,13 @@ namespace view {
                 }
             }
 
-            if(environment.update(frameClock.getElapsedTime().asSeconds()) == controller::UpdateResult::GAME_OVER) {
+            double time = frameClock.getElapsedTime().asSeconds();
+            frameClock.restart();
+            //std::cout << "FPS: " << (1/time) << std::endl;
+
+            if(environment.update(time) == controller::UpdateResult::GAME_OVER) {
                 return view::ScreenResult::GAME_OVER;
             }
-
-            frameClock.restart();
 
             renderWindow.clear(sf::Color::White);
 

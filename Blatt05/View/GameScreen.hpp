@@ -18,11 +18,10 @@ namespace view {
     public:
         GameScreen(sf::RenderWindow &renderWindow);
 
-        ScreenResult run();
+        auto run() -> ScreenResult ;
     private:
         sf::Texture obstacleBottomTexture, obstacleTopTexture, playerTexture,
             doublePointsTexture,invulnerableTexture,trollTexture, turboModeTexture;
-        controller::Environment environment;
     };
 }
 

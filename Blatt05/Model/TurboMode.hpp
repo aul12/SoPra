@@ -24,6 +24,7 @@ namespace model {
     private:
         double oldGravity;
         double oldUpAcceleration;
+        double oldMaxObstacle;
     };
 }
 

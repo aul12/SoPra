@@ -4,22 +4,15 @@ language: cpp
 compiler: gcc
 
 before_install:
-    - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended latexmk texlive-lang-german pgf texlive-font-utils zip inkscape texlive-math-extra graphviz make libsfml-dev libgtest-dev cmake valgrind
+    - sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+    - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended latexmk texlive-lang-german pgf texlive-font-utils zip inkscape texlive-math-extra graphviz make libsfml-dev libgtest-dev cmake valgrind gcc-8 g++-8
+    - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
     - cd /usr/src/gtest
     - sudo cmake CMakeLists.txt
     - sudo make
     - sudo cp *.a /usr/lib
     - sudo ldconfig 
     - cd $TRAVIS_BUILD_DIR
-
-addons:
-    apt:
-        sources:
-        - ubuntu-toolchain-r-test
-        packages:
-        - gcc-7
-        - g++-7
-        - cmake
 
 script:
     - mkdir output

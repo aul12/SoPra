@@ -51,7 +51,7 @@ namespace view {
                 }
             }
 
-            renderWindow.clear(sf::Color{255,255,255,255});
+            renderWindow.clear(sf::Color::White);
 
             game.render(renderWindow);
             help.render(renderWindow);

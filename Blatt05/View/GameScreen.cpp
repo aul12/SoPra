@@ -58,7 +58,7 @@ namespace view {
 
             frameClock.restart();
 
-            renderWindow.clear(sf::Color{255,255,255,255});
+            renderWindow.clear(sf::Color::White);
 
             float pixelPerMeter = static_cast<float>(
                     renderWindow.getSize().y / environment.getConfig().environment.height);
@@ -80,7 +80,7 @@ namespace view {
                     obstacleDraw.setTexture(&obstacleBottomTexture);
                 }
                 obstacleDraw.setOutlineThickness(3);
-                obstacleDraw.setOutlineColor(sf::Color{255,0,0,127});
+                obstacleDraw.setOutlineColor(sf::Color::Red);
 
                 renderWindow.draw(obstacleDraw);
             }
@@ -100,7 +100,6 @@ namespace view {
                                              static_cast<float>(gItem.get()->getSize().get(1) * pixelPerMeter)
                                      });
 
-                //@TODO different textures
                 if (std::dynamic_pointer_cast<model::TurboMode>(item).get() != nullptr) {
                     itemDraw.setTexture(&turboModeTexture);
                 } else if (std::dynamic_pointer_cast<model::Troll>(item).get() != nullptr) {

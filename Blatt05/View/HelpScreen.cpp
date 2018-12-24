@@ -36,7 +36,7 @@ namespace view {
                 }
             }
 
-            renderWindow.clear(sf::Color{255,255,255,255});
+            renderWindow.clear(sf::Color::White);
 
             exit.render(renderWindow);
 

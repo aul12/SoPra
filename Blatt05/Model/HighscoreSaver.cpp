@@ -20,7 +20,7 @@ namespace model {
         if (ifstream.good()) {
             try {
                 ifstream >> jsonRoot;
-            } catch (json::exception e) {
+            } catch (json::exception &e) {
                 throw std::runtime_error(e.what());
             }
             if(!jsonRoot.is_array()) {
@@ -57,7 +57,7 @@ namespace model {
             }
             try{
                 entries.push_back(std::make_tuple(entry["name"].get<std::string>(), entry["points"].get<int>()));
-            } catch(json::exception e) {
+            } catch(json::exception &e) {
                 throw std::runtime_error("Malformed json, entries missing or from wrong type");
             }
         }

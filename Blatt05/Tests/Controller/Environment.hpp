@@ -33,4 +33,11 @@ TEST(Environment, UpdateFail) {
     EXPECT_NO_FATAL_FAILURE(environment.update(1));
 }
 
+TEST(Environment, ToGlobalLocal) {
+    controller::Environment environment{"../config.json"};
+    model::Vec vec{10,10};
+    EXPECT_DOUBLE_EQ((environment.toGlobal(environment.toLocal(vec))-vec).norm(), 0);
+    EXPECT_DOUBLE_EQ((environment.toLocal(environment.toGlobal(vec))-vec).norm(), 0);
+}
+
 #endif //TEST_ENVIRONMENT_HPP

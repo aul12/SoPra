@@ -39,9 +39,12 @@ namespace controller {
         }
 
         // Check for collision with obstacles
-        if(!invulnerable) {
-            for (const auto obstacle : obstacles) {
-                if (player.getBoundingRect().intersects(obstacle->getBoundingRect())) {
+        for (const auto obstacle : obstacles) {
+            if (player.getBoundingRect().intersects(obstacle->getBoundingRect())) {
+                if (invulnerable) {
+                    this->activeItem.value().get()->remove(*this);
+                    this->activeItem.reset();
+                } else {
                     return UpdateResult::GAME_OVER;
                 }
             }
@@ -51,6 +54,7 @@ namespace controller {
         if(this->activeItem.has_value()) {
             this->activeItem.value().get()->decreaseRemainingTimeBy(deltaT);
             if(this->activeItem.value().get()->getRemainingTime() <= 0) {
+                this->activeItem.value().get()->remove(*this);
                 this->activeItem.reset();
             }
         } else {
@@ -146,8 +150,8 @@ namespace controller {
         if(gameItems.size() > 0) {
             gameItems.erase(std::remove_if(gameItems.begin(), gameItems.end(),
                                            [this](const std::shared_ptr<T> &item) {
-                                               return item.get()->getBoundingRect().topRight().get(0) <
-                                                      player.getPosition().get(0) - config.player.xPosInFrame;
+                                               return
+                                                toLocal(item.get()->getBoundingRect().topRight()).get(0) < 0;
                                            }), gameItems.end());
         }
     }
@@ -179,6 +183,16 @@ namespace controller {
 
     auto Environment::getConfig() const -> controller::Config {
         return config;
+    }
+
+    auto Environment::toLocal(model::Vec global) -> model::Vec {
+        return {global.get(0) - player.getPosition().get(0) + config.player.xPosInFrame,
+                global.get(1)};
+    }
+
+    auto Environment::toGlobal(model::Vec local) -> model::Vec {
+        return {local.get(0) + player.getPosition().get(0) - config.player.xPosInFrame,
+                local.get(1)};
     }
 
 }

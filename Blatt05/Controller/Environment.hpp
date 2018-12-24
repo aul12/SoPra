@@ -61,6 +61,21 @@ namespace controller {
         void playerUp(double t);
 
         /**
+         * Transform an point from global coordinates to reference frame on the screen
+         * @param global the point in global coordinates
+         * @return a point, such that (0,0) is in the top left corner of the screen
+         */
+        auto toLocal(model::Vec global) -> model::Vec;
+
+        /**
+         * Transform an point from local coordinates to global coordinates
+         * @param local point in local coordinates
+         * @return a point in global coordinates
+         * @see toLocal
+         */
+        auto toGlobal(model::Vec local) -> model::Vec;
+
+        /**
          * Returns the list of currently visible obstacles
          */
         auto getObstacles() const -> std::deque<std::shared_ptr<model::Obstacle>>;

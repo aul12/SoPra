@@ -20,7 +20,8 @@ namespace view {
 
         ScreenResult run();
     private:
-        sf::Texture obstacleBottomTexture, obstacleTopTexture, playerTexture, itemTexture;
+        sf::Texture obstacleBottomTexture, obstacleTopTexture, playerTexture,
+            doublePointsTexture,invulnerableTexture,trollTexture, turboModeTexture;
         controller::Environment environment;
     };
 }

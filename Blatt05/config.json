@@ -1,11 +1,11 @@
 {
   "player": {
-      "accelerationUp": -40,
+      "accelerationUp": -45,
       "mass": 92,
       "width": 2,
       "height": 1.42,
-      "xPosInFrame": 14,
-      "accelerationSide": 1
+      "xPosInFrame": 10,
+      "accelerationSide": 0.8
   },
   "environment": {
     "width": 44,

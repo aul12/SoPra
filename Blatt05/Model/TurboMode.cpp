@@ -11,6 +11,11 @@
 namespace model {
     void TurboMode::apply(controller::Environment &environment) {
         oldGravity = environment.config.gravity;
+        oldUpAcceleration = environment.config.player.accelerationUp;
+
+        environment.config.gravity = 0;
+        environment.config.player.accelerationUp = 0;
+
         environment.player.setSpeed({environment.player.getSpeed().get(0) * 5, 0});
 
         double pathTop = environment.player.getBoundingRect().topRight()[1] - environment.config.items.turbo.deltaY;
@@ -36,6 +41,7 @@ namespace model {
 
     void TurboMode::remove(controller::Environment &environment) {
         environment.config.gravity = oldGravity;
+        environment.config.player.accelerationUp = oldUpAcceleration;
         environment.player.setSpeed({environment.player.getSpeed().get(0) * (1.0/5), 0});
 
         for (auto &obstacle : environment.obstacles) {

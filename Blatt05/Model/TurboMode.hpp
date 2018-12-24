@@ -23,7 +23,7 @@ namespace model {
 
     private:
         double oldGravity;
-
+        double oldUpAcceleration;
     };
 }
 

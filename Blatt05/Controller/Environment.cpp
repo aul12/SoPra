@@ -20,7 +20,7 @@ namespace controller {
 
     Environment::Environment(std::string fname) : points{0},
                                                   pointMultiplexer{1},
-                                                  invulnerableState{InvulnerableState::NONE},
+                                                  invulnerable{false},
                                                   config{fname},
                                                   randomNumberGenerator{std::random_device{}()} {
         player = model::Player{{config.player.xPosInFrame, config.environment.height/2},
@@ -50,22 +50,15 @@ namespace controller {
         }
 
         // Check for collision with obstacles
-        bool collision = false;
         for (const auto obstacle : obstacles) {
             if (player.getBoundingRect().intersects(obstacle->getBoundingRect())) {
-                if (invulnerableState == InvulnerableState::NONE) {
-                    return UpdateResult::GAME_OVER;
+                if (invulnerable || obstacle == invulnerableObstacle) {
+                    invulnerableObstacle = obstacle;
+                    invulnerable = false;
                 } else {
-                    invulnerableState = InvulnerableState::USED;
+                    return UpdateResult::GAME_OVER;
                 }
-                collision = true;
             }
-        }
-
-        // Remove invulerable if out of item
-        if(!collision && invulnerableState == InvulnerableState::USED && activeItem.has_value()) {
-            activeItem.value()->remove(*this);
-            activeItem.reset();
         }
 
         // Handle active items

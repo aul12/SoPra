@@ -9,7 +9,7 @@
 
 namespace view {
     GameOverScreen::GameOverScreen(sf::RenderWindow &renderWindow) : Screen(renderWindow) {
-        if(!font.loadFromFile("../Res/Roboto-Regular.ttf")) {
+        if(!font.loadFromFile("../Res/harry_p.ttf")) {
             throw std::runtime_error("Could not load font");
         }
         auto size = renderWindow.getSize();

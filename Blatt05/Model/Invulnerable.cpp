@@ -9,10 +9,10 @@
 
 void model::Invulnerable::apply(controller::Environment &environment) {
     environment.player.scaleSize(0.5);
-    environment.invulnerable = true;
+    environment.invulnerableState = controller::InvulnerableState::ACTIVE;
 }
 
 void model::Invulnerable::remove(controller::Environment &environment) {
     environment.player.resetScale();
-    environment.invulnerable = false;
+    environment.invulnerableState = controller::InvulnerableState::NONE;
 }

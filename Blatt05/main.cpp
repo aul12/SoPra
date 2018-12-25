@@ -7,7 +7,7 @@
 #include "View/GameOverScreen.hpp"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(1920,1080), "Flappy Wizard", sf::Style::Fullscreen);
+    sf::RenderWindow window(sf::VideoMode(1920,1080), "Flappy Wizard"/*, sf::Style::Fullscreen*/);
 
     std::map<view::ScreenResult, std::shared_ptr<view::Screen>> screens;
 

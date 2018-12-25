@@ -33,6 +33,10 @@ namespace controller {
         UPDATED, GAME_OVER
     };
 
+    enum class InvulnerableState {
+        NONE, ACTIVE, USED
+    };
+
     /**
      * The environment class implements an container for all model items and is responsible for the physics
      */
@@ -142,7 +146,7 @@ namespace controller {
         model::Player player;
         int points;
         int pointMultiplexer;
-        bool invulnerable;
+        InvulnerableState invulnerableState;
         Config config;
         std::mt19937 randomNumberGenerator;
     };

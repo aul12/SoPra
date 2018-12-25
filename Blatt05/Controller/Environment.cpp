@@ -14,11 +14,13 @@
 #include "../Model/TurboMode.hpp"
 
 #include <fstream>
+#include <iostream>
 
 namespace controller {
 
     Environment::Environment(std::string fname) : points{0},
-                                                  pointMultiplexer{1}, invulnerable{false},
+                                                  pointMultiplexer{1},
+                                                  invulnerableState{InvulnerableState::NONE},
                                                   config{fname},
                                                   randomNumberGenerator{std::random_device{}()} {
         player = model::Player{{config.player.xPosInFrame, config.environment.height/2},
@@ -38,6 +40,7 @@ namespace controller {
             return UpdateResult::GAME_OVER;
         }
 
+        // Calculate points
         auto newActiveObst = isAtObstacle();
         if (activeObstacle.has_value() && !newActiveObst.has_value()) {
             activeObstacle.reset();
@@ -47,15 +50,22 @@ namespace controller {
         }
 
         // Check for collision with obstacles
+        bool collision = false;
         for (const auto obstacle : obstacles) {
             if (player.getBoundingRect().intersects(obstacle->getBoundingRect())) {
-                if (invulnerable) {
-                    this->activeItem.value()->remove(*this);
-                    this->activeItem.reset();
-                } else {
+                if (invulnerableState == InvulnerableState::NONE) {
                     return UpdateResult::GAME_OVER;
+                } else {
+                    invulnerableState = InvulnerableState::USED;
                 }
+                collision = true;
             }
+        }
+
+        // Remove invulerable if out of item
+        if(!collision && invulnerableState == InvulnerableState::USED && activeItem.has_value()) {
+            activeItem.value()->remove(*this);
+            activeItem.reset();
         }
 
         // Handle active items

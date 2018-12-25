@@ -27,7 +27,7 @@ namespace view {
             throw std::runtime_error("Could not open texture files");
         }
 
-        if(!font.loadFromFile("../Res/Roboto-Regular.ttf")) {
+        if(!font.loadFromFile("../Res/harry_p.ttf")) {
             throw std::runtime_error("Could not load font");
         }
 

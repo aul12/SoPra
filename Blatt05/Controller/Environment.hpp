@@ -96,6 +96,12 @@ namespace controller {
          * @return the currently used config
          */
         auto getConfig() const -> controller::Config;
+
+        /**
+         * Returns the current score
+         * @return the amounts of obstacles that have been passed
+         */
+        auto getPoints() const -> int;
     private:
         /**
          * Removes all items which left the environment on the left side
@@ -123,12 +129,19 @@ namespace controller {
          */
         void updateItems();
 
+        /**
+         * Checks if any point of the player is at the same x-position as any point of an obstacle
+         * @return if the player is "in between" two obstacles
+         */
+        auto isAtObstacle() -> std::optional<std::shared_ptr<model::Obstacle>>;
+
         std::deque<std::shared_ptr<model::Obstacle>> obstacles;
         std::deque<std::shared_ptr<model::Item>> items;
         std::optional<std::shared_ptr<model::Item>> activeItem;
+        std::optional<std::shared_ptr<model::Obstacle>> activeObstacle;
         model::Player player;
         int points;
-        double pointMultiplexer;
+        int pointMultiplexer;
         bool invulnerable;
         Config config;
         std::mt19937 randomNumberGenerator;

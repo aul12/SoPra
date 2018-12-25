@@ -8,8 +8,8 @@
 #include "../Util/Rectangle.hpp"
 
 namespace model {
-    typedef util::Vector<2, double> Vec; ///< Vector as used in the model
-    typedef util::Rectangle<double> Rect; ///< Rectangle as used in the model
+    using Vec = util::Vector<2, double>; ///< Vector as used in the model
+    using Rect = util::Rectangle<double>; ///< Rectangle as used in the model
 
     /**
      * A generic game item

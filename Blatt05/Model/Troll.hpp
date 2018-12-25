@@ -20,6 +20,9 @@ namespace model {
         Troll(Vec pos, Vec size, double lifeTime) : Item(pos, size, lifeTime){}
         void apply(controller::Environment &environment);
         void remove(controller::Environment &environment);
+
+    private:
+        double oldMinHeight, oldMaxHeight;
     };
 }
 

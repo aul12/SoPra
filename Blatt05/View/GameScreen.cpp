@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <sstream>
 #include "GameScreen.hpp"
 #include "../Controller/Config.hpp"
 #include "../Model/Item.hpp"
@@ -25,6 +26,19 @@ namespace view {
             !turboModeTexture.loadFromFile("../Res/item_silber.png")) {
             throw std::runtime_error("Could not open texture files");
         }
+
+        if(!font.loadFromFile("../Res/Roboto-Regular.ttf")) {
+            throw std::runtime_error("Could not load font");
+        }
+
+        pointText.setPosition(10,10);
+        pointText.setCharacterSize(20);
+        pointText.setFont(font);
+#if SFML_VERSION_MAJOR >= 2 && SFML_VERSION_MINOR >= 4 // Travis uses some ancient version of sfml
+        pointText.setFillColor(sf::Color::Black);
+#else
+        pointText.setColor(sf::Color::Black);
+#endif
     }
 
     auto GameScreen::run() -> ScreenResult {
@@ -66,18 +80,18 @@ namespace view {
             float pixelPerMeter = static_cast<float>(
                     renderWindow.getSize().y / environment.getConfig().environment.height);
 
-            for (const auto &obstacle : environment.getObstacles()) {
+            for (const auto obstacle : environment.getObstacles()) {
                 sf::RectangleShape obstacleDraw;
-                model::Vec obstaclePos = environment.toLocal(obstacle.get()->getBoundingRect().topLeft()) * pixelPerMeter;
+                model::Vec obstaclePos = environment.toLocal(obstacle->getBoundingRect().topLeft()) * pixelPerMeter;
 
                 obstacleDraw.setPosition(
                         static_cast<float>(obstaclePos.get(0)),
                         static_cast<float>(obstaclePos.get(1)));
                 obstacleDraw.setSize({
-                                             static_cast<float>(obstacle.get()->getSize().get(0) * pixelPerMeter),
-                                             static_cast<float>(obstacle.get()->getSize().get(1) * pixelPerMeter)
+                                             static_cast<float>(obstacle->getSize().get(0) * pixelPerMeter),
+                                             static_cast<float>(obstacle->getSize().get(1) * pixelPerMeter)
                                      });
-                if (obstacle.get()->getObstacleSide() == model::ObstacleSide::TOP) {
+                if (obstacle->getObstacleSide() == model::ObstacleSide::TOP) {
                     obstacleDraw.setTexture(&obstacleTopTexture);
                 } else {
                     obstacleDraw.setTexture(&obstacleBottomTexture);
@@ -88,19 +102,19 @@ namespace view {
                 renderWindow.draw(obstacleDraw);
             }
 
-            for (std::shared_ptr<model::Item> item: environment.getItems()) {
+            for (const auto item: environment.getItems()) {
                 sf::RectangleShape itemDraw;
 
                 std::shared_ptr<model::GameItem> gItem = item;
 
-                model::Vec obstaclePos = environment.toLocal(gItem.get()->getBoundingRect().topLeft()) * pixelPerMeter;
+                model::Vec obstaclePos = environment.toLocal(gItem->getBoundingRect().topLeft()) * pixelPerMeter;
 
                 itemDraw.setPosition(
                         static_cast<float>(obstaclePos.get(0)),
                         static_cast<float>(obstaclePos.get(1)));
                 itemDraw.setSize({
-                                             static_cast<float>(gItem.get()->getSize().get(0) * pixelPerMeter),
-                                             static_cast<float>(gItem.get()->getSize().get(1) * pixelPerMeter)
+                                             static_cast<float>(gItem->getSize().get(0) * pixelPerMeter),
+                                             static_cast<float>(gItem->getSize().get(1) * pixelPerMeter)
                                      });
 
                 if (std::dynamic_pointer_cast<model::TurboMode>(item).get() != nullptr) {
@@ -131,6 +145,10 @@ namespace view {
             playerDraw.setTexture(&playerTexture);
             renderWindow.draw(playerDraw);
 
+            std::stringstream pointsStream;
+            pointsStream << "Points: " << environment.getPoints();
+            pointText.setString(pointsStream.str());
+            renderWindow.draw(pointText);
 
             renderWindow.display();
         }

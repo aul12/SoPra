@@ -19,19 +19,19 @@ namespace model {
 
         for (auto &obstacle : environment.obstacles) {
             double scale = 1.0;
-            if(obstacle.get()->getObstacleSide() == ObstacleSide::TOP) {
-                if (obstacle.get()->getBoundingRect().bottomRight()[1] > pathTop) {
-                    scale = pathTop / obstacle.get()->getBoundingRect().bottomRight()[1];
+            if(obstacle->getObstacleSide() == ObstacleSide::TOP) {
+                if (obstacle->getBoundingRect().bottomRight()[1] > pathTop) {
+                    scale = pathTop / obstacle->getBoundingRect().bottomRight()[1];
                 }
             } else {
-                if(obstacle.get()->getBoundingRect().topRight()[1] < pathBottom) {
+                if(obstacle->getBoundingRect().topRight()[1] < pathBottom) {
                     double relPathBottom = environment.config.environment.height - pathBottom;
                     double relHeight =
-                            environment.config.environment.height - obstacle.get()->getBoundingRect().topRight()[1];
+                            environment.config.environment.height - obstacle->getBoundingRect().topRight()[1];
                     scale = relPathBottom / relHeight;
                 }
             }
-            obstacle.get()->setHeightScale(scale);
+            obstacle->setHeightScale(scale);
         }
 
         environment.config.gravity = 0;
@@ -50,7 +50,7 @@ namespace model {
         environment.config.obstacles.maxHeight = oldMaxObstacle;
 
         for (auto &obstacle : environment.obstacles) {
-            obstacle.get()->resetScale();
+            obstacle->resetScale();
         }
     }
 }

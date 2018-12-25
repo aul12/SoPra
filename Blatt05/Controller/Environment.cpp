@@ -38,11 +38,19 @@ namespace controller {
             return UpdateResult::GAME_OVER;
         }
 
+        auto newActiveObst = isAtObstacle();
+        if (activeObstacle.has_value() && !newActiveObst.has_value()) {
+            activeObstacle.reset();
+            points += pointMultiplexer;
+        } else if (newActiveObst.has_value()) {
+            activeObstacle = newActiveObst;
+        }
+
         // Check for collision with obstacles
         for (const auto obstacle : obstacles) {
             if (player.getBoundingRect().intersects(obstacle->getBoundingRect())) {
                 if (invulnerable) {
-                    this->activeItem.value().get()->remove(*this);
+                    this->activeItem.value()->remove(*this);
                     this->activeItem.reset();
                 } else {
                     return UpdateResult::GAME_OVER;
@@ -52,16 +60,16 @@ namespace controller {
 
         // Handle active items
         if(this->activeItem.has_value()) {
-            this->activeItem.value().get()->decreaseRemainingTimeBy(deltaT);
-            if(this->activeItem.value().get()->getRemainingTime() <= 0) {
-                this->activeItem.value().get()->remove(*this);
+            this->activeItem.value()->decreaseRemainingTimeBy(deltaT);
+            if(this->activeItem.value()->getRemainingTime() <= 0) {
+                this->activeItem.value()->remove(*this);
                 this->activeItem.reset();
             }
         } else {
             for (const auto &item : items) {
                 if (player.getBoundingRect().intersects(item->getBoundingRect())) {
                     this->activeItem = item;
-                    this->activeItem.value().get()->apply(*this);
+                    this->activeItem.value()->apply(*this);
                     items.clear();
                 }
             }
@@ -149,9 +157,9 @@ namespace controller {
     void Environment::removeOutOfScope(std::deque<std::shared_ptr<T>> &gameItems) {
         if(gameItems.size() > 0) {
             gameItems.erase(std::remove_if(gameItems.begin(), gameItems.end(),
-                                           [this](const std::shared_ptr<T> &item) {
+                                           [this](const std::shared_ptr<T> item) {
                                                return
-                                                toLocal(item.get()->getBoundingRect().topRight()).get(0) < 0;
+                                                       toLocal(item->getBoundingRect().topRight()).get(0) < 0;
                                            }), gameItems.end());
         }
     }
@@ -161,8 +169,8 @@ namespace controller {
         // Find the last item
         double lastItemPositionX = 0;
         for (auto iter = gameItems.begin(); iter != gameItems.end(); iter++) {
-            if ((*iter).get()->getPosition().get(0) > lastItemPositionX) {
-                lastItemPositionX = (*iter).get()->getPosition().get(0);
+            if ((*iter)->getPosition().get(0) > lastItemPositionX) {
+                lastItemPositionX = (*iter)->getPosition().get(0);
             }
         }
 
@@ -195,4 +203,18 @@ namespace controller {
                 local.get(1)};
     }
 
+    auto Environment::isAtObstacle() -> std::optional<std::shared_ptr<model::Obstacle>> {
+        for (const auto obstacle : obstacles) {
+            if (player.getBoundingRect().topRight().get(0) >= obstacle->getBoundingRect().topLeft().get(0) &&
+                player.getBoundingRect().topLeft().get(0) <= obstacle->getBoundingRect().topRight().get(0)) {
+
+                return {obstacle};
+            }
+        }
+        return {};
+    }
+
+    auto Environment::getPoints() const -> int {
+        return points;
+    }
 }

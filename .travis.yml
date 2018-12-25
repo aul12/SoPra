@@ -39,8 +39,8 @@ script:
     - cd build
     - cmake ..
     - make all
-    - ./Test --gtest_repeat=3
-    - valgrind -q ./Test --gtest_repeat=100
+    - ./Test --gtest_repeat=100
+    - valgrind -q ./Test
 
 deploy:
     provider: pages

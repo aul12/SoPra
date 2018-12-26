@@ -38,8 +38,8 @@ script:
     - mkdir -p build
     - cd build
     - cmake ..
-    - make all
-    - ./Test --gtest_repeat=100
+    - make all -j8
+    - ./Test --gtest_repeat=100 --gtest_shuffle --gtest_color=yes
 
 deploy:
     provider: pages

@@ -62,7 +62,7 @@ namespace view {
             backButton.render(renderWindow);
 
             std::stringstream nameStream, scoreStream;
-            const auto highscores = highscoreSaver.retrieveHighscore();
+            const auto highscores = highscoreSaver.retrieveHighscore(5);
             for(const auto &highscore : highscores) {
                 const auto [name, score] = highscore;
                 nameStream << name << std::endl;

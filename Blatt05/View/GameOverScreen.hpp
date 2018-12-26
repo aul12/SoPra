@@ -17,9 +17,13 @@ namespace view {
         GameOverScreen(sf::RenderWindow &renderWindow);
 
         auto run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) ->  std::shared_ptr<Screen>;
+
+        void submitPoints(int points);
     private:
         sf::Font font;
         Button homeButton, playAgainButton;
+        sf::Text pointsText, enterNameText, nameText;
+        int points;
     };
 }
 

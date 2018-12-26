@@ -14,6 +14,7 @@
 #include "../Model/Invulnerable.hpp"
 #include "../Model/TurboMode.hpp"
 #include "../Model/Troll.hpp"
+#include "GameOverScreen.hpp"
 
 namespace view {
     GameScreen::GameScreen(sf::RenderWindow &renderWindow) : Screen{renderWindow} {
@@ -72,7 +73,14 @@ namespace view {
             //std::cout << "FPS: " << (1/time) << std::endl;
 
             if(environment.update(time) == controller::UpdateResult::GAME_OVER) {
-                return screens.at(ScreenResult::GAME_OVER);
+                auto nextScreen = screens.at(ScreenResult::GAME_OVER);
+                auto gameOverScreen = std::dynamic_pointer_cast<view::GameOverScreen>(nextScreen);
+                if(gameOverScreen.get() == nullptr) {
+                    throw std::runtime_error("The screen at GAME_OVER is not a game over screen!");
+                }
+                gameOverScreen->submitPoints(environment.getPoints());
+
+                return nextScreen;
             }
 
             renderWindow.clear(sf::Color{0xEC, 0xB9, 0x39, 255}); // Color stolen from: http://harrypotter.wikia.com/wiki/Hufflepuff

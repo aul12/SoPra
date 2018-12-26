@@ -2,15 +2,15 @@
  * @file Button.cpp
  * @author paul
  * @date 23.12.18
- * @brief Button @TODO
+ * @brief Implementation of the Button class
  */
 
 #include "Button.hpp"
 
 #include <SFML/Config.hpp>
 
-Button::Button(std::string text, sf::Font &font, float posX, float posY, float sizeX, float sizeY, int fontSize,
-               sf::Color background, sf::Color textColor) {
+Button::Button(std::string caption, sf::Font font, float posX, float posY, float sizeX, float sizeY, int fontSize,
+               sf::Color background, sf::Color textColor) : font(font) {
     this->rectangleShape.setPosition(posX, posY);
     this->rectangleShape.setSize(sf::Vector2f{sizeX, sizeY});
     this->rectangleShape.setFillColor(background);
@@ -19,8 +19,8 @@ Button::Button(std::string text, sf::Font &font, float posX, float posY, float s
 #else
     this->text.setColor(textColor);
 #endif
-    this->text.setString(text);
-    this->text.setFont(font);
+    this->text.setString(caption);
+    this->text.setFont(this->font);
     this->text.setCharacterSize(static_cast<unsigned int>(fontSize));
     auto boundingRect = this->text.getGlobalBounds();
     float textX = posX + (sizeX - boundingRect.width) * 0.5f;

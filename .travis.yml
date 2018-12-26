@@ -37,7 +37,7 @@ script:
     - cd Blatt05
     - mkdir -p build
     - cd build
-    - cmake ..
+    - cmake -DCMAKE_BUILD_TYPE=Debug ..
     - make all -j8
     - ./Test --gtest_repeat=100 --gtest_shuffle --gtest_color=yes
 

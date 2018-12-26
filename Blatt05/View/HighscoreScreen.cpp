@@ -20,7 +20,7 @@ namespace view {
         backButton = Button{"Back", font, size.x*0.1f, size.y - 70.0f, size.x*0.8f, 50};
 
         nameText.setFont(font);
-        nameText.setCharacterSize(30);
+        nameText.setCharacterSize(40);
         nameText.setPosition(size.x*0.1f,30);
 #if SFML_VERSION_MAJOR >= 2 && SFML_VERSION_MINOR >= 4 // Travis uses some ancient version of sfml
         nameText.setFillColor(sf::Color::Black);
@@ -28,7 +28,7 @@ namespace view {
         nameText.setColor(sf::Color::Black);
 #endif
         scoreText.setFont(font);
-        scoreText.setCharacterSize(30);
+        scoreText.setCharacterSize(40);
         scoreText.setPosition(size.x*0.5f,30);
 #if SFML_VERSION_MAJOR >= 2 && SFML_VERSION_MINOR >= 4 // Travis uses some ancient version of sfml
         scoreText.setFillColor(sf::Color::Black);

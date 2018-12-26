@@ -19,7 +19,7 @@ namespace view {
         game = Button{"Start game", font, size.x*0.1f, 20, size.x*0.8f, 50};
         highscore = Button{"Highscore", font, size.x*0.1f, 90, size.x*0.8f, 50};
         help = Button{"Help", font, size.x*0.1f, 160, size.x*0.8f, 50};
-        exit = Button{"Exit", font, size.x*0.1f, 230, size.x*0.8f, 50};
+        exit = Button{"Exit", font, size.x*0.1f, size.y-70.0f, size.x*0.8f, 50};
     }
 
     auto StartScreen::run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) -> std::shared_ptr<Screen> {

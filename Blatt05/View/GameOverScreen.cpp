@@ -31,7 +31,7 @@ namespace view {
         enterNameText.setPosition(size.x*0.1f,150);
         enterNameText.setFont(font);
         enterNameText.setCharacterSize(30);
-        enterNameText.setString("Enter your name:");
+        enterNameText.setString("Enter your name to be added to the highscore:");
 #if SFML_VERSION_MAJOR >= 2 && SFML_VERSION_MINOR >= 4 // Travis uses some ancient version of sfml
         enterNameText.setFillColor(sf::Color::Black);
 #else

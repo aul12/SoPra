@@ -21,6 +21,8 @@ enable_testing()
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIR})
 
+set(CMAKE_CXX_FLAGS "-fsanitize=address -fno-omit-frame-pointer")
+
 add_executable(${PROJECT_NAME} Tests/main.cpp ${SOURCE_FILES})
 
 target_link_libraries(${PROJECT_NAME} ${GTEST_LIBS} -lgtest -lpthread sfml-graphics sfml-window sfml-system)

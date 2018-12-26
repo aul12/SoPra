@@ -10,7 +10,7 @@
 ## Code quality checks:
  * GTest (Unit Tests)
  * clang-tidy (Static analysis, code style)
- * Valgrind (Memory safety)
+ * AddressSanitizer (Memory safety)
  * NASA-ikos (Correctness)
  
 ## Documentation

@@ -34,7 +34,8 @@ namespace controller {
     };
 
     /**
-     * The environment class implements an container for all model items and is responsible for the physics
+     * The environment class implements an container for all model items and is responsible for the physics and rule
+     * checking.
      */
     class Environment {
     friend class model::DoublePoints;

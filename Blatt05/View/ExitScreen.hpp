@@ -2,7 +2,7 @@
  * @file ExitScreen.hpp
  * @author paul
  * @date 26.12.18
- * @brief ExitScreen @TODO
+ * @brief Declaration of the ExitScreen class
  */
 
 #ifndef EXITSCREEN_HPP
@@ -11,6 +11,10 @@
 #include "Screen.hpp"
 
 namespace view {
+    /**
+     * This class doesn't implement a real screen, it only closes the current window.
+     * @see Screen
+     */
     class ExitScreen : public Screen {
     public:
         ExitScreen(sf::RenderWindow &renderWindow);

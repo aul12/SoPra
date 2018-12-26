@@ -17,6 +17,10 @@
 using json = nlohmann::json;
 
 namespace model {
+    /**
+     * Implements an interface between the highscore.json file and the program. All data gets also written to the disk.
+     * This class is not safe if multiple instances of the game try to access the file.
+     */
     class HighscoreSaver {
     public:
         /**
@@ -43,7 +47,7 @@ namespace model {
     private:
         std::string fname;
         json jsonRoot;
-        static constexpr int INDENT = 4;
+        static constexpr int INDENT = 4; ///< Number of spaces to indent when printing the file
     };
 }
 

@@ -13,7 +13,7 @@
 namespace model {
     /**
      * This class implements the Invulnerable Item
-     *  @see Item
+     * @see Item
      */
     class Invulnerable : public Item {
     public:

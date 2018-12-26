@@ -33,7 +33,7 @@ public:
      * @param background the color of the background
      * @param textColor the color of the caption
      */
-    Button(std::string caption, sf::Font font, float posX, float posY, float sizeX, float sizeY, int fontSize = 30,
+    Button(std::string caption, sf::Font &font, float posX, float posY, float sizeX, float sizeY, int fontSize = 30,
             sf::Color background = sf::Color::Black, sf::Color textColor = sf::Color::White);
 
     /**
@@ -53,7 +53,6 @@ protected:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 private:
-    sf::Font font;
     sf::Text text;
     sf::RectangleShape rectangleShape;
 };

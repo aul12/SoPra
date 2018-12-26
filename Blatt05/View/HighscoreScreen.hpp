@@ -12,6 +12,10 @@
 #include "Button.hpp"
 
 namespace view {
+    /**
+     * This screen display the highscore.
+     * @see Screen
+     */
     class HighscoreScreen : public Screen {
     public:
         HighscoreScreen(sf::RenderWindow &renderWindow);

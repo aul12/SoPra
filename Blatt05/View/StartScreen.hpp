@@ -12,6 +12,10 @@
 #include "Button.hpp"
 
 namespace view {
+    /**
+     * This screen display the buttons to change to different screens.
+     * @see Screen
+     */
     class StartScreen : public Screen {
     public:
         StartScreen(sf::RenderWindow &renderWindow);

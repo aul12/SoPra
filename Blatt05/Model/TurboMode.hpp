@@ -13,7 +13,7 @@
 namespace model {
     /**
      * This class implements the TurboMode Item
-     *  @see Item
+     * @see Item
      */
     class TurboMode : public Item {
     public:

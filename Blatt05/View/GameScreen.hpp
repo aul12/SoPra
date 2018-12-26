@@ -14,6 +14,10 @@
 #include "Screen.hpp"
 
 namespace view {
+    /**
+     * This screen displays the actual game.
+     * @see Screen
+     */
     class GameScreen : public Screen {
     public:
         GameScreen(sf::RenderWindow &renderWindow);

@@ -12,6 +12,10 @@
 #include "Button.hpp"
 
 namespace view {
+    /**
+     * This screen displays the help message from the Res/Help.txt file.
+     * @see Screen
+     */
     class HelpScreen : public Screen {
     public:
         HelpScreen(sf::RenderWindow &renderWindow);

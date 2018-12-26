@@ -13,7 +13,7 @@
 namespace model {
     /**
      * This class implements the DoublePoints Item
-     *  @see Item
+     * @see Item
      */
     class DoublePoints : public Item {
     public:

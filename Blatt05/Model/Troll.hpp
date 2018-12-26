@@ -13,7 +13,7 @@
 namespace model {
     /**
      * This class implements the Troll Item
-     *  @see Item
+     * @see Item
      */
     class Troll : public Item {
     public:

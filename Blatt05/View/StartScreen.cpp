@@ -51,7 +51,7 @@ namespace view {
                 }
             }
 
-            renderWindow.clear(sf::Color::White);
+            renderWindow.clear(sf::Color{0xEC, 0xB9, 0x39, 255}); // Color stolen from: http://harrypotter.wikia.com/wiki/Hufflepuff
 
             game.render(renderWindow);
             help.render(renderWindow);

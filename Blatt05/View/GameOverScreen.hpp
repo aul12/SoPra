@@ -16,7 +16,7 @@ namespace view {
     public:
         GameOverScreen(sf::RenderWindow &renderWindow);
 
-        auto run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) ->  std::shared_ptr<Screen>;
+        auto run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) ->  std::shared_ptr<Screen> override;
 
         void submitPoints(int points);
     private:

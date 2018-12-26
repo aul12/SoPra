@@ -69,11 +69,12 @@ namespace controller {
                 this->activeItem.reset();
             }
         } else {
-            for (const auto &item : items) {
+            for (const auto item : items) {
                 if (player.getBoundingRect().intersects(item->getBoundingRect())) {
                     this->activeItem = item;
                     this->activeItem.value()->apply(*this);
                     items.clear();
+                    break;
                 }
             }
         }

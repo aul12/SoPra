@@ -28,11 +28,11 @@ Button::Button(std::string text, sf::Font &font, float posX, float posY, float s
     this->text.setPosition(textX, textY);
 }
 
-void Button::render(sf::RenderWindow &window) {
-    window.draw(this->rectangleShape);
-    window.draw(this->text);
-}
-
 auto Button::contains(float x, float y) -> bool {
     return this->rectangleShape.getGlobalBounds().contains(x,y);
+}
+
+void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    target.draw(this->rectangleShape, states);
+    target.draw(this->text, states);
 }

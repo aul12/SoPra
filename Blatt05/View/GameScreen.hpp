@@ -18,7 +18,7 @@ namespace view {
     public:
         GameScreen(sf::RenderWindow &renderWindow);
 
-        auto run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) ->  std::shared_ptr<Screen>;
+        auto run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) ->  std::shared_ptr<Screen> override;
     private:
         sf::Texture obstacleBottomTexture, obstacleTopTexture, playerTexture,
             doublePointsTexture,invulnerableTexture,trollTexture, turboModeTexture;

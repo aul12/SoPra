@@ -100,8 +100,8 @@ namespace view {
             renderWindow.draw(pointsText);
             renderWindow.draw(enterNameText);
             renderWindow.draw(nameText);
-            homeButton.render(renderWindow);
-            playAgainButton.render(renderWindow);
+            renderWindow.draw(homeButton);
+            renderWindow.draw(playAgainButton);
 
             renderWindow.display();
         }

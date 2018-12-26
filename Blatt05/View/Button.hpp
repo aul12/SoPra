@@ -11,13 +11,16 @@
 
 #include <SFML/Graphics.hpp>
 
-class Button {
+class Button : public sf::Drawable {
 public:
     Button() = default;
     Button(std::string text, sf::Font &font, float posX, float posY, float sizeX, float sizeY, int fontSize = 30,
             sf::Color background = sf::Color::Black, sf::Color textColor = sf::Color::White);
-    void render(sf::RenderWindow &window);
     auto contains(float x, float y) -> bool;
+
+protected:
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+
 private:
     sf::Text text;
     sf::RectangleShape rectangleShape;

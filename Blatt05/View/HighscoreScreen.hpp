@@ -21,6 +21,7 @@ namespace view {
     private:
         sf::Font font;
         Button backButton;
+        sf::Text nameText,scoreText;
     };
 }
 

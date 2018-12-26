@@ -5,6 +5,7 @@
 #include "View/HelpScreen.hpp"
 #include "View/GameScreen.hpp"
 #include "View/GameOverScreen.hpp"
+#include "View/HighscoreScreen.hpp"
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1920,1080), "Flappy Wizard"/*, sf::Style::Fullscreen*/);
@@ -20,7 +21,7 @@ int main() {
     screens.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
             view::ScreenResult::GAME_OVER, std::make_shared<view::GameOverScreen>(window)));
     screens.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
-            view::ScreenResult::HIGHSCORE, std::make_shared<view::HelpScreen>(window)));
+            view::ScreenResult::HIGHSCORE, std::make_shared<view::HighscoreScreen>(window)));
 
     std::shared_ptr<view::Screen> activeScreen = screens.at(view::ScreenResult::START);
 

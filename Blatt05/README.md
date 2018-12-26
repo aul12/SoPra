@@ -1,15 +1,17 @@
 # Flappy Wizard
 
-If there are regarding the PNG-Blobs, you need to install Git-LFS.
+## config.json
+@TODO
 
 ## Librarys:
- * SFML
- * nlohmann::json
+ * SFML (Graphics)
+ * nlohmann::json (JSON)
  
 ## Code quality checks:
- * GTest
- * clang-tidy
- * Valgrind
+ * GTest (Unit Tests)
+ * clang-tidy (Static analysis, code style)
+ * Valgrind (Memory safety)
+ * NASA-ikos (Correctness)
  
 ## Documentation
  * Doxygen

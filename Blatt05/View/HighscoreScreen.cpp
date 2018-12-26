@@ -6,6 +6,9 @@
  */
 
 #include "HighscoreScreen.hpp"
+#include <sstream>
+#include <iomanip>
+#include "../Model/HighscoreSaver.hpp"
 
 namespace view {
     HighscoreScreen::HighscoreScreen(sf::RenderWindow &renderWindow) : Screen(renderWindow) {
@@ -15,9 +18,28 @@ namespace view {
 
         auto size = renderWindow.getSize();
         backButton = Button{"Back", font, size.x*0.1f, size.y - 70.0f, size.x*0.8f, 50};
+
+        nameText.setFont(font);
+        nameText.setCharacterSize(30);
+        nameText.setPosition(size.x*0.1f,30);
+#if SFML_VERSION_MAJOR >= 2 && SFML_VERSION_MINOR >= 4 // Travis uses some ancient version of sfml
+        nameText.setFillColor(sf::Color::Black);
+#else
+        nameText.setColor(sf::Color::Black);
+#endif
+        scoreText.setFont(font);
+        scoreText.setCharacterSize(30);
+        scoreText.setPosition(size.x*0.5f,30);
+#if SFML_VERSION_MAJOR >= 2 && SFML_VERSION_MINOR >= 4 // Travis uses some ancient version of sfml
+        scoreText.setFillColor(sf::Color::Black);
+#else
+        scoreText.setColor(sf::Color::Black);
+#endif
     }
 
     auto HighscoreScreen::run() -> ScreenResult {
+        model::HighscoreSaver highscoreSaver{"../highscore.json"};
+
         while (this->renderWindow.isOpen()) {
             sf::Event event{};
             while (renderWindow.pollEvent(event)) {
@@ -38,6 +60,20 @@ namespace view {
 
             renderWindow.clear(sf::Color{0xEC, 0xB9, 0x39, 255}); // Color stolen from: http://harrypotter.wikia.com/wiki/Hufflepuff
             backButton.render(renderWindow);
+
+            std::stringstream nameStream, scoreStream;
+            const auto highscores = highscoreSaver.retrieveHighscore();
+            for(const auto &highscore : highscores) {
+                const auto [name, score] = highscore;
+                nameStream << name << std::endl;
+                scoreStream  << score << std::endl;
+            }
+
+            nameText.setString(nameStream.str());
+            scoreText.setString(scoreStream.str());
+
+            renderWindow.draw(nameText);
+            renderWindow.draw(scoreText);
 
             renderWindow.display();
         }

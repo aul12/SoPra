@@ -12,7 +12,7 @@ TEST(HighscoreSaver, Create) {
 }
 
 TEST(HighscoreSaver, Open) {
-    EXPECT_NO_THROW(model::HighscoreSaver{"../highscore.json"});
+    EXPECT_NO_THROW(model::HighscoreSaver{"../Tests/highscore_test.json"});
     EXPECT_THROW(model::HighscoreSaver{"../main.cpp"}, std::runtime_error);
     EXPECT_THROW(model::HighscoreSaver{"../config.json"}, std::runtime_error);
 }
@@ -22,7 +22,7 @@ TEST(HighscoreSaver, Insert) {
 }
 
 TEST(HighscoreSaver, Retrieve) {
-    model::HighscoreSaver highscoreSaver{"../highscore.json"};
+    model::HighscoreSaver highscoreSaver{"../Tests/highscore_test.json"};
     std::vector<std::tuple<std::string, int>> a,b,c,d;
     EXPECT_NO_THROW(a = highscoreSaver.retrieveHighscore(0));
     EXPECT_NO_THROW(b = highscoreSaver.retrieveHighscore(1));

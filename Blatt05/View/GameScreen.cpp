@@ -41,7 +41,7 @@ namespace view {
 #endif
     }
 
-    auto GameScreen::run() -> ScreenResult {
+    auto GameScreen::run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) -> std::shared_ptr<Screen> {
         sf::Clock pressClock, frameClock;
         bool isPressed = false;
         controller::Environment environment{"../config.json"};
@@ -50,7 +50,7 @@ namespace view {
             while (renderWindow.pollEvent(event)) {
                 switch (event.type) {
                     case sf::Event::Closed:
-                        return ScreenResult::EXIT;
+                        return screens.at(ScreenResult::EXIT);
                     case sf::Event::KeyPressed:
                         if(isPressed) {
                             environment.playerUp(pressClock.getElapsedTime().asSeconds());
@@ -72,7 +72,7 @@ namespace view {
             //std::cout << "FPS: " << (1/time) << std::endl;
 
             if(environment.update(time) == controller::UpdateResult::GAME_OVER) {
-                return view::ScreenResult::GAME_OVER;
+                return screens.at(ScreenResult::GAME_OVER);
             }
 
             renderWindow.clear(sf::Color{0xEC, 0xB9, 0x39, 255}); // Color stolen from: http://harrypotter.wikia.com/wiki/Hufflepuff
@@ -96,8 +96,8 @@ namespace view {
                 } else {
                     obstacleDraw.setTexture(&obstacleBottomTexture);
                 }
-                obstacleDraw.setOutlineThickness(3);
-                obstacleDraw.setOutlineColor(sf::Color::Red);
+                //obstacleDraw.setOutlineThickness(3);
+                //obstacleDraw.setOutlineColor(sf::Color::Red);
 
                 renderWindow.draw(obstacleDraw);
             }
@@ -113,9 +113,9 @@ namespace view {
                         static_cast<float>(obstaclePos.get(0)),
                         static_cast<float>(obstaclePos.get(1)));
                 itemDraw.setSize({
-                                             static_cast<float>(gItem->getSize().get(0) * pixelPerMeter),
-                                             static_cast<float>(gItem->getSize().get(1) * pixelPerMeter)
-                                     });
+                                         static_cast<float>(gItem->getSize().get(0) * pixelPerMeter),
+                                         static_cast<float>(gItem->getSize().get(1) * pixelPerMeter)
+                                 });
 
                 if (std::dynamic_pointer_cast<model::TurboMode>(item).get() != nullptr) {
                     itemDraw.setTexture(&turboModeTexture);
@@ -152,6 +152,6 @@ namespace view {
 
             renderWindow.display();
         }
-        return ScreenResult::EXIT;
+        return screens.at(ScreenResult::EXIT);
     }
 }

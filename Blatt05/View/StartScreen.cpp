@@ -22,29 +22,29 @@ namespace view {
         exit = Button{"Exit", font, size.x*0.1f, 230, size.x*0.8f, 50};
     }
 
-    auto StartScreen::run() -> ScreenResult {
+    auto StartScreen::run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) -> std::shared_ptr<Screen> {
         while (this->renderWindow.isOpen()) {
             sf::Event event{};
             while (renderWindow.pollEvent(event)) {
                 switch (event.type) {
                     case sf::Event::Closed:
-                        return ScreenResult::EXIT;
+                        return screens.at(ScreenResult::EXIT);
                     case sf::Event::MouseButtonPressed:
                         if (event.mouseButton.button == sf::Mouse::Left) {
                             if(game.contains(event.mouseButton.x, event.mouseButton.y)) {
-                                return ScreenResult::GAME;
+                                return screens.at(ScreenResult::GAME);
                             } else if (highscore.contains(event.mouseButton.x, event.mouseButton.y)) {
-                                return ScreenResult::HIGHSCORE;
+                                return screens.at(ScreenResult::HIGHSCORE);
                             } else if (help.contains(event.mouseButton.x, event.mouseButton.y)) {
-                                return ScreenResult::HELP;
+                                return screens.at(ScreenResult::HELP);
                             } else if (exit.contains(event.mouseButton.x, event.mouseButton.y)) {
-                                return ScreenResult::EXIT;
+                                return screens.at(ScreenResult::EXIT);
                             }
                         }
                         break;
                     case sf::Event::KeyPressed:
                         if(event.key.code == sf::Keyboard::Escape) {
-                            return ScreenResult::EXIT;
+                            return screens.at(ScreenResult::EXIT);
                         }
                     default:
                         break;
@@ -60,6 +60,6 @@ namespace view {
 
             renderWindow.display();
         }
-        return ScreenResult::EXIT;
+        return screens.at(ScreenResult::EXIT);
     }
 }

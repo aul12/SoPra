@@ -16,8 +16,7 @@ namespace view {
     public:
         GameOverScreen(sf::RenderWindow &renderWindow);
 
-        virtual ScreenResult run();
-
+        auto run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) ->  std::shared_ptr<Screen>;
     private:
         sf::Font font;
         Button homeButton, playAgainButton;

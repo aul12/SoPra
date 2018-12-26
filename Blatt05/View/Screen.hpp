@@ -9,6 +9,7 @@
 #define SCREEN_HPP
 
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 namespace view {
     enum class ScreenResult {
@@ -29,7 +30,7 @@ namespace view {
         /**
          * Run the screen until another screen should be shown
          */
-        virtual auto run() -> ScreenResult = 0;
+        virtual auto run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) ->  std::shared_ptr<Screen> = 0;
 
     protected:
         sf::RenderWindow &renderWindow;

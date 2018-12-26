@@ -30,17 +30,17 @@ namespace view {
         helpText.setString(helpString);
     }
 
-    auto HelpScreen::run() -> ScreenResult {
+    auto HelpScreen::run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) -> std::shared_ptr<Screen> {
         while (this->renderWindow.isOpen()) {
             sf::Event event{};
             while (renderWindow.pollEvent(event)) {
                 switch (event.type) {
                     case sf::Event::Closed:
-                        return ScreenResult::EXIT;
+                        return screens.at(ScreenResult::EXIT);
                     case sf::Event::MouseButtonPressed:
                         if (event.mouseButton.button == sf::Mouse::Left) {
                             if (backButton.contains(event.mouseButton.x, event.mouseButton.y)) {
-                                return ScreenResult::START;
+                                return screens.at(ScreenResult::START);
                             }
                         }
                         break;
@@ -55,7 +55,6 @@ namespace view {
 
             renderWindow.display();
         }
-        return ScreenResult::EXIT;
+        return screens.at(ScreenResult::EXIT);
     }
-
 }

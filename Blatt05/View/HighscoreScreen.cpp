@@ -37,7 +37,7 @@ namespace view {
 #endif
     }
 
-    auto HighscoreScreen::run() -> ScreenResult {
+    auto HighscoreScreen::run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) -> std::shared_ptr<Screen> {
         model::HighscoreSaver highscoreSaver{"../highscore.json"};
 
         while (this->renderWindow.isOpen()) {
@@ -45,11 +45,11 @@ namespace view {
             while (renderWindow.pollEvent(event)) {
                 switch (event.type) {
                     case sf::Event::Closed:
-                        return ScreenResult::EXIT;
+                        return screens.at(ScreenResult::EXIT);
                     case sf::Event::MouseButtonPressed:
                         if (event.mouseButton.button == sf::Mouse::Left) {
                             if (backButton.contains(event.mouseButton.x, event.mouseButton.y)) {
-                                return ScreenResult::START;
+                                return screens.at(ScreenResult::START);
                             }
                         }
                         break;
@@ -77,6 +77,6 @@ namespace view {
 
             renderWindow.display();
         }
-        return ScreenResult::EXIT;
+        return screens.at(ScreenResult::EXIT);
     }
 }

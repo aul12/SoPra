@@ -17,19 +17,19 @@ namespace view {
         homeButton = Button{"Back to the start page", font, size.x*0.1f, 90, size.x*0.8f, 50};
     }
 
-    auto view::GameOverScreen::run() -> ScreenResult{
+    auto GameOverScreen::run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) -> std::shared_ptr<Screen> {
         while (this->renderWindow.isOpen()) {
             sf::Event event{};
             while (renderWindow.pollEvent(event)) {
                 switch (event.type) {
                     case sf::Event::Closed:
-                        return ScreenResult::EXIT;
+                        return screens.at(ScreenResult::EXIT);
                     case sf::Event::MouseButtonPressed:
                         if (event.mouseButton.button == sf::Mouse::Left) {
                             if (homeButton.contains(event.mouseButton.x, event.mouseButton.y)) {
-                                return ScreenResult::START;
+                                return screens.at(ScreenResult::START);
                             } else if (playAgainButton.contains(event.mouseButton.x, event.mouseButton.y)) {
-                                return ScreenResult::GAME;
+                                return screens.at(ScreenResult::GAME);
                             }
                         }
                         break;
@@ -45,6 +45,6 @@ namespace view {
 
             renderWindow.display();
         }
-        return ScreenResult::EXIT;
+        return screens.at(ScreenResult::EXIT);
     }
 }

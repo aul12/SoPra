@@ -9,7 +9,7 @@ set(SOURCE_FILES Model/GameItem.cpp Model/Player.cpp Model/Obstacle.cpp
         Model/HighscoreSaver.cpp
         Controller/Environment.cpp Controller/Config.cpp
         View/Screen.cpp View/StartScreen.cpp View/HelpScreen.cpp View/GameScreen.cpp
-        View/GameOverScreen.cpp View/HighscoreScreen.cpp
+        View/GameOverScreen.cpp View/HighscoreScreen.cpp View/ExitScreen.cpp
         View/Button.cpp)
 add_executable(${PROJECT_NAME} main.cpp ${SOURCE_FILES})
 

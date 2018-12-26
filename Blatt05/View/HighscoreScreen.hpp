@@ -16,7 +16,7 @@ namespace view {
     public:
         HighscoreScreen(sf::RenderWindow &renderWindow);
 
-        auto run() -> ScreenResult;
+        auto run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) ->  std::shared_ptr<Screen>;
 
     private:
         sf::Font font;

@@ -5,6 +5,7 @@
  * @brief HelpScreen implementation
  */
 
+#include <fstream>
 #include "HelpScreen.hpp"
 
 namespace view {
@@ -15,6 +16,18 @@ namespace view {
 
         auto size = renderWindow.getSize();
         backButton = Button{"Back", font, size.x*0.1f, size.y - 70.0f, size.x*0.8f, 50};
+
+        helpText.setFont(font);
+        helpText.setCharacterSize(30);
+        helpText.setPosition(size.x*0.1f,30);
+#if SFML_VERSION_MAJOR >= 2 && SFML_VERSION_MINOR >= 4 // Travis uses some ancient version of sfml
+        helpText.setFillColor(sf::Color::Black);
+#else
+        helpText.setColor(sf::Color::Black);
+#endif
+        std::ifstream helpStream("../Res/Help.txt");
+        std::string helpString(std::istreambuf_iterator<char>(helpStream), {});
+        helpText.setString(helpString);
     }
 
     auto HelpScreen::run() -> ScreenResult {
@@ -38,6 +51,7 @@ namespace view {
 
             renderWindow.clear(sf::Color{0xEC, 0xB9, 0x39, 255}); // Color stolen from: http://harrypotter.wikia.com/wiki/Hufflepuff
             backButton.render(renderWindow);
+            renderWindow.draw(helpText);
 
             renderWindow.display();
         }

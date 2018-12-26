@@ -19,6 +19,7 @@ namespace view {
     private:
         Button backButton;
         sf::Font font;
+        sf::Text helpText;
     };
 }
 

@@ -1,0 +1,9 @@
+Press any Key to accelerate up and avoid hitting any obstacles!
+
+
+You can collect different items, they are differentiated by color (all items are active for a limited time):
+
+Green: Invulnerable, you get smaller and you can hit an obstacle once.
+Blue: Double Points, all points that are acquired while this obstacle is active count as two points.
+Silver: Turbo Mode, you accelerate to five times the current speed and do not hit any obstacle.
+Red: Troll, all obstacles get larger, sometimes they get so large that you can't avoid them.

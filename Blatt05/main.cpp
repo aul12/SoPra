@@ -9,7 +9,11 @@
 #include "View/ExitScreen.hpp"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode{1920,1080}, "Flappy Wizard", sf::Style::Fullscreen);
+    sf::ContextSettings contextSettings{};
+    contextSettings.antialiasingLevel = 4;
+    sf::RenderWindow window(sf::VideoMode{1920,1080}, "Flappy Wizard", sf::Style::Fullscreen, contextSettings);
+    window.setVerticalSyncEnabled(true);
+    window.setFramerateLimit(60);
 
     std::map<view::ScreenResult, std::shared_ptr<view::Screen>> screens;
 

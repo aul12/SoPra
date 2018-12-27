@@ -8,7 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include "GameScreen.hpp"
-#include "../Controller/Config.hpp"
+#include "../Controller/GameConfig.hpp"
 #include "../Model/Item.hpp"
 #include "../Model/DoublePoints.hpp"
 #include "../Model/Invulnerable.hpp"
@@ -17,7 +17,8 @@
 #include "GameOverScreen.hpp"
 
 namespace view {
-    GameScreen::GameScreen(sf::RenderWindow &renderWindow) : Screen{renderWindow} {
+    GameScreen::GameScreen(sf::RenderWindow &renderWindow, const controller::GameConfig &gameConfig) :
+    Screen{renderWindow}, gameConfig(gameConfig) {
         if (!obstacleBottomTexture.loadFromFile("../Res/turm_ravenclaw.png") ||
             !obstacleTopTexture.loadFromFile("../Res/dementor.png") ||
             !playerTexture.loadFromFile("../Res/harry.png") ||
@@ -45,7 +46,7 @@ namespace view {
     auto GameScreen::run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) -> std::shared_ptr<Screen> {
         sf::Clock pressClock, frameClock;
         bool isPressed = false;
-        controller::Environment environment{"../config.json"};
+        controller::Environment environment{gameConfig};
         while (this->renderWindow.isOpen()) {
             sf::Event event{};
             while (renderWindow.pollEvent(event)) {

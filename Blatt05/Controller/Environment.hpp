@@ -14,7 +14,7 @@
 #include <memory>
 #include "../Model/Obstacle.hpp"
 #include "../Model/Player.hpp"
-#include "Config.hpp"
+#include "GameConfig.hpp"
 
 /*
  * At this point a forward declaration is necessary, else we get issues because we have a cyclic dependency
@@ -47,7 +47,7 @@ namespace controller {
          * Create an environment with a given config
          * @param configFile path to the configuration json file
          */
-        Environment(std::string configFile);
+        Environment(const GameConfig &gameConfig);
 
         /**
          * Calculate the physics and rules for the next time step
@@ -96,7 +96,7 @@ namespace controller {
          * Returns the used config
          * @return the currently used config
          */
-        auto getConfig() const -> controller::Config;
+        auto getConfig() const -> controller::GameConfig;
 
         /**
          * Returns the current score
@@ -145,7 +145,7 @@ namespace controller {
         int points;
         int pointMultiplexer;
         bool invulnerable;
-        Config config;
+        GameConfig gameConfig;
         std::mt19937 randomNumberGenerator;
     };
 }

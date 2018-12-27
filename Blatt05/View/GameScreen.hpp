@@ -20,7 +20,7 @@ namespace view {
      */
     class GameScreen : public Screen {
     public:
-        GameScreen(sf::RenderWindow &renderWindow);
+        GameScreen(sf::RenderWindow &renderWindow, const controller::GameConfig &gameConfig);
 
         auto run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) ->  std::shared_ptr<Screen> override;
     private:
@@ -28,6 +28,7 @@ namespace view {
             doublePointsTexture,invulnerableTexture,trollTexture, turboModeTexture;
         sf::Text pointText;
         sf::Font font;
+        controller::GameConfig gameConfig;
     };
 }
 

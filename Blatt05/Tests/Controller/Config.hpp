@@ -1,16 +1,23 @@
 #ifndef TEST_CONFIG_HPP
 #define TEST_CONFIG_HPP
 
-#include "../../Controller/Config.hpp"
+#include "../../Controller/GameConfig.hpp"
+#include <fstream>
 
-TEST(Config, ReadFail) {
-    EXPECT_THROW(controller::Config{"NOT_A_FILE"}, std::runtime_error);
-    EXPECT_THROW(controller::Config{"../main.cpp"}, std::runtime_error); // Not a valid json
-    EXPECT_NO_FATAL_FAILURE(controller::Config{"../config.json"});
+TEST(GameConfig, ReadFail) {
+    std::ifstream notValid{"../Tests/highscore_test.json"}, config{"../config.json"};
+    nlohmann::json j1, j2;
+    notValid >> j1;
+    config >> j2;
+    EXPECT_THROW(j1.get<controller::GameConfig>(), std::runtime_error);
+    EXPECT_NO_FATAL_FAILURE(j2.get<controller::GameConfig>());
 }
 
-TEST(Config, Read) {
-    controller::Config config{"../config.json"};
+TEST(GameConfig, Read) {
+    std::ifstream configFile{"../config.json"};
+    nlohmann::json j;
+    configFile >> j;
+    auto config =  j.get<controller::GameConfig>();
 
     EXPECT_DOUBLE_EQ(config.gravity, 9.81);
     EXPECT_DOUBLE_EQ(config.player.mass, 92);

@@ -6,7 +6,7 @@
  */
 
 #include "Environment.hpp"
-#include "Config.hpp"
+#include "GameConfig.hpp"
 #include "../Model/Item.hpp"
 #include "../Model/DoublePoints.hpp"
 #include "../Model/Invulnerable.hpp"
@@ -18,25 +18,25 @@
 
 namespace controller {
 
-    Environment::Environment(std::string fname) : points{0},
+    Environment::Environment(const GameConfig &gameConfig) : points{0},
                                                   pointMultiplexer{1},
                                                   invulnerable{false},
-                                                  config{fname},
+                                                  gameConfig{gameConfig},
                                                   randomNumberGenerator{std::random_device{}()} {
-        player = model::Player{{config.player.xPosInFrame, config.environment.height/2},
-                               {config.player.width, config.player.height}};
+        player = model::Player{{gameConfig.player.xPosInFrame, gameConfig.environment.height/2},
+                               {gameConfig.player.width, gameConfig.player.height}};
     }
 
     auto Environment::update(double deltaT) -> UpdateResult {
         assert(deltaT > 0);
 
         // Move the player
-        player.accelerate({config.player.accelerationSide,config.gravity}, deltaT);
+        player.accelerate({gameConfig.player.accelerationSide,gameConfig.gravity}, deltaT);
         player.move(deltaT);
 
         // Check if in bounds
         if(player.getBoundingRect().bottomLeft().get(1) < 0
-           || player.getBoundingRect().topLeft().get(1) > config.environment.height) {
+           || player.getBoundingRect().topLeft().get(1) > gameConfig.environment.height) {
             return UpdateResult::GAME_OVER;
         }
 
@@ -88,7 +88,7 @@ namespace controller {
 
     void Environment::playerUp(double t) {
         assert(t > 0);
-        player.accelerate({0,config.player.accelerationUp}, t);
+        player.accelerate({0,gameConfig.player.accelerationUp}, t);
     }
 
     void Environment::updateObstacles() {
@@ -96,18 +96,18 @@ namespace controller {
         double lastObstaclePosX = findLastItem(obstacles);
 
         double distFromRightEdge =
-                config.environment.width - (lastObstaclePosX - player.getPosition().get(0) + config.player.xPosInFrame);
+                gameConfig.environment.width - (lastObstaclePosX - player.getPosition().get(0) + gameConfig.player.xPosInFrame);
         // New obstacle required
-        if(distFromRightEdge > config.obstacles.deltaX) {
-            std::uniform_real_distribution<double> gen(config.obstacles.minHeight, config.obstacles.maxHeight);
+        if(distFromRightEdge > gameConfig.obstacles.deltaX) {
+            std::uniform_real_distribution<double> gen(gameConfig.obstacles.minHeight, gameConfig.obstacles.maxHeight);
             double bottomHeight = gen(randomNumberGenerator);
             double topHeight = gen(randomNumberGenerator);
-            double xPos = player.getPosition().get(0) - config.player.xPosInFrame +
-                          config.environment.width + config.obstacles.width;
+            double xPos = player.getPosition().get(0) - gameConfig.player.xPosInFrame +
+                          gameConfig.environment.width + gameConfig.obstacles.width;
             obstacles.push_back(std::make_shared<model::Obstacle>(model::Vec{xPos, topHeight/2},
-                                                                  model::Vec{config.obstacles.width, topHeight}, model::ObstacleSide::TOP));
-            obstacles.push_back(std::make_shared<model::Obstacle>(model::Vec{xPos, config.environment.height - bottomHeight/2},
-                                                                  model::Vec{config.obstacles.width, bottomHeight}, model::ObstacleSide::BOTTOM));
+                                                                  model::Vec{gameConfig.obstacles.width, topHeight}, model::ObstacleSide::TOP));
+            obstacles.push_back(std::make_shared<model::Obstacle>(model::Vec{xPos, gameConfig.environment.height - bottomHeight/2},
+                                                                  model::Vec{gameConfig.obstacles.width, bottomHeight}, model::ObstacleSide::BOTTOM));
         }
     }
 
@@ -116,21 +116,21 @@ namespace controller {
         double lastItemPositionX =  findLastItem(items);
 
         double distFromRightEdge =
-                config.environment.width - (lastItemPositionX - player.getPosition().get(0) + config.player.xPosInFrame);
+                gameConfig.environment.width - (lastItemPositionX - player.getPosition().get(0) + gameConfig.player.xPosInFrame);
         // New item possible
-        if(distFromRightEdge > config.items.minDist && !activeItem.has_value()) {
+        if(distFromRightEdge > gameConfig.items.minDist && !activeItem.has_value()) {
             std::uniform_real_distribution<double> newRequiredGen(0,1);
 
             // New item required
-            if(newRequiredGen(randomNumberGenerator) < config.items.spawnProb) {
-                double xPos = player.getPosition().get(0) - config.player.xPosInFrame +
-                              config.environment.width + config.obstacles.width;
-                std::normal_distribution heightDistribution(config.environment.height/2,
-                                                            config.environment.height * config.items.heightStandardDeviationScale);
+            if(newRequiredGen(randomNumberGenerator) < gameConfig.items.spawnProb) {
+                double xPos = player.getPosition().get(0) - gameConfig.player.xPosInFrame +
+                              gameConfig.environment.width + gameConfig.obstacles.width;
+                std::normal_distribution heightDistribution(gameConfig.environment.height/2,
+                                                            gameConfig.environment.height * gameConfig.items.heightStandardDeviationScale);
                 double yPos = heightDistribution(randomNumberGenerator);
                 model::Vec pos{xPos, yPos};
-                model::Vec size{config.items.width, config.items.height};
-                double lifetime = config.items.lifetime;
+                model::Vec size{gameConfig.items.width, gameConfig.items.height};
+                double lifetime = gameConfig.items.lifetime;
 
                 std::uniform_int_distribution<int> itemTypeDist(0,3);
 
@@ -193,17 +193,17 @@ namespace controller {
         return player;
     }
 
-    auto Environment::getConfig() const -> controller::Config {
-        return config;
+    auto Environment::getConfig() const -> controller::GameConfig {
+        return gameConfig;
     }
 
     auto Environment::toLocal(model::Vec global) -> model::Vec {
-        return {global.get(0) - player.getPosition().get(0) + config.player.xPosInFrame,
+        return {global.get(0) - player.getPosition().get(0) + gameConfig.player.xPosInFrame,
                 global.get(1)};
     }
 
     auto Environment::toGlobal(model::Vec local) -> model::Vec {
-        return {local.get(0) + player.getPosition().get(0) - config.player.xPosInFrame,
+        return {local.get(0) + player.getPosition().get(0) - gameConfig.player.xPosInFrame,
                 local.get(1)};
     }
 

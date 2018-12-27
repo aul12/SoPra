@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include <fstream>
 
 #include "View/StartScreen.hpp"
 #include "View/HelpScreen.hpp"
@@ -15,6 +16,11 @@ int main() {
     window.setVerticalSyncEnabled(true);
     window.setFramerateLimit(60);
 
+    std::ifstream configFile{"../config.json"};
+    nlohmann::json json;
+    configFile >> json;
+    auto gameConfig = json.get<controller::GameConfig>();
+
     std::map<view::ScreenResult, std::shared_ptr<view::Screen>> screens;
 
     screens.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
@@ -22,7 +28,7 @@ int main() {
     screens.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
             view::ScreenResult::HELP, std::make_shared<view::HelpScreen>(window)));
     screens.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
-            view::ScreenResult::GAME, std::make_shared<view::GameScreen>(window)));
+            view::ScreenResult::GAME, std::make_shared<view::GameScreen>(window, gameConfig)));
     screens.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
             view::ScreenResult::GAME_OVER, std::make_shared<view::GameOverScreen>(window)));
     screens.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(

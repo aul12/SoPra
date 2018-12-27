@@ -6,16 +6,16 @@
  */
 
 #include "TurboMode.hpp"
-#include "../Controller/Config.hpp"
+#include "../Controller/GameConfig.hpp"
 
 namespace model {
     void TurboMode::apply(controller::Environment &environment) {
-        oldGravity = environment.config.gravity;
-        oldUpAcceleration = environment.config.player.accelerationUp;
-        oldMaxObstacle = environment.config.obstacles.maxHeight;
+        oldGravity = environment.gameConfig.gravity;
+        oldUpAcceleration = environment.gameConfig.player.accelerationUp;
+        oldMaxObstacle = environment.gameConfig.obstacles.maxHeight;
 
-        double pathTop = environment.player.getBoundingRect().topRight()[1] - environment.config.items.turbo.deltaY;
-        double pathBottom = environment.player.getBoundingRect().bottomRight()[1] + environment.config.items.turbo.deltaY;
+        double pathTop = environment.player.getBoundingRect().topRight()[1] - environment.gameConfig.items.turbo.deltaY;
+        double pathBottom = environment.player.getBoundingRect().bottomRight()[1] + environment.gameConfig.items.turbo.deltaY;
 
         for (auto &obstacle : environment.obstacles) {
             double scale = 1.0;
@@ -25,29 +25,29 @@ namespace model {
                 }
             } else {
                 if(obstacle->getBoundingRect().topRight()[1] < pathBottom) {
-                    double relPathBottom = environment.config.environment.height - pathBottom;
+                    double relPathBottom = environment.gameConfig.environment.height - pathBottom;
                     double relHeight =
-                            environment.config.environment.height - obstacle->getBoundingRect().topRight()[1];
+                            environment.gameConfig.environment.height - obstacle->getBoundingRect().topRight()[1];
                     scale = relPathBottom / relHeight;
                 }
             }
             obstacle->setHeightScale(scale);
         }
 
-        environment.config.gravity = 0;
-        environment.config.player.accelerationUp = 0;
-        environment.config.obstacles.maxHeight = std::min(pathTop, environment.config.environment.height-pathBottom);
+        environment.gameConfig.gravity = 0;
+        environment.gameConfig.player.accelerationUp = 0;
+        environment.gameConfig.obstacles.maxHeight = std::min(pathTop, environment.gameConfig.environment.height-pathBottom);
 
         environment.player.setSpeed(
-                {environment.player.getSpeed().get(0) * environment.config.items.turbo.speedMultiplier, 0});
+                {environment.player.getSpeed().get(0) * environment.gameConfig.items.turbo.speedMultiplier, 0});
     }
 
     void TurboMode::remove(controller::Environment &environment) {
-        environment.config.gravity = oldGravity;
-        environment.config.player.accelerationUp = oldUpAcceleration;
+        environment.gameConfig.gravity = oldGravity;
+        environment.gameConfig.player.accelerationUp = oldUpAcceleration;
         environment.player.setSpeed(
-                {environment.player.getSpeed().get(0) * (1.0/environment.config.items.turbo.speedMultiplier), 0});
-        environment.config.obstacles.maxHeight = oldMaxObstacle;
+                {environment.player.getSpeed().get(0) * (1.0/environment.gameConfig.items.turbo.speedMultiplier), 0});
+        environment.gameConfig.obstacles.maxHeight = oldMaxObstacle;
 
         for (auto &obstacle : environment.obstacles) {
             obstacle->resetScale();

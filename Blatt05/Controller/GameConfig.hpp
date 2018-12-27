@@ -9,6 +9,7 @@
 #define CONFIG_HPP
 
 #include <string>
+#include "../Lib/json.hpp"
 
 namespace controller {
     /**
@@ -16,15 +17,8 @@ namespace controller {
      * All changes that are made to the values are temporary and the original file
      * does not gez changed.
      */
-    class Config {
+    class GameConfig {
     public:
-        /**
-         * Read the config from a json file or creates an new file if it doesn't exist.
-         * @param fname the path to the json file
-         * @throws std::runtime_exception if the file is not a json file or not in the right format.
-         */
-        explicit Config(std::string fname);
-
         struct {
             double accelerationUp;
             double mass;
@@ -58,6 +52,14 @@ namespace controller {
         } items;
         double gravity;
     };
+
+    /**
+     * This function is used by nlohmann::json for deserialization
+     * @param json the root json object
+     * @param gc the game config to create
+     * @see: https://github.com/nlohmann/json#arbitrary-types-conversions
+     */
+    void from_json(const nlohmann::json& json, GameConfig& gc);
 }
 
 #endif

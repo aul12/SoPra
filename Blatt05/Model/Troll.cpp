@@ -6,19 +6,19 @@
  */
 
 #include "Troll.hpp"
-#include "../Controller/Config.hpp"
+#include "../Controller/GameConfig.hpp"
 
 namespace model {
 
     void Troll::apply(controller::Environment &environment) {
-        std::uniform_real_distribution<double> scaleDist(environment.config.items.troll.minScale,
-                environment.config.items.troll.maxScale);
+        std::uniform_real_distribution<double> scaleDist(environment.gameConfig.items.troll.minScale,
+                environment.gameConfig.items.troll.maxScale);
         double scale = scaleDist(environment.randomNumberGenerator);
-        oldMinHeight = environment.config.obstacles.minHeight;
-        oldMaxHeight = environment.config.obstacles.maxHeight;
+        oldMinHeight = environment.gameConfig.obstacles.minHeight;
+        oldMaxHeight = environment.gameConfig.obstacles.maxHeight;
 
-        environment.config.obstacles.minHeight *= scale;
-        environment.config.obstacles.maxHeight *= scale;
+        environment.gameConfig.obstacles.minHeight *= scale;
+        environment.gameConfig.obstacles.maxHeight *= scale;
 
         for (auto obstacle : environment.obstacles) {
             obstacle->setHeightScale(scale);
@@ -26,8 +26,8 @@ namespace model {
     }
 
     void Troll::remove(controller::Environment &environment) {
-        environment.config.obstacles.minHeight = oldMinHeight;
-        environment.config.obstacles.maxHeight = oldMaxHeight;
+        environment.gameConfig.obstacles.minHeight = oldMinHeight;
+        environment.gameConfig.obstacles.maxHeight = oldMaxHeight;
 
         for (auto &obstacle : environment.obstacles) {
             obstacle.get()->resetScale();

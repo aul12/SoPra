@@ -2,7 +2,7 @@
  * @file HighscoreScreen.hpp
  * @author paul
  * @date 24.12.18
- * @brief HighscoreScreen @TODO
+ * @brief Declaration of the HighscoreScreen
  */
 
 #ifndef HIGHSCORESCREEN_HPP

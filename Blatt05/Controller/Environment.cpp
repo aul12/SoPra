@@ -159,6 +159,7 @@ namespace controller {
 
     template <typename T>
     void Environment::removeOutOfScope(std::deque<std::shared_ptr<T>> &gameItems) {
+        static_assert(std::is_base_of<model::GameItem, T>::value, "T needs to be a GameItem");
         if(gameItems.size() > 0) {
             gameItems.erase(std::remove_if(gameItems.begin(), gameItems.end(),
                                            [this](const std::shared_ptr<T> item) {
@@ -170,6 +171,7 @@ namespace controller {
 
     template<typename T>
     auto Environment::findLastItem(std::deque<std::shared_ptr<T>> &gameItems) -> double {
+        static_assert(std::is_base_of<model::GameItem, T>::value, "T needs to be a GameItem");
         // Find the last item
         double lastItemPositionX = 0;
         for (auto iter = gameItems.begin(); iter != gameItems.end(); iter++) {

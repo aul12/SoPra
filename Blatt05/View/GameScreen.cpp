@@ -2,7 +2,7 @@
  * @file GameScreen.cpp
  * @author paul
  * @date 23.12.18
- * @brief GameScreen @TODO
+ * @brief Implementation of the GameScreen
  */
 
 #include <iostream>

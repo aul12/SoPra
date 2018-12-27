@@ -2,7 +2,7 @@
  * @file ExitScreen.cpp
  * @author paul
  * @date 26.12.18
- * @brief ExitScreen @TODO
+ * @brief Declaration of the ExitScreen class
  */
 
 #include "ExitScreen.hpp"

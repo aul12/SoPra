@@ -2,7 +2,7 @@
  * @file GameScreen.hpp
  * @author paul
  * @date 23.12.18
- * @brief GameScreen @TODO
+ * @brief Declaration of the GameScreen
  */
 
 #ifndef GAMESCREEN_HPP

@@ -2,7 +2,7 @@
  * @file GameOverScreen.cpp
  * @author paul
  * @date 24.12.18
- * @brief GameOverScreen @TODO
+ * @brief Implementation of the GameOverScreen
  */
 
 #include "GameOverScreen.hpp"

@@ -8,17 +8,16 @@
 #include "HighscoreSaver.hpp"
 
 #include <fstream>
+#include <filesystem>
 
 namespace model {
     HighscoreSaver::HighscoreSaver(std::string fname) : fname{fname} {
-        /*
-         * @TODO there might be some issues if the file exists but eg. permissions are wrong using stat() would
-         * help but this probably won't work on windows (who the fuck needs POSIX compatibility).
-         */
-        std::ifstream ifstream{fname};
-
-        if (ifstream.good()) {
+        if (std::filesystem::exists(fname)) {
             try {
+                std::ifstream ifstream{fname};
+                if(!ifstream.good()) {
+                    throw std::runtime_error("File exists but not good!");
+                }
                 ifstream >> jsonRoot;
             } catch (json::exception &e) {
                 throw std::runtime_error(e.what());
@@ -28,7 +27,6 @@ namespace model {
             }
         } else {
             jsonRoot = json::array();
-            ifstream.close();
             std::ofstream ofstream(fname);
             ofstream << jsonRoot.dump(INDENT);
             ofstream.close();

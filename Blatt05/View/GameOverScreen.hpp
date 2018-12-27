@@ -2,7 +2,7 @@
  * @file GameOverScreen.hpp
  * @author paul
  * @date 24.12.18
- * @brief GameOverScreen @TODO
+ * @brief Declaration of the GameOverScreen
  */
 
 #ifndef GAMEOVERSCREEN_HPP

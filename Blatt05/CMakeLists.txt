@@ -22,7 +22,7 @@ set(SOURCE_FILES Model/GameItem.cpp Model/Player.cpp Model/Obstacle.cpp
         View/Button.cpp)
 add_executable(${PROJECT_NAME} main.cpp ${SOURCE_FILES})
 
-target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)
+target_link_libraries(${PROJECT_NAME} stdc++fs sfml-graphics sfml-window sfml-system)
 
 # Tests
 project(Test)
@@ -33,7 +33,7 @@ include_directories(${GTEST_INCLUDE_DIR})
 
 add_executable(${PROJECT_NAME} Tests/main.cpp ${SOURCE_FILES})
 
-target_link_libraries(${PROJECT_NAME} ${GTEST_LIBS} -lgtest -lpthread sfml-graphics sfml-window sfml-system)
+target_link_libraries(${PROJECT_NAME} ${GTEST_LIBS} stdc++fs gtest pthread sfml-graphics sfml-window sfml-system)
 
 add_test(
     NAME ${PROJECT_NAME}

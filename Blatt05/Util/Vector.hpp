@@ -26,7 +26,7 @@ namespace util {
          */
         Vector(const Vector<D, T> &v) {
             for (auto c = 0; c < D; c++) {
-                this->data[c] = v.get(c);
+                this->data.at(c) = v.get(c);
             }
         }
 
@@ -39,7 +39,7 @@ namespace util {
         explicit Vector(const Vector<D, T2> v) {
             static_assert(std::is_convertible<T2, T>::value);
             for (auto c = 0; c < D; c++) {
-                this->data[c] = static_cast<T>(v.get(c));
+                this->data.at(c) = static_cast<T>(v.get(c));
             }
         }
 
@@ -51,7 +51,7 @@ namespace util {
             assert(l.size() == D);
             int i = 0;
             for (const auto &it : l) {
-                this->data[i++] = it;
+                this->data.at(i++) = it;
             }
         };
 
@@ -62,7 +62,7 @@ namespace util {
          */
         auto get(int s) const -> T {
             assert(s >= 0 && s < D);
-            return this->data[s];
+            return this->data.at(s);
         }
 
         /**
@@ -73,7 +73,7 @@ namespace util {
          */
         void set(int s, T v) {
             assert(s >= 0 && s < D);
-            this->data[s] = v;
+            this->data.at(s) = v;
         }
 
         /**
@@ -83,7 +83,7 @@ namespace util {
          */
         auto operator[](int s) -> T & {
             assert(s >= 0 && s < D);
-            return this->data[s];
+            return this->data.at(s);
         }
 
         /**
@@ -94,7 +94,7 @@ namespace util {
         auto operator+(Vector<D, T> rhs) const -> Vector<D, T> {
             Vector<D, T> result;
             for (auto c = 0; c < D; c++) {
-                result.set(c, this->data[c] + rhs.get(c));
+                result.set(c, this->data.at(c) + rhs.get(c));
             }
             return result;
         }
@@ -116,7 +116,7 @@ namespace util {
         auto operator*(T rhs) const -> Vector<D, T> {
             Vector<D, T> result;
             for (auto c = 0; c < D; c++) {
-                result.set(c, this->data[c] * rhs);
+                result.set(c, this->data.at(c) * rhs);
             }
             return result;
         }
@@ -129,7 +129,7 @@ namespace util {
         auto operator*(Vector<D, T> rhs) const -> T {
             T result{0};
             for (auto c = 0; c < D; c++) {
-                result += rhs.get(c) * this->data[c];
+                result += rhs.get(c) * this->data.at(c);
             }
             return result;
         }
@@ -142,7 +142,7 @@ namespace util {
          */
         auto operator==(const Vector<D, T> &lhs) const -> bool {
             for (auto c = 0; c < D; c++) {
-                if (lhs.get(c) != this->data[c]) {
+                if (lhs.get(c) != this->data.at(c)) {
                     return false;
                 }
             }

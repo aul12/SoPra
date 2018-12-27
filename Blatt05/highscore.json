@@ -1,17 +1,5 @@
 [
     {
-        "name": "First",
-        "points": 100
-    },
-    {
-        "name": "Second",
-        "points": 50
-    },
-    {
-        "name": "Test",
-        "points": 0
-    },
-    {
         "name": "Winner",
         "points": 161
     },
@@ -36,15 +24,7 @@
         "points": 134
     },
     {
-        "name": "           ",
-        "points": 0
-    },
-    {
-        "name": " ",
-        "points": 270
-    },
-    {
         "name": "Paul",
         "points": 368
-    }
+    },
 ]

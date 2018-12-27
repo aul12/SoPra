@@ -25,8 +25,9 @@ namespace model {
     public:
         /**
          * Create a new highscore saver, if the file referenced by fname exists it is used as an initial list,
-         * if not a new file is created
+         * if not a new file is created.
          * @param fname the path to the json file
+         * @throws std::runtime_error if the file is not a valid json file.
          */
         HighscoreSaver(std::string fname);
 
@@ -42,6 +43,7 @@ namespace model {
          * returned.
          * @param numberOfEntries the maximum number of entries to return, needs to be non negative
          * @return a vector with each element containing an tuple of the name and the score, the vector is sorted by the score
+         * @throws std::runtime_error if the in memory representation of the object is malformed
          */
         auto retrieveHighscore(int numberOfEntries = 3) const -> std::vector<std::tuple<std::string, int>>;
     private:

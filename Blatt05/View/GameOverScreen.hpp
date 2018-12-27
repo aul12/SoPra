@@ -11,6 +11,8 @@
 #include "Screen.hpp"
 #include "Button.hpp"
 
+#include "../Controller/ResourceConfig.hpp"
+
 namespace view {
     /**
      * This screen displays an Game Over Dialog with the option to save the current score.
@@ -18,7 +20,7 @@ namespace view {
      */
     class GameOverScreen : public Screen {
     public:
-        GameOverScreen(sf::RenderWindow &renderWindow);
+        GameOverScreen(sf::RenderWindow &renderWindow, const controller::ResourceConfig &resourceConfig);
 
         auto run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) ->  std::shared_ptr<Screen> override;
 

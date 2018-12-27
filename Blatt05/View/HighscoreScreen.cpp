@@ -11,8 +11,9 @@
 #include "../Model/HighscoreSaver.hpp"
 
 namespace view {
-    HighscoreScreen::HighscoreScreen(sf::RenderWindow &renderWindow) : Screen(renderWindow) {
-        if (!font.loadFromFile("../Res/harry_p.ttf")) {
+    HighscoreScreen::HighscoreScreen(sf::RenderWindow &renderWindow, const controller::ResourceConfig &resourceConfig)
+            : Screen(renderWindow) {
+        if (!font.loadFromFile(resourceConfig.font)) {
             throw std::runtime_error("Could not load font!");
         }
 
@@ -38,7 +39,7 @@ namespace view {
     }
 
     auto HighscoreScreen::run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) -> std::shared_ptr<Screen> {
-        model::HighscoreSaver highscoreSaver{"../highscore.json"};
+        model::HighscoreSaver highscoreSaver{"highscore.json"};
 
         while (this->renderWindow.isOpen()) {
             sf::Event event{};

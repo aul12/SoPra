@@ -5,17 +5,17 @@
  * @brief Declaration of Config class
  */
 
-#ifndef CONFIG_HPP
-#define CONFIG_HPP
+#ifndef GAMECONFIG_HPP
+#define GAMECONFIG_HPP
 
 #include <string>
 #include "../Lib/json.hpp"
 
 namespace controller {
     /**
-     * Implements an in memory representation of the config.json file.
+     * Implements an in memory representation of the game part of the config.json file.
      * All changes that are made to the values are temporary and the original file
-     * does not gez changed.
+     * does not get changed.
      */
     class GameConfig {
     public:

@@ -28,7 +28,7 @@ namespace controller {
     }
 
     auto Environment::update(double deltaT) -> UpdateResult {
-        assert(deltaT > 0);
+        assert(deltaT >= 0);
 
         // Move the player
         player.accelerate({gameConfig.player.accelerationSide,gameConfig.gravity}, deltaT);
@@ -87,7 +87,7 @@ namespace controller {
     }
 
     void Environment::playerUp(double t) {
-        assert(t > 0);
+        assert(t >= 0);
         player.accelerate({0,gameConfig.player.accelerationUp}, t);
     }
 

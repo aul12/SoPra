@@ -8,7 +8,8 @@
 #include "ExitScreen.hpp"
 
 namespace view {
-    ExitScreen::ExitScreen(sf::RenderWindow &renderWindow) : Screen(renderWindow) {}
+    ExitScreen::ExitScreen(sf::RenderWindow &renderWindow)
+        : Screen(renderWindow) {}
 
     auto ExitScreen::run(std::map<ScreenResult, std::shared_ptr<view::Screen>> &screens) -> std::shared_ptr<Screen> {
         renderWindow.close();

@@ -56,7 +56,7 @@ namespace model {
                 throw std::runtime_error("Malformed json, not every entry is an object");
             }
             try{
-                entries.push_back(std::make_tuple(entry["name"].get<std::string>(), entry["points"].get<int>()));
+                entries.push_back(std::make_tuple(entry.at("name").get<std::string>(), entry.at("points").get<int>()));
             } catch(json::exception &e) {
                 throw std::runtime_error("Malformed json, entries missing or from wrong type");
             }
@@ -66,7 +66,7 @@ namespace model {
             return std::get<1>(b) < std::get<1>(a);
         });
 
-        int length = std::min<int>(numberOfEntries, entries.size());
+        auto length = std::min<std::size_t >(static_cast<size_t>(numberOfEntries), entries.size());
 
         return {entries.begin(), entries.begin()+length};
     }

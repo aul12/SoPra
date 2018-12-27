@@ -10,8 +10,10 @@
 
 
 #include <SFML/Graphics/Texture.hpp>
-#include "../Controller/Environment.hpp"
 #include "Screen.hpp"
+
+#include "../Controller/Environment.hpp"
+#include "../Controller/ResourceConfig.hpp"
 
 namespace view {
     /**
@@ -20,7 +22,8 @@ namespace view {
      */
     class GameScreen : public Screen {
     public:
-        GameScreen(sf::RenderWindow &renderWindow, const controller::GameConfig &gameConfig);
+        GameScreen(sf::RenderWindow &renderWindow, const controller::ResourceConfig &resourceConfig,
+                const controller::GameConfig &gameConfig);
 
         auto run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) ->  std::shared_ptr<Screen> override;
     private:

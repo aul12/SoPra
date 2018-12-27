@@ -10,6 +10,7 @@
 
 #include "Screen.hpp"
 #include "Button.hpp"
+#include "../Controller/ResourceConfig.hpp"
 
 namespace view {
     /**
@@ -18,7 +19,7 @@ namespace view {
      */
     class HighscoreScreen : public Screen {
     public:
-        HighscoreScreen(sf::RenderWindow &renderWindow);
+        HighscoreScreen(sf::RenderWindow &renderWindow, const controller::ResourceConfig &resourceConfig);
 
         auto run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) ->  std::shared_ptr<Screen> override;
 

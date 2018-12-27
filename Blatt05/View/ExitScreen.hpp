@@ -13,6 +13,7 @@
 namespace view {
     /**
      * This class doesn't implement a real screen, it only closes the current window.
+     * But routing gets much easier when viewing this as an Screen.
      * @see Screen
      */
     class ExitScreen : public Screen {

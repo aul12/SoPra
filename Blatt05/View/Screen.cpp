@@ -7,4 +7,5 @@
 
 #include "Screen.hpp"
 
-view::Screen::Screen(sf::RenderWindow &renderWindow) : renderWindow(renderWindow) {}
+view::Screen::Screen(sf::RenderWindow &renderWindow)
+        : renderWindow(renderWindow){}

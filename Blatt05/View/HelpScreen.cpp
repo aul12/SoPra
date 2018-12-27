@@ -9,8 +9,9 @@
 #include "HelpScreen.hpp"
 
 namespace view {
-    HelpScreen::HelpScreen(sf::RenderWindow &renderWindow) : Screen(renderWindow) {
-        if(!font.loadFromFile("../Res/harry_p.ttf")) {
+    HelpScreen::HelpScreen(sf::RenderWindow &renderWindow, const controller::ResourceConfig &resourceConfig)
+            : Screen(renderWindow) {
+        if(!font.loadFromFile(resourceConfig.font)) {
             throw std::runtime_error("Could not load font");
         }
 
@@ -25,7 +26,7 @@ namespace view {
 #else
         helpText.setColor(sf::Color::Black);
 #endif
-        std::ifstream helpStream("../Res/Help.txt");
+        std::ifstream helpStream(resourceConfig.help);
         std::string helpString(std::istreambuf_iterator<char>(helpStream), {});
         helpText.setString(helpString);
     }
@@ -57,4 +58,5 @@ namespace view {
         }
         return screens.at(ScreenResult::EXIT);
     }
+
 }

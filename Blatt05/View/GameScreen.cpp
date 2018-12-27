@@ -15,21 +15,22 @@
 #include "../Model/TurboMode.hpp"
 #include "../Model/Troll.hpp"
 #include "GameOverScreen.hpp"
+#include "../Controller/ResourceConfig.hpp"
 
 namespace view {
-    GameScreen::GameScreen(sf::RenderWindow &renderWindow, const controller::GameConfig &gameConfig) :
-    Screen{renderWindow}, gameConfig(gameConfig) {
-        if (!obstacleBottomTexture.loadFromFile("../Res/turm_ravenclaw.png") ||
-            !obstacleTopTexture.loadFromFile("../Res/dementor.png") ||
-            !playerTexture.loadFromFile("../Res/harry.png") ||
-            !invulnerableTexture.loadFromFile("../Res/item_gruen.png") ||
-            !doublePointsTexture.loadFromFile("../Res/item_blau.png") ||
-            !trollTexture.loadFromFile("../Res/item_rot.png") ||
-            !turboModeTexture.loadFromFile("../Res/item_silber.png")) {
+    GameScreen::GameScreen(sf::RenderWindow &renderWindow, const controller::ResourceConfig &resourceConfig,
+                           const controller::GameConfig &gameConfig) : Screen(renderWindow), gameConfig(gameConfig) {
+        if (!obstacleBottomTexture.loadFromFile(resourceConfig.textures.obstacles.bottom) ||
+            !obstacleTopTexture.loadFromFile(resourceConfig.textures.obstacles.top) ||
+            !playerTexture.loadFromFile(resourceConfig.textures.player) ||
+            !invulnerableTexture.loadFromFile(resourceConfig.textures.items.invulnerable) ||
+            !doublePointsTexture.loadFromFile(resourceConfig.textures.items.doublePoints) ||
+            !trollTexture.loadFromFile(resourceConfig.textures.items.troll) ||
+            !turboModeTexture.loadFromFile(resourceConfig.textures.items.turboMode)) {
             throw std::runtime_error("Could not open texture files");
         }
 
-        if(!font.loadFromFile("../Res/harry_p.ttf")) {
+        if(!font.loadFromFile(resourceConfig.font)) {
             throw std::runtime_error("Could not load font");
         }
 
@@ -163,4 +164,5 @@ namespace view {
         }
         return screens.at(ScreenResult::EXIT);
     }
+
 }

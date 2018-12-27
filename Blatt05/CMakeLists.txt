@@ -15,7 +15,8 @@ endif ()
 set(SOURCE_FILES Model/GameItem.cpp Model/Player.cpp Model/Obstacle.cpp
         Model/DoublePoints.cpp Model/Invulnerable.cpp Model/Troll.cpp Model/TurboMode.cpp
         Model/HighscoreSaver.cpp
-        Controller/Environment.cpp Controller/GameConfig.cpp
+        Controller/Environment.cpp Controller/Config.cpp
+        Controller/ResourceConfig.cpp Controller/GameConfig.cpp
         View/Screen.cpp View/StartScreen.cpp View/HelpScreen.cpp View/GameScreen.cpp
         View/GameOverScreen.cpp View/HighscoreScreen.cpp View/ExitScreen.cpp
         View/Button.cpp)

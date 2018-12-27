@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <fstream>
+#include <iostream>
 
 #include "View/StartScreen.hpp"
 #include "View/HelpScreen.hpp"
@@ -9,30 +10,33 @@
 #include "View/HighscoreScreen.hpp"
 #include "View/ExitScreen.hpp"
 
-int main() {
+#include "Controller/Config.hpp"
+
+int main(int argc, char *argv[]) {
+    std::string configFileName = (argc <= 1 ? "config.json" : argv[1]);
+
+    controller::Config config{configFileName};
+
+
     sf::ContextSettings contextSettings{};
     contextSettings.antialiasingLevel = 4;
     sf::RenderWindow window(sf::VideoMode{1920,1080}, "Flappy Wizard", sf::Style::Fullscreen, contextSettings);
     window.setVerticalSyncEnabled(true);
     window.setFramerateLimit(60);
 
-    std::ifstream configFile{"../config.json"};
-    nlohmann::json json;
-    configFile >> json;
-    auto gameConfig = json.get<controller::GameConfig>();
-
     std::map<view::ScreenResult, std::shared_ptr<view::Screen>> screens;
 
     screens.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
-            view::ScreenResult::START, std::make_shared<view::StartScreen>(window)));
+            view::ScreenResult::START, std::make_shared<view::StartScreen>(window, config.getResourceConfig())));
     screens.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
-            view::ScreenResult::HELP, std::make_shared<view::HelpScreen>(window)));
+            view::ScreenResult::HELP, std::make_shared<view::HelpScreen>(window, config.getResourceConfig())));
     screens.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
-            view::ScreenResult::GAME, std::make_shared<view::GameScreen>(window, gameConfig)));
+            view::ScreenResult::GAME, std::make_shared<view::GameScreen>(window, config.getResourceConfig(),
+                    config.getGameConfig())));
     screens.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
-            view::ScreenResult::GAME_OVER, std::make_shared<view::GameOverScreen>(window)));
+            view::ScreenResult::GAME_OVER, std::make_shared<view::GameOverScreen>(window, config.getResourceConfig())));
     screens.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
-            view::ScreenResult::HIGHSCORE, std::make_shared<view::HighscoreScreen>(window)));
+            view::ScreenResult::HIGHSCORE, std::make_shared<view::HighscoreScreen>(window, config.getResourceConfig())));
     screens.insert(std::pair<view::ScreenResult, std::shared_ptr<view::Screen>>(
             view::ScreenResult::EXIT, std::make_shared<view::ExitScreen>(window)));
 

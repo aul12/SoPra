@@ -10,8 +10,9 @@
 #include "Button.hpp"
 
 namespace view {
-    StartScreen::StartScreen(sf::RenderWindow &renderWindow) : Screen(renderWindow) {
-        if(!font.loadFromFile("../Res/harry_p.ttf")) {
+    StartScreen::StartScreen(sf::RenderWindow &renderWindow, const controller::ResourceConfig &resourceConfig)
+            : Screen(renderWindow) {
+        if(!font.loadFromFile(resourceConfig.font)) {
             throw std::runtime_error("Could not load font!");
         }
 

@@ -11,8 +11,9 @@
 #include <sstream>
 
 namespace view {
-    GameOverScreen::GameOverScreen(sf::RenderWindow &renderWindow) : Screen(renderWindow) {
-        if(!font.loadFromFile("../Res/harry_p.ttf")) {
+    GameOverScreen::GameOverScreen(sf::RenderWindow &renderWindow, const controller::ResourceConfig &resourceConfig)
+        : Screen(renderWindow) {
+        if(!font.loadFromFile(resourceConfig.font)) {
             throw std::runtime_error("Could not load font");
         }
         auto size = renderWindow.getSize();
@@ -51,7 +52,7 @@ namespace view {
 
     auto GameOverScreen::run(std::map<ScreenResult, std::shared_ptr<Screen>> &screens) -> std::shared_ptr<Screen> {
         std::string name;
-        model::HighscoreSaver highscoreSaver{"../highscore.json"};
+        model::HighscoreSaver highscoreSaver{"highscore.json"};
         while (this->renderWindow.isOpen()) {
             sf::Event event{};
             while (renderWindow.pollEvent(event)) {
@@ -111,4 +112,5 @@ namespace view {
     void GameOverScreen::submitPoints(int points) {
         this->points = points;
     }
+
 }

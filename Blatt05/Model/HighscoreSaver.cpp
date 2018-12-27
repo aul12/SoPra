@@ -9,63 +9,73 @@
 
 #include <fstream>
 #include <filesystem>
+#include <utility>
+#include <algorithm>
+
+#include "../Lib/json.hpp"
 
 namespace model {
-    HighscoreSaver::HighscoreSaver(std::string fname) : fname{fname} {
-        if (std::filesystem::exists(fname)) {
-            try {
-                std::ifstream ifstream{fname};
-                if(!ifstream.good()) {
-                    throw std::runtime_error("File exists but not good!");
-                }
-                ifstream >> jsonRoot;
-            } catch (json::exception &e) {
-                throw std::runtime_error(e.what());
-            }
-            if(!jsonRoot.is_array()) {
-                throw std::runtime_error("Highscore root element is not an array");
-            }
-        } else {
-            jsonRoot = json::array();
+    HighscoreSaver::HighscoreSaver(const std::string &fname) : fname{fname}, highscore{} {
+        // Create an empty json file
+        if (!std::filesystem::exists(fname)) {
+            nlohmann::json jsonRoot = nlohmann::json::array();
             std::ofstream ofstream(fname);
             ofstream << jsonRoot.dump(INDENT);
             ofstream.close();
+            return;
+        }
+
+        // Read the contents of the file
+        std::ifstream ifstream{fname};
+        nlohmann::json jsonRoot;
+        if (!ifstream.good()) {
+            throw std::runtime_error("File exists but not good!");
+        }
+
+        try {
+            ifstream >> jsonRoot;
+        } catch (nlohmann::json::exception &e) {
+            throw std::runtime_error(e.what());
+        }
+        if (!jsonRoot.is_array()) {
+            throw std::runtime_error("Highscore root element is not an array");
+        }
+
+        highscore.reserve(jsonRoot.size());
+        for (const auto &entry: jsonRoot) {
+            if(!entry.is_object()) {
+                throw std::runtime_error("Malformed json, not every entry is an object");
+            }
+            try{
+                highscore.push_back(std::make_pair(entry.at("points").get<int>(), entry.at("name").get<std::string>()));
+            } catch(nlohmann::json::exception &e) {
+                throw std::runtime_error("Malformed json, entries missing or from wrong type");
+            }
         }
     }
 
     void HighscoreSaver::insert(int points, std::string name) {
-        json newEntry = json::object();
-        newEntry["name"] = name;
-        newEntry["points"] = points;
-        jsonRoot.push_back(newEntry);
+        highscore.push_back(std::make_pair(points, name));
+        nlohmann::json jsonRoot = nlohmann::json::array();
+        for (const auto &entry : highscore) {
+            auto newJson = nlohmann::json::object();
+            newJson["points"] = entry.first;
+            newJson["name"] = entry.second;
+            jsonRoot.push_back(newJson);
+        }
 
         std::ofstream ofstream(fname, std::ostream::trunc);
         ofstream << jsonRoot.dump(INDENT);
         ofstream.close();
     }
 
-    auto HighscoreSaver::retrieveHighscore(int numberOfEntries) const -> std::vector<std::tuple<std::string, int>> {
+    auto HighscoreSaver::retrieveHighscore(int numberOfEntries) -> std::vector<std::pair<int, std::string>> {
         assert(numberOfEntries >= 0);
-        std::vector<std::tuple<std::string, int>> entries;
-        entries.reserve(jsonRoot.size());
 
-        for (const auto &entry : jsonRoot) {
-            if(!entry.is_object()) {
-                throw std::runtime_error("Malformed json, not every entry is an object");
-            }
-            try{
-                entries.push_back(std::make_tuple(entry.at("name").get<std::string>(), entry.at("points").get<int>()));
-            } catch(json::exception &e) {
-                throw std::runtime_error("Malformed json, entries missing or from wrong type");
-            }
-        }
-
-        std::sort(entries.begin(), entries.end(), [](const auto &a, const auto &b){
-            return std::get<1>(b) < std::get<1>(a);
+        std::sort(highscore.begin(), highscore.end(), [](const auto &a, const auto &b){
+            return a > b;
         });
-
-        auto length = std::min<std::size_t >(static_cast<size_t>(numberOfEntries), entries.size());
-
-        return {entries.begin(), entries.begin()+length};
+        auto length = std::min<std::size_t >(static_cast<size_t>(numberOfEntries), highscore.size());
+        return {highscore.begin(), highscore.begin()+length};
     }
 }

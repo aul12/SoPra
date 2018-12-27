@@ -24,7 +24,7 @@ TEST(HighscoreSaver, Insert) {
 
 TEST(HighscoreSaver, Retrieve) {
     model::HighscoreSaver highscoreSaver{"Tests/highscore_test.json"};
-    std::vector<std::tuple<std::string, int>> a,b,c,d;
+    std::vector<std::pair<int, std::string>> a,b,c,d;
     EXPECT_NO_THROW(a = highscoreSaver.retrieveHighscore(0));
     EXPECT_NO_THROW(b = highscoreSaver.retrieveHighscore(1));
     EXPECT_NO_THROW(c = highscoreSaver.retrieveHighscore(2));
@@ -33,16 +33,16 @@ TEST(HighscoreSaver, Retrieve) {
     EXPECT_EQ(b.size(), 1);
     EXPECT_EQ(c.size(), 2);
     EXPECT_EQ(d.size(), 2);
-    EXPECT_EQ(std::get<0>(b[0]), "First");
-    EXPECT_EQ(std::get<0>(c[0]), "First");
-    EXPECT_EQ(std::get<0>(d[0]), "First");
-    EXPECT_EQ(std::get<1>(b[0]), 100);
-    EXPECT_EQ(std::get<1>(c[0]), 100);
-    EXPECT_EQ(std::get<1>(d[0]), 100);
-    EXPECT_EQ(std::get<0>(c[1]), "Second");
-    EXPECT_EQ(std::get<0>(d[1]), "Second");
-    EXPECT_EQ(std::get<1>(c[1]), 50);
-    EXPECT_EQ(std::get<1>(d[1]), 50);
+    EXPECT_EQ(b[0].first, 100);
+    EXPECT_EQ(c[0].first, 100);
+    EXPECT_EQ(d[0].first, 100);
+    EXPECT_EQ(b[0].second, "First");
+    EXPECT_EQ(c[0].second, "First");
+    EXPECT_EQ(d[0].second, "First");
+    EXPECT_EQ(c[1].first, 50);
+    EXPECT_EQ(c[1].first, 50);
+    EXPECT_EQ(c[1].second, "Second");
+    EXPECT_EQ(d[1].second, "Second");
 }
 
 #endif

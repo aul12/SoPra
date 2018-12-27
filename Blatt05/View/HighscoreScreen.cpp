@@ -64,7 +64,7 @@ namespace view {
             std::stringstream nameStream, scoreStream;
             const auto highscores = highscoreSaver.retrieveHighscore(5);
             for(const auto &highscore : highscores) {
-                const auto [name, score] = highscore;
+                const auto [score, name] = highscore;
                 nameStream << name << std::endl;
                 scoreStream  << score << std::endl;
             }

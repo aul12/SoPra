@@ -10,11 +10,7 @@
 
 #include <string>
 #include <vector>
-#include <tuple>
-
-#include "../Lib/json.hpp"
-
-using json = nlohmann::json;
+#include <utility>
 
 namespace model {
     /**
@@ -29,7 +25,7 @@ namespace model {
          * @param fname the path to the json file
          * @throws std::runtime_error if the file is not a valid json file.
          */
-        HighscoreSaver(std::string fname);
+        HighscoreSaver(const std::string &fname);
 
         /**
          * Insert a new highscore entry, this also updates the highscore file
@@ -42,14 +38,13 @@ namespace model {
          * Retrieve the numberOfEntries best players, if there are less than numberOfEntries players only these are
          * returned.
          * @param numberOfEntries the maximum number of entries to return, needs to be non negative
-         * @return a vector with each element containing an tuple of the name and the score, the vector is sorted by the score
-         * @throws std::runtime_error if the in memory representation of the object is malformed
+         * @return a vector with each element containing an the name and the score, the vector is sorted by the score (descending)
          */
-        auto retrieveHighscore(int numberOfEntries = 3) const -> std::vector<std::tuple<std::string, int>>;
+        auto retrieveHighscore(int numberOfEntries = 3) -> std::vector<std::pair<int, std::string>>;
     private:
         std::string fname;
-        json jsonRoot;
-        static constexpr int INDENT = 4; ///< Number of spaces to indent when printing the file
+        std::vector<std::pair<int, std::string>> highscore;
+        static constexpr int INDENT = 4; ///< Number of spaces to indent when writing the file
     };
 }
 

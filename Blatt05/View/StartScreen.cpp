@@ -43,10 +43,6 @@ namespace view {
                             }
                         }
                         break;
-                    case sf::Event::KeyPressed:
-                        if(event.key.code == sf::Keyboard::Escape) {
-                            return screens.at(ScreenResult::EXIT);
-                        }
                     default:
                         break;
                 }

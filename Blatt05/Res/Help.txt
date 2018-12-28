@@ -1,4 +1,4 @@
-Press any Key to accelerate up and avoid hitting any obstacles!
+Press space to accelerate up and avoid hitting any obstacles!
 
 
 You can collect different items, they are differentiated by color (all items are active for a limited time):

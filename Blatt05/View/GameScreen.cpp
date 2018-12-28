@@ -55,15 +55,19 @@ namespace view {
                     case sf::Event::Closed:
                         return screens.at(ScreenResult::EXIT);
                     case sf::Event::KeyPressed:
-                        if(isPressed) {
-                            environment.playerUp(pressClock.getElapsedTime().asSeconds());
+                        if (event.key.code == sf::Keyboard::Space) {
+                            if (isPressed) {
+                                environment.playerUp(pressClock.getElapsedTime().asSeconds());
+                            }
+                            isPressed = true;
+                            pressClock.restart();
                         }
-                        isPressed = true;
-                        pressClock.restart();
                         break;
                     case sf::Event::KeyReleased:
-                        environment.playerUp(pressClock.getElapsedTime().asSeconds());
-                        isPressed = false;
+                        if (event.key.code == sf::Keyboard::Space) {
+                            environment.playerUp(pressClock.getElapsedTime().asSeconds());
+                            isPressed = false;
+                        }
                         break;
                     default:
                         break;

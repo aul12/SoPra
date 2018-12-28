@@ -76,12 +76,13 @@ namespace view {
                         break;
                     case sf::Event::TextEntered:
                         if(event.text.unicode < 128) {
-                            if (event.text.unicode == '\b') { //Backspace
+                            auto c = static_cast<char>(event.text.unicode);
+                            if (c == '\b') { //Backspace
                                 if (name.length() > 0) {
                                     name.pop_back();
                                 }
-                            } else if (name.length() < 32) {
-                                name.push_back(static_cast<char>(event.text.unicode));
+                            } else if (name.length() < 32 && std::isalnum(c)) {
+                                name.push_back(c);
                             }
                         }
                         break;

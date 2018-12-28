@@ -34,13 +34,13 @@ namespace view {
             throw std::runtime_error("Could not load font");
         }
 
-        pointText.setPosition(10,10);
-        pointText.setCharacterSize(20);
-        pointText.setFont(font);
+        statusText.setPosition(10,10);
+        statusText.setCharacterSize(20);
+        statusText.setFont(font);
 #if SFML_VERSION_MAJOR >= 2 && SFML_VERSION_MINOR >= 4 // Travis uses some ancient version of sfml
-        pointText.setFillColor(sf::Color::Black);
+        statusText.setFillColor(sf::Color::Black);
 #else
-        pointText.setColor(sf::Color::Black);
+        statusText.setColor(sf::Color::Black);
 #endif
     }
 
@@ -159,10 +159,26 @@ namespace view {
             playerDraw.setTexture(&playerTexture);
             renderWindow.draw(playerDraw);
 
-            std::stringstream pointsStream;
-            pointsStream << "Points: " << environment.getPoints();
-            pointText.setString(pointsStream.str());
-            renderWindow.draw(pointText);
+            std::stringstream statusStream;
+            statusStream << "Points: " << environment.getPoints();
+            if (environment.getActiveItem().has_value()) {
+                statusStream << "\t(";
+                auto item = environment.getActiveItem().value();
+                if (std::dynamic_pointer_cast<model::TurboMode>(item).get() != nullptr) {
+                    statusStream << "Turbo Mode";
+                } else if (std::dynamic_pointer_cast<model::Troll>(item).get() != nullptr) {
+                    statusStream << "Troll";
+                } else if (std::dynamic_pointer_cast<model::DoublePoints>(item).get() != nullptr) {
+                    statusStream << "Double Points";
+                } else if (std::dynamic_pointer_cast<model::Invulnerable>(item).get() != nullptr) {
+                    statusStream << "Invulnerable";
+                } else {
+                    throw std::runtime_error("Wrong typeid");
+                }
+                statusStream << ")";
+            }
+            statusText.setString(statusStream.str());
+            renderWindow.draw(statusText);
 
             renderWindow.display();
         }

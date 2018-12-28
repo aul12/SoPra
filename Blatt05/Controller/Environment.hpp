@@ -103,6 +103,12 @@ namespace controller {
          * @return the amounts of obstacles that have been passed
          */
         auto getPoints() const -> int;
+
+        /**
+         * Returns the currently active item if it exists.
+         * @return an shared_ptr to the item
+         */
+        auto getActiveItem() const -> std::optional<std::shared_ptr<model::Item>>;
     private:
         /**
          * Removes all items which left the environment on the left side

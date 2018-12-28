@@ -29,7 +29,7 @@ namespace view {
     private:
         sf::Texture obstacleBottomTexture, obstacleTopTexture, playerTexture,
             doublePointsTexture,invulnerableTexture,trollTexture, turboModeTexture;
-        sf::Text pointText;
+        sf::Text statusText;
         sf::Font font;
         controller::GameConfig gameConfig;
     };

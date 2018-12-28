@@ -54,7 +54,10 @@ namespace controller {
             if (player.getBoundingRect().intersects(obstacle->getBoundingRect())) {
                 if (invulnerable || obstacle == invulnerableObstacle) {
                     invulnerableObstacle = obstacle;
-                    invulnerable = false;
+                    if (this->activeItem.has_value()) {
+                        this->activeItem.value()->remove(*this);
+                        this->activeItem.reset();
+                    }
                 } else {
                     return UpdateResult::GAME_OVER;
                 }
@@ -222,5 +225,9 @@ namespace controller {
 
     auto Environment::getPoints() const -> int {
         return points;
+    }
+
+    auto Environment::getActiveItem() const -> std::optional<std::shared_ptr<model::Item>> {
+        return activeItem;
     }
 }

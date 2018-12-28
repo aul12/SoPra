@@ -16,5 +16,4 @@ void model::Invulnerable::apply(controller::Environment &environment) {
 void model::Invulnerable::remove(controller::Environment &environment) {
     environment.player.resetScale();
     environment.invulnerable = false;
-    environment.invulnerableObstacle.reset();
 }

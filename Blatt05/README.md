@@ -1,8 +1,5 @@
 # Flappy Wizard
 
-## config.json
-@TODO
-
 ## Librarys:
  * SFML (Graphics)
  * nlohmann::json (JSON)
